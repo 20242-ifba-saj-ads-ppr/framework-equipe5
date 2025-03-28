@@ -5,19 +5,19 @@ package frameworkJogoDeTabuleiro;
  * do padrão de projeto Singleton. Ele é aplicado para estanciar o jogo de tabuleiro.
  * Isso garante que haja apenas uma instância do jogo de tabuleiro em toda a aplicação.
  */
-public class FrameworkJogoDetabuleiro {
+public class FrameworkJogoDeTabuleiro {
     private String nomeJogo;
 
-    private static FrameworkJogoDetabuleiro estanciaJogo;
+    private static FrameworkJogoDeTabuleiro estanciaJogo;
 
 
-    private FrameworkJogoDetabuleiro(String nomeJogo) {
+    private FrameworkJogoDeTabuleiro(String nomeJogo) {
         setNomeJogo(nomeJogo);
     }
 
-    public static FrameworkJogoDetabuleiro getIstance(String nomeJogo) {
+    public static FrameworkJogoDeTabuleiro getIstance(String nomeJogo) {
         if(estanciaJogo == null){
-            estanciaJogo = new FrameworkJogoDetabuleiro(nomeJogo);
+            estanciaJogo = new FrameworkJogoDeTabuleiro(nomeJogo);
         }
         return estanciaJogo;
     }
