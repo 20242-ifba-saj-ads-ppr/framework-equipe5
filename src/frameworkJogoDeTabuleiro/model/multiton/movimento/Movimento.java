@@ -1,4 +1,4 @@
-package frameworkJogoDeTabuleiro.model.movimento;
+package frameworkJogoDeTabuleiro.model.multiton.movimento;
 
 /**
  * Enum representa as possiveis movimentações da peça no jogo de tabuleiro.

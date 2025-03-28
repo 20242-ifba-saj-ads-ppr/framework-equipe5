@@ -1,4 +1,4 @@
-package frameworkJogoDeTabuleiro.model.time;
+package frameworkJogoDeTabuleiro.model.multiton.time;
 
 /**
  * Enum representa as duas equipes do jogo de tabuleiro.
