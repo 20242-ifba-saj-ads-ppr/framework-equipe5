@@ -28,7 +28,7 @@ public class FrameworkJogoDeTabuleiro {
         return nomeJogo;
     }
 
-    public void setNomeJogo(String nomeJogo) {
+    private void setNomeJogo(String nomeJogo) {
         this.nomeJogo = nomeJogo;
     }
     private static FrameworkJogoDeTabuleiro getEstanciaJogo() {
