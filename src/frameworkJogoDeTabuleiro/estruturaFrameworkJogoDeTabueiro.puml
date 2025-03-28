@@ -1,0 +1,9 @@
+@startuml
+skinparam linetype ortho
+    class FrameworkJogoDeTabuleiro {
+        - String nomeJogo;
+        - static FrameworkJogoDeTabuleiro estanciaJogo;
+        + FrameworkJogoDeTabuleiro(String nomeJogo);
+        + static FrameworkJogoDeTabuleiro getInstance (String nomeJogo);
+    }
+@enduml
