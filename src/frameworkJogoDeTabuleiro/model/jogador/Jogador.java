@@ -1,6 +1,6 @@
 package frameworkJogoDeTabuleiro.model.jogador;
 
-import frameworkJogoDeTabuleiro.model.time.Time;
+import frameworkJogoDeTabuleiro.model.multiton.time.Time;
 /**
  * Classe Jogador é a representação do objeto na partida.
  */
