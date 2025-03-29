@@ -35,5 +35,7 @@ public enum Movimento {
     public void setX(int x){
         this.x = x;
     }
-    
+    public void executarMovimento (){
+
+    }
 }
