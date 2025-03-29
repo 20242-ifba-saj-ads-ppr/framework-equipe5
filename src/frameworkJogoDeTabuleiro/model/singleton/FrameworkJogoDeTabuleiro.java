@@ -1,4 +1,4 @@
-package frameworkJogoDeTabuleiro;
+package frameworkJogoDeTabuleiro.model.singleton;
 
 /**
  * A classe FrameworkJogoDetabuleiro é um exemplo da aplicação 
