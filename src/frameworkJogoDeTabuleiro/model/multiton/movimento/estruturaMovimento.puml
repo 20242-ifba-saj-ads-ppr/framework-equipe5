@@ -10,6 +10,7 @@ enum Movimento {
 
     + getX();
     + getY();
+    + executarMovimento();
 }
 
 @enduml
