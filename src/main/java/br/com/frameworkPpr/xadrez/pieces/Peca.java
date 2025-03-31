@@ -14,12 +14,10 @@ public abstract class Peca {
     private Map<String, Object> caracteristicas; 
     protected MovimentoStrategy movimentoStrategy;
 
-    // no args constructor
     public Peca() {
         this.caracteristicas = new HashMap<>();
     }
 
-    // all args constructor
     public Peca(String nome, String cor, MovimentoStrategy movimentoStrategy, Map<String, Object> caracteristicas) {
         this.nome = nome;
         this.cor = cor;
@@ -27,7 +25,6 @@ public abstract class Peca {
         this.caracteristicas = caracteristicas != null ? caracteristicas : new HashMap<>();
     }
 
-    // Getters e setters
     public String getNome() {
         return nome;
     }
@@ -60,7 +57,6 @@ public abstract class Peca {
         return this.caracteristicas.get(chave);
     }
 
-    // Método para obter movimentos possíveis
     public List<Posicao> obterMovimentosPossiveis(Posicao posicaoAtual, Tabuleiro tabuleiro) {
         return movimentoStrategy.calcularMovimentosPossiveis(posicaoAtual, tabuleiro);
     }
