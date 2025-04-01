@@ -1,0 +1,16 @@
+@startuml
+
+skinparam linetype ortho
+
+enum Movimento {
+    PRAFRENTE
+    PRATRAS
+    ESQUERDA
+    DIREITA
+
+    + getX();
+    + getY();
+    + executarMovimento();
+}
+
+@enduml

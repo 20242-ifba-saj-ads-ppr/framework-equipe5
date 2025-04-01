@@ -1,0 +1,41 @@
+@startuml
+
+skinparam linetype ortho
+
+class Jogador {
+    - String nome;
+    - Time time;
+    - List<Movimento> movimentos;
+    + realizarMovimento(movimento: Movimento, time: Time)
+    + getMovimentos(): List<Movimento>
+}
+
+class Time {
+    - String nome;
+    + getNome(): String
+}
+
+class Movimento {
+    - String descricao;
+    + getDescricao(): String
+    + executar()
+}
+
+class GerenciadorTimes {
+    - Map<String, Time> times;
+    + getTime(nome: String): Time
+    + adicionarTime(nome: String, time: Time)
+}
+
+class GerenciadorMovimentos {
+    - Map<String, Movimento> movimentos;
+    + getMovimento(descricao: String): Movimento
+    + adicionarMovimento(descricao: String, movimento: Movimento)
+}
+
+Jogador *-- Time : pertence a
+Jogador --> Movimento : realiza
+GerenciadorTimes o-- Time : gerencia
+GerenciadorMovimentos o-- Movimento : gerencia
+
+@enduml
