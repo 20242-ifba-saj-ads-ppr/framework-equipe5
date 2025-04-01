@@ -1,0 +1,18 @@
+@startuml
+skinparam linetype ortho
+!include src/frameworkJogoDeTabuleiro/singleton/estruturaFrameworkJogoDeTabuleiro.puml
+
+class GerarJogo {
+    - FrameworkJogoDeTabuleiro jogo;
+    + criarJogo(String nomeJogo) : FrameworkJogoDeTabuleiro
+    + iniciarJogo() : void
+}
+
+GerarJogo --> FrameworkJogoDeTabuleiro : cria
+
+note right of FrameworkJogoDeTabuleiro
+O padrão Singleton garante que
+apenas uma instância do jogo seja criada
+e compartilhada por todo o sistema.
+end note
+@enduml
