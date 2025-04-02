@@ -1,9 +1,9 @@
 package main.java.br.com.frameworkPpr.xadrez.pieces;
 
+import java.sql.Time;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import main.java.br.com.frameworkPpr.xadrez.board.Posicao;
 import main.java.br.com.frameworkPpr.xadrez.board.Tabuleiro;
 import main.java.br.com.frameworkPpr.xadrez.movement.MovimentoStrategy;
@@ -11,6 +11,7 @@ import main.java.br.com.frameworkPpr.xadrez.movement.MovimentoStrategy;
 public abstract class Peca {
     private String nome;
     private String cor;
+    private Time time;
     private Map<String, Object> caracteristicas; 
     protected MovimentoStrategy movimentoStrategy;
 
@@ -59,5 +60,9 @@ public abstract class Peca {
 
     public List<Posicao> obterMovimentosPossiveis(Posicao posicaoAtual, Tabuleiro tabuleiro) {
         return movimentoStrategy.calcularMovimentosPossiveis(posicaoAtual, tabuleiro);
+    }
+
+    public Time getTime() {
+        return time;
     }
 }
