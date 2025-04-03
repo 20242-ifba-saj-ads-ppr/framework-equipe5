@@ -10,7 +10,6 @@ import main.java.br.com.frameworkPpr.xadrez.multiton.time.Time;
 
 public abstract class Peca {
     private String nome;
-    private String cor;
     private Time time;
     private Map<String, Object> caracteristicas; 
     protected MovimentoStrategy movimentoStrategy;
@@ -19,9 +18,9 @@ public abstract class Peca {
         this.caracteristicas = new HashMap<>();
     }
 
-    public Peca(String nome, String cor, MovimentoStrategy movimentoStrategy, Map<String, Object> caracteristicas) {
+    public Peca(String nome, Time time, MovimentoStrategy movimentoStrategy, Map<String, Object> caracteristicas) {
         this.nome = nome;
-        this.cor = cor;
+        this.time = time;
         this.movimentoStrategy = movimentoStrategy;
         this.caracteristicas = caracteristicas != null ? caracteristicas : new HashMap<>();
     }
@@ -32,14 +31,6 @@ public abstract class Peca {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getCor() {
-        return cor;
-    }
-
-    public void setCor(String cor) {
-        this.cor = cor;
     }
 
     public Map<String, Object> getCaracteristicas() {
