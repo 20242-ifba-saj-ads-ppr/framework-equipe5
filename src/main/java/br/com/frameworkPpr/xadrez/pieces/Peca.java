@@ -1,12 +1,12 @@
 package main.java.br.com.frameworkPpr.xadrez.pieces;
 
-import java.sql.Time;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import main.java.br.com.frameworkPpr.xadrez.board.Posicao;
 import main.java.br.com.frameworkPpr.xadrez.board.Tabuleiro;
 import main.java.br.com.frameworkPpr.xadrez.movement.MovimentoStrategy;
+import main.java.br.com.frameworkPpr.xadrez.multiton.time.Time;
 
 public abstract class Peca {
     private String nome;
