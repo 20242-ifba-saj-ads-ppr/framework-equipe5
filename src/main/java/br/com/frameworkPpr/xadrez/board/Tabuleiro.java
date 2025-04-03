@@ -49,9 +49,9 @@ public class Tabuleiro {
             throw new IllegalArgumentException("Não há peça na posição de origem: " + origem);
         }
 
-        Peca peca = casaOrigem.getPeca();
+        casaDestino.setPeca(casaOrigem.getPeca());
         casaOrigem.setPeca(null);
-        casaDestino.setPeca(peca);
+        
     }
 
     public boolean posicaoValida(int linha, int coluna) {
@@ -62,14 +62,14 @@ public class Tabuleiro {
         return posicaoValida(posicao.getLinha(), posicao.getColuna());
     }
 
-    public void RemoverPeca(Posicao posicao, Time time)
-    {
-        Casa casa = getCasas().get(posicao);
-
-        Peca peca = casa.getPeca();
-        casa.setPeca(null);
-
-        getPecasPorTime().put(time, pecasPorTime.getOrDefault(time, 0) - 1); // Decrementa o número de peças do time
+    public void RemoverPeca(Posicao posicao){
+        getPecasPorTime()
+            .put(getCasas().get(posicao).getPeca().getTime(),// pego o time com base na peça que estiver na casa
+            getPecasPorTime()
+            .getOrDefault(getCasas().get(posicao).getPeca().getTime(), 0) - 1); // Decrementa o número de peças do time com base no que estiver na casa
+        getCasas()
+            .get(posicao)
+            .setPeca(null);// Depois limpa a peca que estiver na casa
     }
 
     public Map<Time, Integer> getPecasPorTime() {
