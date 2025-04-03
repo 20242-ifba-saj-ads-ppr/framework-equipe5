@@ -8,19 +8,17 @@ package main.java.br.com.frameworkPpr.xadrez.multiton.time;
  */
 
 public enum Time {
-    BRANCO(1),
-    PRETO(2);
+    BRANCO("Branco"),
+    PRETO("Preto");
 
-    private int tipo;
+    private final String tipo;
 
-    Time (int tipo){
-        setTipo(tipo);
+    Time (String tipo){
+       this.tipo = tipo;
     }
 
-    public int getTipo() {
+    @Override
+    public String toString(){
         return tipo;
-    }
-    public void setTipo(int tipo) {
-        this.tipo = tipo;
     }
 }
