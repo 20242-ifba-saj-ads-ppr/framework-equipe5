@@ -26,31 +26,33 @@ public class Tabuleiro {
         }
     }
 
-    public void colocarPeca(Peca peca, Posicao posicao, Time time) {
-        Casa casa = getCasas().get(posicao);
-        if (casa == null) {
+    public void colocarPeca(Peca peca, Posicao posicao) {
+        if (getCasas().get(posicao) == null) {
             throw new IllegalArgumentException("Posição inválida: " + posicao);
         }
-        if (casa.estaOcupada()) {
+        if (getCasas().get(posicao).estaOcupada()) {
             throw new IllegalArgumentException("A posição já está ocupada: " + posicao);
         }
-        casa.setPeca(peca);
-        getPecasPorTime().put(time, getPecasPorTime().getOrDefault(time, 0) + 1); // Incrementa o número de peças do time
+        getCasas().get(posicao).setPeca(peca);
+        getPecasPorTime()
+            .put(getCasas()
+            .get(posicao).getPeca().getTime(), 
+            getPecasPorTime()
+            .getOrDefault(getCasas().get(posicao)
+            .getPeca().getTime(), 0) + 1); // Incrementa o número de peças do time
     }
 
     public void moverPeca(Posicao origem, Posicao destino) {
-        Casa casaOrigem = getCasas().get(origem);
-        Casa casaDestino = getCasas().get(destino);
 
-        if (casaOrigem == null || casaDestino == null) {
+        if (getCasas().get(origem) == null || getCasas().get(destino) == null) {
             throw new IllegalArgumentException("Posição de origem ou destino inválida.");
         }
-        if (!casaOrigem.estaOcupada()) {
+        if (!getCasas().get(origem).estaOcupada()) {
             throw new IllegalArgumentException("Não há peça na posição de origem: " + origem);
         }
 
-        casaDestino.setPeca(casaOrigem.getPeca());
-        casaOrigem.setPeca(null);
+        getCasas().get(destino).setPeca(getCasas().get(origem).getPeca());
+        getCasas().get(origem).setPeca(null);
         
     }
 
