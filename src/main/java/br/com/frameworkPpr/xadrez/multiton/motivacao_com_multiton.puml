@@ -1,21 +1,29 @@
--> Movimento e Time
 @startuml
 
 skinparam linetype ortho
 
-!include src/frameworkJogoDeTabuleiro/multiton/movimento/estruturaMovimento.puml
-!include src/frameworkJogoDeTabuleiro/multiton/time/estruturaTime.puml
+!include ./src/main/java/br/com/frameworkPpr/xadrez/multiton/time/estruturaTime.puml
+!include ./src/main/java/br/com/frameworkPpr/xadrez/pieces/estruturaPeca.puml
+!include ./src/main/java/br/com/frameworkPpr/xadrez/board/estruturaTabuleiro.puml
+!include ./src/main/java/br/com/frameworkPpr/GerenciadorVitoriaDerrota/estruturaCondicaoDeVitoria.puml
+!include ./src/main/java/br/com/frameworkPpr/GerenciadorVitoriaDerrota/estruturaVitoriaDerrotaObserver.puml
 
-class Jogador {
-    - String nome;
-    - Time time;
-    - List<Movimento> movimentos;
-    - Movimento movimento;
-    + realizarMovimento(movimento: Movimento , time: Time)
-    + getMovimentos(): List<Movimento>
-}
-Jogador *-- Time : pretence a
-Jogador --> Movimento : realiza
+Peca *-- Time 
+Peca --o Tabuleiro
+VitoriaDerrotaObserver  <|.. CondicaoDeVitoria
+
+
+note left of Tabuleiro
+O padrão Multiton é utilizado no tabuleiro de 
+modo a gerenciar a quantidade de peças de cada time
+end note
+
+note right of CondicaoDeVitoria
+È utilizado pela interface, 
+e retornado na implementação 
+na VitoriaDerrotaObserver
+que retornará o vencedor 
+end note
 @enduml
 
 

@@ -5,8 +5,9 @@ skinparam linetype ortho
 enum Time {
     BRANCO
     PRETO
-    - Time time;
-    - List<Pecas> pecas;
+
+    - String tipo;
+    + toString ();
 }
 
 @enduml

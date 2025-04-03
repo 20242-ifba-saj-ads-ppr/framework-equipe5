@@ -1,0 +1,17 @@
+-> Peca
+@startuml
+
+skinparam linetype ortho
+
+abstract class Peca {
+    - String nome;
+    - Time time;
+    - private Map<String, Object> caracteristicas; 
+    - protected MovimentoStrategy movimentoStrategy;
+    + getCaracteristicas (): Map<String, Object>
+    + adicionarCaracteristica (String chave, Object valor)
+    + obterCaracteristica (String chave): Object
+    + obterMovimentosPossiveis(Posicao posicaoAtual, Tabuleiro tabuleiro) : List<Posicao>
+}
+
+@enduml

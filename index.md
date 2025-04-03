@@ -3,71 +3,54 @@ export_on_save:
   html: true
 ---
 
-# Decorator
+# Multiton (não GoF)
 
-[^GAMMA]    
+[^K19]    
 
-Dinamicamente, agregar responsabilidades adicionais a um objeto. Os Decorators fornecem uma alternativa flexível ao uso de subclasses para extensão de funcionalidades.
+Permitir a criação de uma quantidade limitada de instâncias de determinada classe e fornecer um modo para recuperá-las.
 
 ## Intenção
 
-Com o decorador, podemos adicionar funcionalidades a um objeto sem ter que alterar a classe do objeto.
-
-## Também conhecido como
-
-Wrapper
+Com o Multiton, podemos definir instancias de times em um jogo de tabuleiro 
 
 ## Motivação
 
-Considere que um desenvolvedor queira criar um jogo semelhante ao [Archero 2](https://play.google.com/store/apps/details?id=com.xq.archeroii&hl=pt_BR). Nesse tipo de jogo, o personagem pode ser equipado com vários itens, como armas, armaduras e acessórios. Esses itens são coletados durante a partida e podem ser usados para aumentar as habilidades do personagem. Cada novo item adiciona uma nova habilidade ao personagem sem remover as habilidades existentes, criando novas camadas de comportamento.
-
-Sem a utilização do padrão Decorator, o desenvolvedor precisaria criar uma nova classe para cada combinação de habilidades que poderia ser utilizada pelo personagem. Isso pode levar a um número excessivo de classes e tornar o código mais difícil de manter.
+Considere que em um jogo de Tabuleiro, precisamos criar uma representação dos times Preto e Branco. Naturalmente, uma possibilidade seria utilizar a estratégia de Maps para gerenciar cada tipo de time, nesse sentido, teriamos uma classe para gerencia - los o que se institui uma forma legitma, porem ineficiente, visto que, todo momento que quisessemos acessar uma informação referente ao time teriamos que chamar o map para retirar as infos.
 
 <figure>
 
-<!-- @include: ./src/motivacao_sem_padrao.puml -->
+@include: ./src/main/java/br/com/frameworkPpr/xadrez/multiton/motivacao_sem_multiton.puml
 
-<figcaption>Exemplo de como o jogo pode ser implementado sem o padrão Decorator</figcaption>
+<figcaption>Exemplo de como o jogo pode ser implementado sem o padrão Multiton</figcaption>
 
 </figure>
 
-
-O padrão Decorator permite que o desenvolvedor adicione novas funcionalidades a um objeto sem alterar sua classe. Isso é feito utilizando a composição e delegação, onde um objeto é composto por outros objetos e os métodos são delegados para os objetos compostos.
+Podemos simplificar isso aplicando o multiton, com o uso dele declarado 2 instancias fixas para representar esses times, afim de serem usadas em diversas funcionalidades. Alem disso, é garantido que cada enum de time terá acesso excusivo a valores de atributos explicitos.
 
 <figure>
 
-<!-- @include: ./src/motivacao_com_padrao.puml -->
+@include: ./src/main/java/br/com/frameworkPpr/xadrez/multiton/motivacao_com_multiton.puml
 
-
-<figcaption>Exemplo de como o jogo pode ser implementado com o padrão Decorator</figcaption>
+<figcaption>Exemplo de como o Multiton Pode ser Aplicado</figcaption>
 </figure>
-
-Com essa nova implementação, o desenvolvedor pode adicionar novos itens ao jogo sem precisar criar novas classes para cada combinação de habilidades. Isso torna o código mais flexível e fácil de manter.
-
-<!-- @include: ./src/motivacao_com_padrao.java -->
-
 
 ## Estrutura
 
 <figure>
 
-<!-- @include: ./src/estrutura.puml -->
+@include: ./src/main/java/br/com/frameworkPpr/xadrez/multiton/time/estruturaTime.puml
 
-<figcaption>Estrutura do Decorator</figcaption>
+<figcaption>Estrutura do Multiton</figcaption>
 
 </figure>
 
 ## Participantes
-- Component (Item)
-  - define a interface para objetos que podem ter responsabilidades acrescenta das aos mesmos dinamicamente.
-- ConcreteComponent (Arco) 
-  - define um objeto para o qual responsabilidades adicionais podem ser atribuídas.
-- Decorator (ItemDecorator)
-  - mantém uma referência para um objeto Component e define uma interface que segue a interface de Component.
-- ConcreteDecorator (Laser,Faca)
-  - acrescenta responsabilidades ao componente.
+
+- Enum time (Multiton) - Define duas instâncias de time (preto e branco);
 
 ## Referências
 
 
 [^GAMMA]: GAMMA, Erich. et al. Padrões de projetos: Soluções reutilizáveis de software orientados a objetos Bookman editora, 2009.
+
+[^K19]: KASPCHUK, Alexandre; PLEIN, Tiago. K19 - Design Patterns em Java. São Paulo: K19 Treinamentos, 2012.
