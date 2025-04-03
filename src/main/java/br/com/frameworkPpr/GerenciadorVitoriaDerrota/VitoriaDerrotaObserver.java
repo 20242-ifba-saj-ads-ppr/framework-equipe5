@@ -1,25 +1,30 @@
 package main.java.br.com.frameworkPpr.GerenciadorVitoriaDerrota;
 
-import java.sql.Time;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import main.java.br.com.frameworkPpr.xadrez.board.Tabuleiro;
+import main.java.br.com.frameworkPpr.xadrez.multiton.time.Time;
 
-public class VitoriaDerrotaObserver {
+public class VitoriaDerrotaObserver implements CondicaoDeVitoria{
     private Tabuleiro tabuleiro;
-    private CondicaoDeVitoria condicaoDeVitoria;
 
-    public void VitoriaDerrotaObserver(Tabuleiro tabuleiro, CondicaoDeVitoria condicaoDeVitoria) {
-        this.tabuleiro = tabuleiro;
-        this.condicaoDeVitoria = condicaoDeVitoria;
+    public void VitoriaDerrotaObserver(Tabuleiro tabuleiro) {
+        setTabuleiro(tabuleiro);
     }
 
-    public void VerificarVencedor()
+    @Override
+    public Time verificarVencedor()
     {
-        Time vencedor = condicaoDeVitoria.verificarVencedor(Tabuleiro.getPecasPorTime());
-        if (vencedor != null) {
-            System.out.println("O time " + vencedor + " venceu!"); 
-        }
+        return getTabuleiro().getPecasPorTime().get(Time.BRANCO) != null? Time.BRANCO : Time.PRETO;
+    }
+
+    public Tabuleiro getTabuleiro() {
+        return tabuleiro;
+    }
+
+    public void setTabuleiro(Tabuleiro tabuleiro) {
+        this.tabuleiro = tabuleiro;
     }
 }
