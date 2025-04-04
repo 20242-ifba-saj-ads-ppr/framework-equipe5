@@ -2,6 +2,7 @@ package main.java.br.com.frameworkPpr.xadrez.board;
 import java.util.HashMap;
 import java.util.Map;
 import main.java.br.com.frameworkPpr.GerenciadorVitoriaDerrota.VitoriaDerrotaObserver;
+import main.java.br.com.frameworkPpr.GerenciadorVitoriaDerrota.VitoriaException;
 import main.java.br.com.frameworkPpr.xadrez.multiton.time.Time;
 import main.java.br.com.frameworkPpr.xadrez.pieces.Peca;
 
@@ -10,6 +11,7 @@ public class Tabuleiro {
     private final int colunas;
     private Map<Posicao, Casa> casas;
     private Map<Time, Integer> pecasPorTime;
+    private VitoriaDerrotaObserver vitoriaDerrotaObserver;
 
     public Tabuleiro(int linhas, int colunas) {
         this.linhas = linhas;
@@ -18,6 +20,11 @@ public class Tabuleiro {
         setPecasPorTime(new HashMap<>());
         getPecasPorTime().put(Time.BRANCO, 0);
         getPecasPorTime().put(Time.PRETO, 0);
+        inicializarCasas(linhas, colunas);
+        setVitoriaDerrotaObserver(new VitoriaDerrotaObserver(this));
+    }
+
+    private void inicializarCasas (int linhas, int colunas){
         for (int linha = 0; linha < linhas; linha++) {
             for (int coluna = 0; coluna < colunas; coluna++) {
                 Posicao posicao = new Posicao(linha, coluna);
@@ -64,7 +71,10 @@ public class Tabuleiro {
         return posicaoValida(posicao.getLinha(), posicao.getColuna());
     }
 
-    public void RemoverPeca(Posicao posicao){
+    public void RemoverPeca(Posicao posicao) throws VitoriaException{
+        if(getVitoriaDerrotaObserver().verificarVencedor() != null){
+           throw new VitoriaException("O jogo já acabou, não é possível remover peças. Ja temos um vencedor");
+        }
         getPecasPorTime()
             .put(getCasas().get(posicao).getPeca().getTime(),// pego o time com base na peça que estiver na casa
             getPecasPorTime()
@@ -99,5 +109,13 @@ public class Tabuleiro {
     }
     public void setCasas(Map<Posicao, Casa> casas) {
         this.casas = casas;
+    }
+
+    public VitoriaDerrotaObserver getVitoriaDerrotaObserver() {
+        return vitoriaDerrotaObserver;
+    }
+
+    public void setVitoriaDerrotaObserver(VitoriaDerrotaObserver vitoriaDerrotaObserver) {
+        this.vitoriaDerrotaObserver = vitoriaDerrotaObserver;
     }
 }
