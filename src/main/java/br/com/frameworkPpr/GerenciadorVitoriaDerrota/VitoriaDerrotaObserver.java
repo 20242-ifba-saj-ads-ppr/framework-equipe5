@@ -4,7 +4,7 @@ package main.java.br.com.frameworkPpr.GerenciadorVitoriaDerrota;
 import java.util.HashMap;
 import java.util.Map;
 
-import main.java.br.com.frameworkPpr.xadrez.board.Tabuleiro;
+import main.java.br.com.frameworkPpr.xadrez.board.tabuleiro.singletonEProxySecurity.Tabuleiro;
 import main.java.br.com.frameworkPpr.xadrez.multiton.time.Time;
 
 public class VitoriaDerrotaObserver implements CondicaoDeVitoria{
