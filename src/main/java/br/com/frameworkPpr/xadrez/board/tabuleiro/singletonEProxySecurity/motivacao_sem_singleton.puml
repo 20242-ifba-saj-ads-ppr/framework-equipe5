@@ -7,13 +7,13 @@ class GerarJogo {
     + iniciarJogo(String nomeJogo) : void
 }
 
-class FrameworkJogoDeTabuleiro {
+class Tabuleiro {
     - String nomeJogo;
     + FrameworkJogoDeTabuleiro(String nomeJogo)
     + getNomeJogo() : String
 }
 
-GerarJogo --> FrameworkJogoDeTabuleiro : cria múltiplas instâncias
+GerarJogo --> Tabuleiro : cria múltiplas instâncias
 
 note right of GerarJogo
 Sem o padrão Singleton, múltiplas instâncias

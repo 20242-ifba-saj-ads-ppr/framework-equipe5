@@ -1,25 +1,28 @@
-package main.java.br.com.frameworkPpr.xadrez.board;
+package main.java.br.com.frameworkPpr.xadrez.board.tabuleiro.singletonEProxySecurity;
 import java.util.HashMap;
 import java.util.Map;
 import main.java.br.com.frameworkPpr.GerenciadorVitoriaDerrota.VitoriaDerrotaObserver;
 import main.java.br.com.frameworkPpr.GerenciadorVitoriaDerrota.VitoriaException;
+import main.java.br.com.frameworkPpr.xadrez.board.Casa;
+import main.java.br.com.frameworkPpr.xadrez.board.Posicao;
 import main.java.br.com.frameworkPpr.xadrez.multiton.time.Time;
 import main.java.br.com.frameworkPpr.xadrez.pieces.Peca;
 
 /**
- * A classe FrameworkJogoDetabuleiro é um exemplo da aplicação 
- * do padrão de projeto Singleton. Ele é aplicado para estanciar o jogo de tabuleiro.
+ * A classe Tabuleiro é um exemplo da aplicação do padrão de projeto Singleton. Ele é aplicado para estanciar o jogo de tabuleiro.
  * Isso garante que haja apenas uma instância do jogo de tabuleiro em toda a aplicação.
+ * Nessa casse terá apenas a lógica de negócio do tabuleiro, ou seja, o que pode ser feito no tabuleiro.
  */
 public class Tabuleiro {
-    private int linhas;
-    private int colunas;
     private Map<Posicao, Casa> casas;
     private Map<Time, Integer> pecasPorTime;
     private VitoriaDerrotaObserver vitoriaDerrotaObserver;
     private static Tabuleiro instance;
+    // Instancia do TabuleiroProxySecurity(Singleton) para validações de jogo
+    private static TabuleiroProxySecurity proxySecurityInstance;
 
     private Tabuleiro() {
+        setProxySecurityInstance(TabuleiroProxySecurity.getInstance());
         setCasas(new HashMap<>());
         setPecasPorTime(new HashMap<>());
         getPecasPorTime().put(Time.BRANCO, 0);
@@ -27,20 +30,17 @@ public class Tabuleiro {
         setVitoriaDerrotaObserver(new VitoriaDerrotaObserver(this));
     }
 
-    public static Tabuleiro getInstance() {
-        if (instance == null) {
-            instance = new Tabuleiro();
+    public static Tabuleiro getInstance() { // Torne o método package-private
+        synchronized (Tabuleiro.class){
+            if (instance == null) {
+                instance = new Tabuleiro();
+            }
         }
         return instance;
     }
-
+    // Nesse metodo é passado as linhas e colunas do tabuleiro
     public void inicializarCasas (int linhas, int colunas){
-        if (getLinhas() == 0 && getColunas() == 0) {
-            setLinhas(linhas);
-            setColunas(colunas);
-        } else {
-            throw new IllegalArgumentException("O tabuleiro já foi inicializado. Não é possível redefinir o tamanho.");
-        }
+        getProxySecurityInstance().inicializarCasas(linhas, colunas);// Algumas validações
         for (int linha = 0; linha < linhas; linha++) {
             for (int coluna = 0; coluna < colunas; coluna++) {
                 Posicao posicao = new Posicao(linha, coluna);
@@ -48,14 +48,10 @@ public class Tabuleiro {
             }
         }
     }
-
+    // Esse metodo é chamado para colocar uma peça no tabuleiro
+    // Ele verifica se a posição é válida Via padrão proxy
     public void colocarPeca(Peca peca, Posicao posicao) {
-        if (getCasas().get(posicao) == null) {
-            throw new IllegalArgumentException("Posição inválida: " + posicao);
-        }
-        if (getCasas().get(posicao).estaOcupada()) {
-            throw new IllegalArgumentException("A posição já está ocupada: " + posicao);
-        }
+        getProxySecurityInstance().colocarPeca(peca, posicao, getCasas());// Verifiação do proxy
         getCasas().get(posicao).setPeca(peca);
         getPecasPorTime()
             .put(getCasas()
@@ -64,30 +60,15 @@ public class Tabuleiro {
             .getOrDefault(getCasas().get(posicao)
             .getPeca().getTime(), 0) + 1); // Incrementa o número de peças do time
     }
-
+    
     public void moverPeca(Posicao origem, Posicao destino) {
-
-        if (getCasas().get(origem) == null || getCasas().get(destino) == null) {
-            throw new IllegalArgumentException("Posição de origem ou destino inválida.");
-        }
-        if (!getCasas().get(origem).estaOcupada()) {
-            throw new IllegalArgumentException("Não há peça na posição de origem: " + origem);
-        }
-
+        getProxySecurityInstance().moverPeca(origem, destino, getCasas());
         getCasas().get(destino).setPeca(getCasas().get(origem).getPeca());
         getCasas().get(origem).setPeca(null);
-        
-    }
-
-    public boolean posicaoValida(int linha, int coluna) {
-        return linha >= 0 && linha < getLinhas() && coluna >= 0 && coluna < getColunas();
-    }
-
-    public boolean posicaoValida(Posicao posicao) {
-        return posicaoValida(posicao.getLinha(), posicao.getColuna());
     }
 
     public void RemoverPeca(Posicao posicao) throws VitoriaException{
+        getProxySecurityInstance().removerPeca(posicao);// Verificação do proxy
         if(getVitoriaDerrotaObserver().verificarVencedor() != null){
            throw new VitoriaException("O jogo já acabou, não é possível remover peças. Ja temos um vencedor");
         }
@@ -99,37 +80,21 @@ public class Tabuleiro {
             .get(posicao)
             .setPeca(null);// Depois limpa a peca que estiver na casa
     }
-
+    public void iniciarJogo (){// Metodo de iniciar o jogo 
+        getProxySecurityInstance().setJogoIniciado(true);
+    }
     public Map<Time, Integer> getPecasPorTime() {
         return pecasPorTime;
     }
 
-    public int getLinhas() {
-        return this.linhas;
-    }
-
-    public int getColunas() {
-        return this.colunas;
-    }
-    private void setLinhas(int linhas) {
-        this.linhas = linhas;
-    }
-    private void setColunas(int colunas) {
-        this.colunas = colunas;
-    }
-
-    public Casa getCasa(Posicao posicao) {
-        return getCasas().get(posicao);
-    }
-
-    public Map<Posicao, Casa> getCasas() {
+    private Map<Posicao, Casa> getCasas() {
         return casas;
     }
 
-    public void setPecasPorTime(Map<Time, Integer> pecasPorTime) {
+    private void setPecasPorTime(Map<Time, Integer> pecasPorTime) {
         this.pecasPorTime = pecasPorTime;
     }
-    public void setCasas(Map<Posicao, Casa> casas) {
+    private void setCasas(Map<Posicao, Casa> casas) {
         this.casas = casas;
     }
 
@@ -137,7 +102,15 @@ public class Tabuleiro {
         return vitoriaDerrotaObserver;
     }
 
-    public void setVitoriaDerrotaObserver(VitoriaDerrotaObserver vitoriaDerrotaObserver) {
+    private void setVitoriaDerrotaObserver(VitoriaDerrotaObserver vitoriaDerrotaObserver) {
         this.vitoriaDerrotaObserver = vitoriaDerrotaObserver;
+    }
+
+    public static TabuleiroProxySecurity getProxySecurityInstance() {
+        return proxySecurityInstance;
+    }
+
+    public static void setProxySecurityInstance(TabuleiroProxySecurity proxyInstance) {
+        Tabuleiro.proxySecurityInstance = proxyInstance;
     }
 }
