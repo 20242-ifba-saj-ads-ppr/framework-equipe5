@@ -6,14 +6,20 @@ class Tabuleiro {
     - int colunas
     - Map<Posicao, Casa> casas
     - Map<Time, Integer> pecasPorTime
-    + Tabuleiro(int linhas, int colunas)
-    + colocarPeca(Peca peca, Posicao posicao)
-    + moverPeca(Posicao origem, Posicao destino)
-    + RemoverPeca(Posicao posicao)
+    - VitoriaDerrotaObserver vitoriaDerrotaObserver
+    - static Tabuleiro instance
+    ~ Tabuleiro()
+    + static Tabuleiro getInstance()
+    + void inicializarCasas(int linhas, int colunas)
+    + void colocarPeca(Peca peca, Posicao posicao)
+    + void moverPeca(Posicao origem, Posicao destino)
+    + void RemoverPeca(Posicao posicao)
     + boolean posicaoValida(int linha, int coluna)
     + boolean posicaoValida(Posicao posicao)
     + Map<Time, Integer> getPecasPorTime()
     + Casa getCasa(Posicao posicao)
+    + Map<Posicao, Casa> getCasas()
+    + VitoriaDerrotaObserver getVitoriaDerrotaObserver()
 }
 
 @enduml

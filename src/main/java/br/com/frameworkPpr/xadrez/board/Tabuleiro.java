@@ -6,25 +6,41 @@ import main.java.br.com.frameworkPpr.GerenciadorVitoriaDerrota.VitoriaException;
 import main.java.br.com.frameworkPpr.xadrez.multiton.time.Time;
 import main.java.br.com.frameworkPpr.xadrez.pieces.Peca;
 
+/**
+ * A classe FrameworkJogoDetabuleiro é um exemplo da aplicação 
+ * do padrão de projeto Singleton. Ele é aplicado para estanciar o jogo de tabuleiro.
+ * Isso garante que haja apenas uma instância do jogo de tabuleiro em toda a aplicação.
+ */
 public class Tabuleiro {
-    private final int linhas;
-    private final int colunas;
+    private int linhas;
+    private int colunas;
     private Map<Posicao, Casa> casas;
     private Map<Time, Integer> pecasPorTime;
     private VitoriaDerrotaObserver vitoriaDerrotaObserver;
+    private static Tabuleiro instance;
 
-    public Tabuleiro(int linhas, int colunas) {
-        this.linhas = linhas;
-        this.colunas = colunas;
+    private Tabuleiro() {
         setCasas(new HashMap<>());
         setPecasPorTime(new HashMap<>());
         getPecasPorTime().put(Time.BRANCO, 0);
         getPecasPorTime().put(Time.PRETO, 0);
-        inicializarCasas(linhas, colunas);
         setVitoriaDerrotaObserver(new VitoriaDerrotaObserver(this));
     }
 
-    private void inicializarCasas (int linhas, int colunas){
+    public static Tabuleiro getInstance() {
+        if (instance == null) {
+            instance = new Tabuleiro();
+        }
+        return instance;
+    }
+
+    public void inicializarCasas (int linhas, int colunas){
+        if (getLinhas() == 0 && getColunas() == 0) {
+            setLinhas(linhas);
+            setColunas(colunas);
+        } else {
+            throw new IllegalArgumentException("O tabuleiro já foi inicializado. Não é possível redefinir o tamanho.");
+        }
         for (int linha = 0; linha < linhas; linha++) {
             for (int coluna = 0; coluna < colunas; coluna++) {
                 Posicao posicao = new Posicao(linha, coluna);
@@ -64,7 +80,7 @@ public class Tabuleiro {
     }
 
     public boolean posicaoValida(int linha, int coluna) {
-        return linha >= 0 && linha < linhas && coluna >= 0 && coluna < colunas;
+        return linha >= 0 && linha < getLinhas() && coluna >= 0 && coluna < getColunas();
     }
 
     public boolean posicaoValida(Posicao posicao) {
@@ -94,6 +110,12 @@ public class Tabuleiro {
 
     public int getColunas() {
         return this.colunas;
+    }
+    private void setLinhas(int linhas) {
+        this.linhas = linhas;
+    }
+    private void setColunas(int colunas) {
+        this.colunas = colunas;
     }
 
     public Casa getCasa(Posicao posicao) {
