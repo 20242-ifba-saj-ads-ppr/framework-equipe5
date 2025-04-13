@@ -9,7 +9,7 @@ import main.java.br.com.frameworkPpr.xadrez.multiton.time.Time;
 import main.java.br.com.frameworkPpr.xadrez.pieces.Peca;
 
 /**
- * A classe Tabuleiro é um exemplo da aplicação do padrão de projeto Singleton. Ele é aplicado para estanciar o jogo de tabuleiro.
+ * A classe Tabuleiro é um exemplo da aplicação do padrão de projeto Singleton. Ele é aplicado para instanciar o jogo de tabuleiro.
  * Isso garante que haja apenas uma instância do jogo de tabuleiro em toda a aplicação.
  * Nessa casse terá apenas a lógica de negócio do tabuleiro, ou seja, o que pode ser feito no tabuleiro.
  */
@@ -83,6 +83,16 @@ public class Tabuleiro {
     public void iniciarJogo (){// Metodo de iniciar o jogo 
         getProxySecurityInstance().setJogoIniciado(true);
     }
+
+    public void desistir(Time timeDesistente) throws VitoriaException{
+        if (getVitoriaDerrotaObserver().verificarVencedor() != null) {
+            throw new VitoriaException("O jogo já acabou, não é possível desistir."); 
+        }
+        Time vencedor = (timeDesistente == Time.BRANCO) ? Time.PRETO : Time.BRANCO;
+        System.out.println("O time " + vencedor + " venceu por desistência do time " + timeDesistente);
+        getVitoriaDerrotaObserver().notificarVencedor(vencedor);
+    }
+
     public Map<Time, Integer> getPecasPorTime() {
         return pecasPorTime;
     }

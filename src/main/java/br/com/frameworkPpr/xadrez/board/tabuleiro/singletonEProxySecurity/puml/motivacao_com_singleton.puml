@@ -1,6 +1,6 @@
-@startuml
+@startuml 
 skinparam linetype ortho
-!include src/frameworkJogoDeTabuleiro/singleton/estruturaFrameworkJogoDeTabuleiro.puml
+' !include src/frameworkJogoDeTabuleiro/singleton/estruturaFrameworkJogoDeTabuleiro.puml
 
 class GerarJogo {
     - FrameworkJogoDeTabuleiro jogo;
