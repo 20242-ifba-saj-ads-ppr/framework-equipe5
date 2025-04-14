@@ -1,16 +1,17 @@
 @startuml 
 skinparam linetype ortho
-' !include src/frameworkJogoDeTabuleiro/singleton/estruturaFrameworkJogoDeTabuleiro.puml
+
+!include src/main/java/br/com/frameworkPpr/xadrez/board/tabuleiro/singletonEProxySecurity/puml/singleton/estruturaTabuleiro.puml
 
 class GerarJogo {
     - FrameworkJogoDeTabuleiro jogo;
-    + criarJogo(String nomeJogo) : FrameworkJogoDeTabuleiro
+    + criarJogo(String nomeJogo) : Tabuleiro
     + iniciarJogo() : void
 }
 
-GerarJogo --> FrameworkJogoDeTabuleiro : cria
+GerarJogo --> Tabuleiro : cria
 
-note right of FrameworkJogoDeTabuleiro
+note right of Tabuleiro
 O padrão Singleton garante que
 apenas uma instância do jogo seja criada
 e compartilhada por todo o sistema.
