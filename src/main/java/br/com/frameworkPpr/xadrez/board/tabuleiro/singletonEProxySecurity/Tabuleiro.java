@@ -1,6 +1,8 @@
 package main.java.br.com.frameworkPpr.xadrez.board.tabuleiro.singletonEProxySecurity;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+
 import main.java.br.com.frameworkPpr.GerenciadorVitoriaDerrota.VitoriaDerrotaObserver;
 import main.java.br.com.frameworkPpr.GerenciadorVitoriaDerrota.VitoriaException;
 import main.java.br.com.frameworkPpr.xadrez.board.Casa;
@@ -9,7 +11,8 @@ import main.java.br.com.frameworkPpr.xadrez.multiton.time.Time;
 import main.java.br.com.frameworkPpr.xadrez.pieces.Peca;
 
 /**
- * A classe Tabuleiro é um exemplo da aplicação do padrão de projeto Singleton. Ele é aplicado para instanciar o jogo de tabuleiro.
+ * A classe Tabuleiro é um exemplo da aplicação do padrão de projeto Singleton. 
+ * Ele é aplicado para instanciar o jogo de tabuleiro.
  * Isso garante que haja apenas uma instância do jogo de tabuleiro em toda a aplicação.
  * Nessa casse terá apenas a lógica de negócio do tabuleiro, ou seja, o que pode ser feito no tabuleiro.
  */
@@ -21,6 +24,7 @@ public class Tabuleiro {
     // Instancia do TabuleiroProxySecurity(Singleton) para validações de jogo
     private static TabuleiroProxySecurity proxySecurityInstance;
 
+    // Construtor privado
     private Tabuleiro() {
         setProxySecurityInstance(TabuleiroProxySecurity.getInstance());
         setCasas(new HashMap<>());
@@ -30,7 +34,8 @@ public class Tabuleiro {
         setVitoriaDerrotaObserver(new VitoriaDerrotaObserver(this));
     }
 
-    public static Tabuleiro getInstance() { // Torne o método package-private
+    // Método Principal de instanciamento do tabuleiro via Singleton
+    public static Tabuleiro getInstance() {
         synchronized (Tabuleiro.class){
             if (instance == null) {
                 instance = new Tabuleiro();
@@ -49,9 +54,9 @@ public class Tabuleiro {
         }
     }
     // Esse metodo é chamado para colocar uma peça no tabuleiro
-    // Ele verifica se a posição é válida Via padrão proxy
+    // Ele tambem realiza verificações via proxy
     public void colocarPeca(Peca peca, Posicao posicao) {
-        getProxySecurityInstance().colocarPeca(peca, posicao, getCasas());// Verifiação do proxy
+        getProxySecurityInstance().colocarPeca(peca, posicao, getCasas());// A proxy
         getCasas().get(posicao).setPeca(peca);
         getPecasPorTime()
             .put(getCasas()
@@ -61,16 +66,19 @@ public class Tabuleiro {
             .getPeca().getTime(), 0) + 1); // Incrementa o número de peças do time
     }
     
+    // Esse metodo é chamado para mover uma peça no tabuleiro
+    // Ele tambem realiza verificações via proxy
     public void moverPeca(Posicao origem, Posicao destino) {
         getProxySecurityInstance().moverPeca(origem, destino, getCasas());
         getCasas().get(destino).setPeca(getCasas().get(origem).getPeca());
         getCasas().get(origem).setPeca(null);
     }
 
+    // Esse metodo é chamado para remover uma peça do tabuleiro
     public void RemoverPeca(Posicao posicao) throws VitoriaException{
         getProxySecurityInstance().removerPeca(posicao);// Verificação do proxy
         if(getVitoriaDerrotaObserver().verificarVencedor() != null){
-           throw new VitoriaException("O jogo já acabou, não é possível remover peças. Ja temos um vencedor");
+           throw new VitoriaException("O jogo já acabou, não é possível remover peças. Ja temos um vencedor: " + getVitoriaDerrotaObserver().verificarVencedor().toString());
         }
         getPecasPorTime()
             .put(getCasas().get(posicao).getPeca().getTime(),// pego o time com base na peça que estiver na casa
@@ -84,15 +92,21 @@ public class Tabuleiro {
         getProxySecurityInstance().setJogoIniciado(true);
     }
 
+    public void finalizarJogo (){// Metodo de finalizar o jogo
+        getProxySecurityInstance().setJogoIniciado(false);
+    }
+
     public void desistir(Time timeDesistente) throws VitoriaException{
         if (getVitoriaDerrotaObserver().verificarVencedor() != null) {
             throw new VitoriaException("O jogo já acabou, não é possível desistir."); 
         }
-        Time vencedor = (timeDesistente == Time.BRANCO) ? Time.PRETO : Time.BRANCO;
-        System.out.println("O time " + vencedor + " venceu por desistência do time " + timeDesistente);
+        Time vencedor = (Objects.equals(timeDesistente, Time.BRANCO)) ? Time.PRETO : Time.BRANCO;
+        System.out.println("O time " + vencedor.toString() + " venceu por desistência do time " + timeDesistente.toString());
         getVitoriaDerrotaObserver().notificarVencedor(vencedor);
+        finalizarJogo();
     }
 
+    // Metodos de Acesso 
     public Map<Time, Integer> getPecasPorTime() {
         return pecasPorTime;
     }
