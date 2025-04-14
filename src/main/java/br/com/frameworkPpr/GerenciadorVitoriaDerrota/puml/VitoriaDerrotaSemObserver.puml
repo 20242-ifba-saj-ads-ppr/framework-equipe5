@@ -1,0 +1,20 @@
+@startuml
+skinparam linetype ortho
+
+class Tabuleiro {
+    - Peca[][] pecas
+    - int pecasBrancas
+    - int pecasPretas
+    + removerPeca(int x, int y)
+}
+
+class Peca {
+    - String nome
+    - Time time
+    + getTime(): Time
+}
+
+class Time
+
+Tabuleiro --> Peca : gerencia diretamente
+@enduml

@@ -30,7 +30,7 @@ public class Tabuleiro {
         setVitoriaDerrotaObserver(new VitoriaDerrotaObserver(this));
     }
 
-    public static Tabuleiro getInstance() { // Torne o método package-private
+    public static Tabuleiro getInstance() { 
         synchronized (Tabuleiro.class){
             if (instance == null) {
                 instance = new Tabuleiro();

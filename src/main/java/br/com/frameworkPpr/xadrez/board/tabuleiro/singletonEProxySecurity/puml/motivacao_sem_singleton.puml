@@ -1,25 +1,27 @@
 @startuml
 skinparam linetype ortho
 
-class GerarJogo {
-    - List<FrameworkJogoDeTabuleiro> jogos;
-    + criarJogo(String nomeJogo) : FrameworkJogoDeTabuleiro
-    + iniciarJogo(String nomeJogo) : void
-}
-
 class Tabuleiro {
-    - String nomeJogo;
-    + FrameworkJogoDeTabuleiro(String nomeJogo)
-    + getNomeJogo() : String
+    - Map<Posicao, Casa> casas
+    - Map<Time, Integer> pecasPorTime
+    - VitoriaDerrotaObserver vitoriaDerrotaObserver
+    + Tabuleiro()
 }
 
-GerarJogo --> Tabuleiro : cria múltiplas instâncias
+class Peca {
+    - String nome
+    - Time time
+}
 
-note right of GerarJogo
-Sem o padrão Singleton, múltiplas instâncias
-do jogo de tabuleiro podem ser criadas,
-o que pode levar a inconsistências e maior
-uso de memória.
-end note
+class Jogador {
+    - String nome
+}
 
+class RegrasDoJogo {
+    + validarMovimento()
+}
+
+Peca --> Tabuleiro : cria diretamente
+Jogador --> Tabuleiro : cria diretamente
+RegrasDoJogo --> Tabuleiro : cria diretamente
 @enduml

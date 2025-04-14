@@ -1,0 +1,27 @@
+@startuml
+skinparam linetype ortho
+
+interface Observer {
+    + atualizar(String evento)
+}
+
+class Tabuleiro {
+    - List<Observer> observadores
+    - Peca[][] pecas
+    - int pecasBrancas
+    - int pecasPretas
+    + adicionarObservador(Observer observador)
+    + removerObservador(Observer observador)
+    + notificarObservadores(String evento)
+    + removerPeca(int x, int y)
+}
+
+class VitoriaDerrotaObserver {
+    - Tabuleiro tabuleiro
+    + VitoriaDerrotaObserver(Tabuleiro tabuleiro)
+    + void atualizar(String evento)
+}
+
+Tabuleiro --> Observer : notifica
+VitoriaDerrotaObserver ..|> Observer
+@enduml

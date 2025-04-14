@@ -1,18 +1,29 @@
 @startuml
-
 skinparam linetype ortho
 
+class GerenciadorTimes {
+    - Map<String, Time> times
+    + GerenciadorTimes()
+    + getTime(String nome): Time
+    + adicionarTime(String nome, Time time)
+}
+
 class Time {
-    - String nome;
+    - String nome
     + getNome(): String
 }
 
-class GerenciadorTimes {
-    - Map<String, Time> times;
-    + getTime(nome: String): Time
-    + adicionarTime(nome: String, time: Time)
+class Tabuleiro {
+    - GerenciadorTimes gerenciadorTimes
+    + inicializarTimes()
 }
 
-GerenciadorTimes o-- Time : gerencia
+class Peca {
+    - String nome
+    - Time time
+}
 
+GerenciadorTimes --> Time : gerencia
+Tabuleiro --> GerenciadorTimes : usa
+Peca --> Time : usa
 @enduml
