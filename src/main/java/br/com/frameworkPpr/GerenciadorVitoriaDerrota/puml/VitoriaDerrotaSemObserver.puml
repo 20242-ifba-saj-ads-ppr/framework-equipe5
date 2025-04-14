@@ -1,6 +1,7 @@
 @startuml
 skinparam linetype ortho
 
+!include ./src/main/java/br/com/frameworkPpr/xadrez/multiton/time/puml/estruturaTime.puml
 class Tabuleiro {
     - Peca[][] pecas
     - int pecasBrancas
@@ -14,7 +15,6 @@ class Peca {
     + getTime(): Time
 }
 
-class Time
-
+Time --* Peca
 Tabuleiro --> Peca : gerencia diretamente
 @enduml
