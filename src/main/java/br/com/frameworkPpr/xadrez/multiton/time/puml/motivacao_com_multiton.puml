@@ -2,11 +2,11 @@
 
 skinparam linetype ortho
 
-' !include ./src/main/java/br/com/frameworkPpr/xadrez/multiton/time/estruturaTime.puml
-' !include ./src/main/java/br/com/frameworkPpr/xadrez/pieces/estruturaPeca.puml
-' !include ./src/main/java/br/com/frameworkPpr/xadrez/board/estruturaTabuleiro.puml
-' !include ./src/main/java/br/com/frameworkPpr/GerenciadorVitoriaDerrota/estruturaCondicaoDeVitoria.puml
-' !include ./src/main/java/br/com/frameworkPpr/GerenciadorVitoriaDerrota/estruturaVitoriaDerrotaObserver.puml
+ !include ./src/main/java/br/com/frameworkPpr/xadrez/multiton/time/puml/estruturaTime.puml
+ !include ./src/main/java/br/com/frameworkPpr/xadrez/pieces/puml/estruturaPeca.puml
+ !include ./src/main/java/br/com/frameworkPpr/xadrez/board/tabuleiro/singletonEProxySecurity/puml/singleton/estruturaTabuleiro.puml
+ !include ./src/main/java/br/com/frameworkPpr/GerenciadorVitoriaDerrota/estruturaCondicaoDeVitoria.puml
+ !include ./src/main/java/br/com/frameworkPpr/GerenciadorVitoriaDerrota/estruturaVitoriaDerrotaObserver.puml
 
 Peca *-- Time 
 Peca --o Tabuleiro
