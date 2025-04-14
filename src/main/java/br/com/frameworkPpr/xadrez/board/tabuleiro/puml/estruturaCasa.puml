@@ -1,0 +1,16 @@
+@startuml
+
+skinparam line ortho
+
+class Casa {
+    - Posicao posicao
+    - Peca peca
+    --
+    + Casa(Posicao posicao)
+    + Posicao getPosicao()
+    + Peca getPeca()
+    + void setPeca(Peca peca)
+    + boolean estaOcupada()
+    + String toString()
+}
+@enduml
