@@ -8,6 +8,7 @@ class Time {
     + toString(): String
 }
 
+
 class Tabuleiro {
     - Time timeBranco
     - Time timePreto

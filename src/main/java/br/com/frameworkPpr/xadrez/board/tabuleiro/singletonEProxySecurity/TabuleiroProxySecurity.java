@@ -11,8 +11,10 @@ import main.java.br.com.frameworkPpr.xadrez.pieces.Peca;
  * Ele é aplicado para que antes de realizar qualquer ação,
  * O tabuleiro passa a responsabilidade para ele, quem instancia o tabuleiro não sabe, 
  * 
- * E tambem há a aplicação o Singleton, isso garante que haja apenas uma instância do proxy no mesmo pacote.
- * Nessa casse terá apenas a lógica validação de inicio do jogo antes de execurar as operações 
+ * E tambem há a aplicação o Singleton, isso garante que haja apenas 
+ * uma instância do proxy no mesmo pacote.
+ * Nessa casse terá apenas a lógica validação de inicio do jogo, assim como, 
+ * demais validações antes de execurar as operações 
  * Toda a logica de movimentação é de responsabiidade da classe Tabuleiro
  */
 class TabuleiroProxySecurity implements TabuleiroInterface {
@@ -35,22 +37,27 @@ class TabuleiroProxySecurity implements TabuleiroInterface {
         return getProxyInstance();
     }
 
+    // Método que será comumente utiizado antes de realizar cada ação 
     private void verificarJogoIniciado() {
         if (!isJogoIniciado()) {
             throw new IllegalStateException("O jogo ainda não foi iniciado.");
         }
     }
 
+    // Método que Validará possiveis casos esperados ao inicializar as Casas
     @Override
     public void inicializarCasas(int linhas, int colunas) {
-        if (getLinhas() != 0 && getColunas() != 0) {
-            throw new IllegalArgumentException("O tabuleiro já foi inicializado. Não é possível redefinir o tamanho.");   
-        } 
-        if (linhas <= 0 || colunas <= 0) {
-            throw new IllegalArgumentException("O número de linhas e colunas deve ser maior que zero.");
+        if (isJogoIniciado()){
+            throw new IllegalStateException("O jogo já foi iniciado. Não é possível redefinir o tabuleiro.");
         }
         setLinhas(linhas);
         setColunas(colunas);
+        if (getLinhas() != 0 && getColunas() != 0) {
+            throw new IllegalArgumentException("O tabuleiro já foi inicializado. Não é possível redefinir o tamanho.");   
+        } 
+        if (getLinhas() <= 0 || getColunas() <= 0) {
+            throw new IllegalArgumentException("O número de linhas e colunas deve ser maior que zero.");
+        }
     }
 
     private boolean posicaoValida(int linha, int coluna) {
@@ -61,6 +68,7 @@ class TabuleiroProxySecurity implements TabuleiroInterface {
         return posicaoValida(posicao.getLinha(), posicao.getColuna());
     }
 
+    // Método que irá Validará posiveis casos esperados ao colocar uma peça
     @Override
     public void colocarPeca(Peca peca, Posicao posicao, Map<Posicao,Casa> casas) {
         verificarJogoIniciado();
@@ -75,6 +83,7 @@ class TabuleiroProxySecurity implements TabuleiroInterface {
         }
     }
 
+    // Método que irá Validará posiveis casos esperados ao mover uma peça
     @Override
     public void moverPeca(Posicao origem, Posicao destino, Map<Posicao,Casa> casas) {
         verificarJogoIniciado();
@@ -89,6 +98,7 @@ class TabuleiroProxySecurity implements TabuleiroInterface {
         }
     }
 
+    // Método que irá Validará posiveis casos esperados ao remover uma peça
     @Override
     public void removerPeca(Posicao posicao) {
         verificarJogoIniciado();
@@ -97,6 +107,7 @@ class TabuleiroProxySecurity implements TabuleiroInterface {
         }
     }
 
+    // metodos de acesso
     private int getColunas() {
         return colunas;
     }

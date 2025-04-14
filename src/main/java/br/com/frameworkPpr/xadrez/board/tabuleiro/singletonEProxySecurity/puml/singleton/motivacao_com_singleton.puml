@@ -27,4 +27,5 @@ class RegrasDoJogo {
 Tabuleiro <.. Peca : usa
 Tabuleiro <.. Jogador : usa
 Tabuleiro <.. RegrasDoJogo : usa
+
 @enduml
