@@ -1,6 +1,6 @@
-package main.java.br.com.frameworkPpr.xadrez.board;
+package main.java.br.com.frameworkPpr.boardgame.board;
 
-import main.java.br.com.frameworkPpr.xadrez.pieces.Peca;
+import main.java.br.com.frameworkPpr.boardgame.pieces.Peca;
 
 /**
  * Classe que representa uma casa no tabuleiro de xadrez.

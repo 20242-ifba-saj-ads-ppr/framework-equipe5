@@ -1,4 +1,4 @@
-package main.java.br.com.frameworkPpr.xadrez.board;
+package main.java.br.com.frameworkPpr.boardgame.board;
 
 import java.util.Objects;
 

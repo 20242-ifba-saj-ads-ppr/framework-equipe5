@@ -1,12 +1,13 @@
-package main.java.br.com.frameworkPpr.xadrez.pieces;
+package main.java.br.com.frameworkPpr.boardgame.pieces;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import main.java.br.com.frameworkPpr.xadrez.board.Posicao;
-import main.java.br.com.frameworkPpr.xadrez.board.tabuleiro.singletonEProxySecurity.Tabuleiro;
-import main.java.br.com.frameworkPpr.xadrez.movement.MovimentoStrategy;
-import main.java.br.com.frameworkPpr.xadrez.multiton.time.Time;
+
+import main.java.br.com.frameworkPpr.boardgame.board.Posicao;
+import main.java.br.com.frameworkPpr.boardgame.board.tabuleiro.singletonEProxySecurity.Tabuleiro;
+import main.java.br.com.frameworkPpr.boardgame.movement.MovimentoStrategy;
+import main.java.br.com.frameworkPpr.boardgame.multiton.time.Time;
 
 public abstract class Peca {
     private String nome;

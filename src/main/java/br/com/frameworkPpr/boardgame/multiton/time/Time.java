@@ -1,10 +1,9 @@
-package main.java.br.com.frameworkPpr.xadrez.multiton.time;
+package main.java.br.com.frameworkPpr.boardgame.multiton.time;
 
 /**
  * Enum representa as duas equipes do jogo de tabuleiro.
  * Cada equipe tem um time associado.
  * Padrão de projeto: Enum Mutiton.
- *
  */
 
 public enum Time {

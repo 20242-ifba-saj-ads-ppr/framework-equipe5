@@ -1,9 +1,9 @@
-package main.java.br.com.frameworkPpr.xadrez.pieces;
+package main.java.br.com.frameworkPpr.boardgame.pieces;
 
 import java.util.Map;
 
-import main.java.br.com.frameworkPpr.xadrez.movement.MovimentoStrategy;
-import main.java.br.com.frameworkPpr.xadrez.multiton.time.Time;
+import main.java.br.com.frameworkPpr.boardgame.movement.MovimentoStrategy;
+import main.java.br.com.frameworkPpr.boardgame.multiton.time.Time;
 
 public abstract class PecaFactory {
     

@@ -1,10 +1,10 @@
-package main.java.br.com.frameworkPpr.xadrez.board.tabuleiro.singletonEProxySecurity;
+package main.java.br.com.frameworkPpr.boardgame.board.tabuleiro.singletonEProxySecurity;
 
 import java.util.Map;
 
-import main.java.br.com.frameworkPpr.xadrez.board.Casa;
-import main.java.br.com.frameworkPpr.xadrez.board.Posicao;
-import main.java.br.com.frameworkPpr.xadrez.pieces.Peca;
+import main.java.br.com.frameworkPpr.boardgame.board.Casa;
+import main.java.br.com.frameworkPpr.boardgame.board.Posicao;
+import main.java.br.com.frameworkPpr.boardgame.pieces.Peca;
 
 public interface TabuleiroInterface {
     void inicializarCasas(int linhas, int colunas);

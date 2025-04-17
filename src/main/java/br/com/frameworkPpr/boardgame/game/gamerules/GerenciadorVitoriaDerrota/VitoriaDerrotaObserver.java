@@ -1,8 +1,8 @@
-package main.java.br.com.frameworkPpr.GerenciadorVitoriaDerrota;
+package main.java.br.com.frameworkPpr.boardgame.game.gamerules.GerenciadorVitoriaDerrota;
 
 
-import main.java.br.com.frameworkPpr.xadrez.board.tabuleiro.singletonEProxySecurity.Tabuleiro;
-import main.java.br.com.frameworkPpr.xadrez.multiton.time.Time;
+import main.java.br.com.frameworkPpr.boardgame.board.tabuleiro.singletonEProxySecurity.Tabuleiro;
+import main.java.br.com.frameworkPpr.boardgame.multiton.time.Time;
 
 public class VitoriaDerrotaObserver implements CondicaoDeVitoria{
     private Tabuleiro tabuleiro;
