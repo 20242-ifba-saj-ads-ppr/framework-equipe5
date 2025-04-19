@@ -16,11 +16,11 @@ public enum Time {
     PRETO("Preto");
 
     private final String tipo;
-    private List<Peca> pecas;
+    private final List<Peca> pecas;
 
     Time(String tipo) {
         this.tipo = tipo;
-        setPecas(new ArrayList<>());
+        this.pecas = new ArrayList<>();
     }
 
     // Método para adicionar peças ao time com base na referencia da estancia
@@ -58,9 +58,5 @@ public enum Time {
 
     private List<Peca> getPecas() {
         return pecas;
-    }
-
-    private void setPecas(List<Peca> pecas) {
-        this.pecas = pecas;
     }
 }
