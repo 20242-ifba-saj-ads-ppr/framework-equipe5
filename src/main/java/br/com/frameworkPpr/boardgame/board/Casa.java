@@ -37,7 +37,7 @@ public class Casa {
      * @return true se a casa contém uma peça, false caso contrário.
      */
     public boolean estaOcupada() {
-        return peca != null;
+        return this.peca != null;
     }
 
     @Override

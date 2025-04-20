@@ -1,10 +1,12 @@
 package main.java.br.com.frameworkPpr.boardgame.board.tabuleiro.singletonEProxySecurity;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-
 import main.java.br.com.frameworkPpr.boardgame.board.Casa;
 import main.java.br.com.frameworkPpr.boardgame.board.Posicao;
+import main.java.br.com.frameworkPpr.boardgame.game.gamerules.GerenciadorVitoriaDerrota.Observer;
 import main.java.br.com.frameworkPpr.boardgame.game.gamerules.GerenciadorVitoriaDerrota.VitoriaDerrotaObserver;
 import main.java.br.com.frameworkPpr.boardgame.game.gamerules.GerenciadorVitoriaDerrota.VitoriaException;
 import main.java.br.com.frameworkPpr.boardgame.multiton.time.Time;
@@ -23,6 +25,8 @@ public class Tabuleiro {
     private static Tabuleiro instance;
     // Instancia do TabuleiroProxySecurity(Singleton) para validações de jogo
     private static TabuleiroProxySecurity proxySecurityInstance;
+    private List<Observer> observadores = new ArrayList<>();
+
 
     // Construtor privado
     private Tabuleiro() {
@@ -64,12 +68,29 @@ public class Tabuleiro {
             getPecasPorTime()
             .getOrDefault(getCasas().get(posicao)
             .getPeca().getTime(), 0) + 1); // Incrementa o número de peças do time
+            adicionarObservador(peca);
+            notificarObservadores("Peça adicionada na posição: " + posicao);
     }
     
     // Esse metodo é chamado para mover uma peça no tabuleiro
     // Ele tambem realiza verificações via proxy
     public void moverPeca(Posicao origem, Posicao destino) {
         getProxySecurityInstance().moverPeca(origem, destino, getCasas());
+
+        Casa casaDestino = getCasas().get(destino);
+        
+        if (casaDestino.estaOcupada()) {
+            throw new IllegalStateException("A posição de destino já está ocupada!");
+        }
+        getProxySecurityInstance().moverPeca(origem, destino, getCasas());
+        
+        Casa casaOrigem = getCasas().get(origem);
+        Peca pecaMovida = casaOrigem.getPeca();
+        casaDestino.setPeca(pecaMovida);
+        casaOrigem.setPeca(null);
+
+        notificarObservadores("peca movida: " + origem + " para " + destino);
+
         getCasas().get(destino).setPeca(getCasas().get(origem).getPeca());
         getCasas().get(origem).setPeca(null);
     }
@@ -136,5 +157,23 @@ public class Tabuleiro {
 
     public static void setProxySecurityInstance(TabuleiroProxySecurity proxyInstance) {
         Tabuleiro.proxySecurityInstance = proxyInstance;
+    }
+
+    public void adicionarObservador(Observer observador)
+    {
+        observadores.add(observador);
+    }
+
+    public void removerObservador(Observer observador)
+    {
+        observadores.remove(observador);
+    }
+
+    public void notificarObservadores(String evento)
+    {
+        for (Observer observador : observadores)
+        {
+            observador.update(evento);
+        }
     }
 }
