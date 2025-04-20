@@ -1,7 +1,7 @@
 package main.java.br.com.frameworkPpr.boardgame.game;
 
-import main.java.br.com.frameworkPpr.boardgame.player.Jogador;
 import main.java.br.com.frameworkPpr.boardgame.board.tabuleiro.singletonEProxySecurity.Tabuleiro;
+import main.java.br.com.frameworkPpr.boardgame.player.Jogador;
 
 public class GameSession {
     private Jogador jogador1;
@@ -24,5 +24,10 @@ public class GameSession {
 
     public Tabuleiro getTabuleiro() {
         return tabuleiro;
+    }
+    public void configurarTimes(String... nomesTimes) {
+        for (String nomeTime : nomesTimes) {
+            tabuleiro.registrarTime(nomeTime);
+        }
     }
 }

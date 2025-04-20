@@ -1,8 +1,9 @@
 package main.java.br.com.frameworkPpr.boardgame.multiton.time;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 import main.java.br.com.frameworkPpr.boardgame.pieces.Peca;
 
 /**
@@ -11,36 +12,45 @@ import main.java.br.com.frameworkPpr.boardgame.pieces.Peca;
  * Padrão de projeto: Enum Mutiton.
  */
 
-public enum Time {
-    BRANCO("Branco"),
-    PRETO("Preto");
+public class Time {
+    private static final Map<String, Time> times = new HashMap<>();
+    private final String nome;
+    private List<Peca> pecas = new ArrayList<>();
 
-    private final String tipo;
-    private final List<Peca> pecas;
-
-    Time(String tipo) {
-        this.tipo = tipo;
-        this.pecas = new ArrayList<>();
+    private Time(String nome)
+    {
+        this.nome = nome;
     }
 
-    // Método para adicionar peças ao time com base na referencia da estancia
+    public static Time getInstance(String nome)
+    {
+        return times.computeIfAbsent(nome, Time::new);
+    }
+
+    // Método para adicionar peças ao time com base na referencia da instancia
     // Exemplo: Time.BRANCO.adicionarPecasAoTime(peca);
     // Isso garante que as peças sejam adicionadas ao time correto.
     public boolean adicionarPecasAoTime(Peca peca) {
+        if (peca == null) {
+            throw new IllegalArgumentException("Peça não pode ser nula.");
+        }
         return getPecas().add(peca);
     }
 
-    // Método para listar peças do time com base na referencia da estancia
+    // Método para listar peças do time com base na referencia da instancia
     // Exemplo: Time.BRANCO.getPecasDoTime();
     // Isso garante que as peças sejam listadas do time correto.
     public List<Peca> getPecasDoTime() {
-        return getPecas();
+        return new ArrayList<>(getPecas());
     }
 
-    // Método para remover peças do time com base na referencia da estancia
+    // Método para remover peças do time com base na referencia da instancia
     // Exemplo: Time.BRANCO.removerPecaDoTime(peca);
     // Isso garante que as peças sejam removidas do time correto.
     public boolean removerPecaDoTime(Peca peca) {
+        if (peca == null) {
+            throw new IllegalArgumentException("A peça não pode ser nula.");
+        }
         return getPecas().remove(peca);
     }
 
@@ -53,10 +63,13 @@ public enum Time {
 
     @Override
     public String toString() {
-        return tipo;
+        return nome;
     }
 
     private List<Peca> getPecas() {
+        if (pecas == null) {
+            pecas = new ArrayList<>();
+        }
         return pecas;
     }
 }

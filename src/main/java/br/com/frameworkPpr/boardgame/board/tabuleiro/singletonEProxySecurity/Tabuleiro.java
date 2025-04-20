@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import main.java.br.com.frameworkPpr.boardgame.board.Casa;
 import main.java.br.com.frameworkPpr.boardgame.board.Posicao;
 import main.java.br.com.frameworkPpr.boardgame.game.gamerules.GerenciadorVitoriaDerrota.Observer;
@@ -33,8 +32,6 @@ public class Tabuleiro {
         setProxySecurityInstance(TabuleiroProxySecurity.getInstance());
         setCasas(new HashMap<>());
         setPecasPorTime(new HashMap<>());
-        getPecasPorTime().put(Time.BRANCO, 0);
-        getPecasPorTime().put(Time.PRETO, 0);
         setVitoriaDerrotaObserver(new VitoriaDerrotaObserver(this));
     }
 
@@ -57,6 +54,12 @@ public class Tabuleiro {
             }
         }
     }
+
+    public void registrarTime(String nomeTime) {
+        Time time = Time.getInstance(nomeTime);
+        pecasPorTime.putIfAbsent(time, 0);
+    }
+
     // Esse metodo é chamado para colocar uma peça no tabuleiro
     // Ele tambem realiza verificações via proxy
     public void colocarPeca(Peca peca, Posicao posicao) {
@@ -119,9 +122,12 @@ public class Tabuleiro {
 
     public void desistir(Time timeDesistente) throws VitoriaException{
         if (getVitoriaDerrotaObserver().verificarVencedor() != null) {
-            throw new VitoriaException("O jogo já acabou, não é possível desistir."); 
+            throw new VitoriaException("O jogo já acabou, não é possível desistir.");
         }
-        Time vencedor = (Objects.equals(timeDesistente, Time.BRANCO)) ? Time.PRETO : Time.BRANCO;
+        Time vencedor = getPecasPorTime().keySet().stream()
+        .filter(time -> !time.equals(timeDesistente))
+        .findFirst()
+        .orElseThrow(() -> new IllegalStateException("Nenhum time restante para declarar como vencedor."));
         System.out.println("O time " + vencedor.toString() + " venceu por desistência do time " + timeDesistente.toString());
         getVitoriaDerrotaObserver().notificarVencedor(vencedor);
         finalizarJogo();
