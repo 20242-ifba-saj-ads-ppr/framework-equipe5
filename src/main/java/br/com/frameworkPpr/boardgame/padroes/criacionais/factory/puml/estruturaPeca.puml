@@ -23,4 +23,5 @@ class Peca {
 MovimentoStrategy <|.. MovimentoRei
 MovimentoStrategy <|.. MovimentoRainha
 Peca --> MovimentoStrategy : usa
+
 @enduml

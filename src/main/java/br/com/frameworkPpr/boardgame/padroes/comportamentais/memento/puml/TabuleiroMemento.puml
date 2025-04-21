@@ -1,0 +1,12 @@
+@startuml
+skinparam linetype ortho
+
+class TabuleiroMemento {
+    - Map<Posicao, Casa> casasSnapshot
+    - Map<Time, Integer> pecasPorTimeSnapshot
+    + TabuleiroMemento(Map<Posicao, Casa>, Map<Time, Integer>)
+    + getCasasSnapshot(): Map<Posicao, Casa>
+    + getPecasPorTimeSnapshot(): Map<Time, Integer>
+}
+
+@enduml

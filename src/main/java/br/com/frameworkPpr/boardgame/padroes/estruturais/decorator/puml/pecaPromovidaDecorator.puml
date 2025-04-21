@@ -1,0 +1,11 @@
+@startuml
+skinparam linetype ortho
+
+class PecaPromovidaDecorator {
+    + obterMovimentosPossiveis(Posicao, Tabuleiro): List<Posicao>
+    + update(String)
+}
+
+PecaPromovidaDecorator --|> PecaDecorator
+
+@enduml

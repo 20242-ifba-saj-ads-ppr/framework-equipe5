@@ -1,7 +1,7 @@
-@startuml estruturaPecaSemStrategy
+@startuml
 skinparam linetype ortho
-class peca{
-    - tipo 
+class Peca {
+    - tipo
     + calcularMovimentosPossiveis(): List<String>
 }
 @enduml

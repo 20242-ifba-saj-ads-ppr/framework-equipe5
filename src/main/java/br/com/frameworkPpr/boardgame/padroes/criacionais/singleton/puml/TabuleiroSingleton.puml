@@ -1,0 +1,10 @@
+@startuml
+skinparam linetype ortho
+
+class Tabuleiro {
+    - static Tabuleiro instancia
+    - Tabuleiro()
+    + static getInstancia(): Tabuleiro
+}
+
+@enduml
