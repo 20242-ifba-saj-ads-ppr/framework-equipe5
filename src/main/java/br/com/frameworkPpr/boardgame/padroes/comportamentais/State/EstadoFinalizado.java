@@ -22,4 +22,10 @@ public class EstadoFinalizado implements EstadoJogo{
         System.out.println("O jogo foi reiniciado.");
         contexto.setEstadoAtual(new EstadoIniciado(contexto));
     }
+
+    @Override
+    public void finalizarJogo() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'finalizarJogo'");
+    }
 }

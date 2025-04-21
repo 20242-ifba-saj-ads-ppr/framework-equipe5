@@ -8,7 +8,6 @@ import main.java.br.com.frameworkPpr.boardgame.game.TabuleiroInterface;
 import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.State.ContextoJogo;
 import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.State.EstadoIniciado;
 import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.State.EstadoJogo;
-import main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.factory.Peca;
 
 /**
  * A classe TabuleiroProxySecurity é um exemplo da aplicação do padrão de projeto estrutural Proxy.
@@ -25,7 +24,6 @@ public class TabuleiroProxySecurity implements TabuleiroInterface {
     private int linhas;
     private int colunas;
     private static TabuleiroProxySecurity proxyInstance;
-    private boolean jogoIniciado;
     private ContextoJogo contexto;
 
 
@@ -165,5 +163,5 @@ public class TabuleiroProxySecurity implements TabuleiroInterface {
     private static void setProxyInstance(TabuleiroProxySecurity proxyInstance) {
         TabuleiroProxySecurity.proxyInstance = proxyInstance;
     }
-}   
+}
 

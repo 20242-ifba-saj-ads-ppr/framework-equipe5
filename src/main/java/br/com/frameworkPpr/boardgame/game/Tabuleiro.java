@@ -88,11 +88,11 @@ public class Tabuleiro {
     }
 
     public void iniciarJogo (){
-        getProxySecurityInstance().setJogoIniciado(true);
+        getProxySecurityInstance().iniciarJogo();
     }
 
     public void finalizarJogo (){
-        getProxySecurityInstance().setJogoIniciado(false);
+        getProxySecurityInstance().finalizarJogo();
     }
 
     public void desistir(Time timeDesistente) throws VitoriaException{

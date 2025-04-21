@@ -2,8 +2,9 @@ package main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.State;
 
 public class ContextoJogo {
     private EstadoJogo estadoAtual;
+
     public ContextoJogo() {
-        this.estadoAtual = new EstadoIniciado();
+        this.estadoAtual = new EstadoIniciado(this);
     }
 
     public void setEstadoAtual(EstadoJogo novoEstado)

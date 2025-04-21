@@ -20,4 +20,9 @@ public class EstadoPausado implements EstadoJogo{
         System.out.println("O jogo foi finalizado.");
         contexto.setEstadoAtual(new EstadoFinalizado(contexto));
     }
+    @Override
+    public void reiniciarJogo() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'reiniciarJogo'");
+    }
 }

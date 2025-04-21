@@ -9,16 +9,16 @@ import main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.multiton.Time
 
 public class AnimalFactory extends PecaFactory {
     @Override
-    public Peca criarPeca(String tipo, MovimentoStrategy movimentoStrategy) {
-        // Método-fábrica parametrizado
+    public Peca criarPeca(String tipo, Time time, MovimentoStrategy movimentoStrategy, Map<String, Object> caracteristicas) {
+        // Método-fábrica parametrizado conforme contrato da superclasse
         return switch (tipo) {
-            case "Elefante" -> new Elefante(tipo, movimentoStrategy);
-            case "Leão" -> new Leão(tipo, movimentoStrategy);
-            case "Tigre" -> new Tigre(tipo, movimentoStrategy);
-            case "Lobo" -> new Lobo(tipo, movimentoStrategy);
-            case "Raposa" -> new Raposa(tipo, movimentoStrategy);
-            case "Gato" -> new Gato(tipo, movimentoStrategy);
-            case "Rato" -> new Rato(tipo, movimentoStrategy);
+            case "Elefante" -> new Elefante(tipo, time, movimentoStrategy, caracteristicas);
+            case "Leão" -> new Leão(tipo, time, movimentoStrategy, caracteristicas);
+            case "Tigre" -> new Tigre(tipo, time, movimentoStrategy, caracteristicas);
+            case "Lobo" -> new Lobo(tipo, time, movimentoStrategy, caracteristicas);
+            case "Raposa" -> new Raposa(tipo, time, movimentoStrategy, caracteristicas);
+            case "Gato" -> new Gato(tipo, time, movimentoStrategy, caracteristicas);
+            case "Rato" -> new Rato(tipo, time, movimentoStrategy, caracteristicas);
             default -> throw new IllegalArgumentException("Tipo de peça desconhecido: " + tipo);
         };
     }
