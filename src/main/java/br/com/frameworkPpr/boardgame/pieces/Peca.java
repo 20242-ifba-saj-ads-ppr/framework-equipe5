@@ -20,17 +20,20 @@ public abstract class Peca implements Observer{
     }
 
     public Peca(String nome, Time time, MovimentoStrategy movimentoStrategy, Map<String, Object> caracteristicas) {
-        this.nome = nome;
-        this.time = time;
+        setNome(nome);
+        setTime(time);
         this.movimentoStrategy = movimentoStrategy;
-        this.caracteristicas = caracteristicas != null ? caracteristicas : new HashMap<>();
+        setCaracteristicas(caracteristicas != null ? caracteristicas : new HashMap<>());
+    }
+    public void setTime(Time time2) {
+        this.time = time2;
     }
 
     public String getNome() {
         return nome;
     }
 
-    public void setNome(String nome) {
+    private void setNome(String nome) {
         this.nome = nome;
     }
 
@@ -72,4 +75,9 @@ public abstract class Peca implements Observer{
         }
     }
 
+    @Override
+    public String toString() {
+        return "Peca [nome=" + nome + ", time=" + time + ", caracteristicas=" + caracteristicas + ", movimentoStrategy="
+                + movimentoStrategy + "]";
+    }
 }
