@@ -1,10 +1,12 @@
 package main.java.br.com.frameworkPpr.boardgame.padroes.estruturais.proxy;
 
 import java.util.Map;
-
 import main.java.br.com.frameworkPpr.boardgame.game.Casa;
 import main.java.br.com.frameworkPpr.boardgame.game.Posicao;
 import main.java.br.com.frameworkPpr.boardgame.game.TabuleiroInterface;
+import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.State.ContextoJogo;
+import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.State.EstadoIniciado;
+import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.State.EstadoJogo;
 import main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.factory.Peca;
 
 /**
@@ -23,10 +25,12 @@ public class TabuleiroProxySecurity implements TabuleiroInterface {
     private int colunas;
     private static TabuleiroProxySecurity proxyInstance;
     private boolean jogoIniciado;
+    private ContextoJogo contexto;
 
 
     private TabuleiroProxySecurity() {
-        setJogoIniciado(false);
+        // setJogoIniciado(false);
+        this.contexto = new ContextoJogo();
     }
 
     public static TabuleiroProxySecurity getInstance() {
@@ -39,26 +43,23 @@ public class TabuleiroProxySecurity implements TabuleiroInterface {
     }
 
     // Método que será comumente utiizado antes de realizar cada ação 
-    private void verificarJogoIniciado() {
-        if (!isJogoIniciado()) {
-            throw new IllegalStateException("O jogo ainda não foi iniciado.");
+    private void verificarEstadoPermitido() {
+        if (!(contexto.getEstadoAtual() instanceof EstadoIniciado)) {
+            throw new IllegalStateException("Ação não permitida no estado atual do jogo: " + contexto.getEstadoAtual().getClass().getSimpleName());
         }
     }
 
     // Método que Validará possiveis casos esperados ao inicializar as Casas
     @Override
     public void inicializarCasas(int linhas, int colunas) {
-        if (isJogoIniciado()){
-            throw new IllegalStateException("O jogo já foi iniciado. Não é possível redefinir o tabuleiro.");
+        if (this.linhas > 0 && this.colunas > 0) {
+            throw new IllegalStateException("O tabuleiro já foi inicializado.");
+        }
+        if (linhas <= 0 || colunas <= 0) {
+            throw new IllegalArgumentException("Número de linhas e colunas deve ser maior que zero.");
         }
         setLinhas(linhas);
         setColunas(colunas);
-        if (getLinhas() != 0 && getColunas() != 0) {
-            throw new IllegalArgumentException("O tabuleiro já foi inicializado. Não é possível redefinir o tamanho.");   
-        } 
-        if (getLinhas() <= 0 || getColunas() <= 0) {
-            throw new IllegalArgumentException("O número de linhas e colunas deve ser maior que zero.");
-        }
     }
 
     private boolean posicaoValida(int linha, int coluna) {
@@ -72,7 +73,7 @@ public class TabuleiroProxySecurity implements TabuleiroInterface {
     // Método que irá Validará posiveis casos esperados ao colocar uma peça
     @Override
     public void colocarPeca(Peca peca, Posicao posicao, Map<Posicao,Casa> casas) {
-        verificarJogoIniciado();
+        verificarEstadoPermitido();
         if (casas.get(posicao) == null) {
             throw new IllegalArgumentException("Posição inválida: " + posicao);
         }
@@ -87,7 +88,7 @@ public class TabuleiroProxySecurity implements TabuleiroInterface {
     // Método que irá Validará posiveis casos esperados ao mover uma peça
     @Override
     public void moverPeca(Posicao origem, Posicao destino, Map<Posicao,Casa> casas) {
-        verificarJogoIniciado();
+        verificarEstadoPermitido();
         if (!posicaoValida(origem) || !posicaoValida(destino)) {
             throw new IllegalArgumentException("Posição de origem ou destino inválida.");
         }
@@ -105,10 +106,40 @@ public class TabuleiroProxySecurity implements TabuleiroInterface {
     // Método que irá Validará posiveis casos esperados ao remover uma peça
     @Override
     public void removerPeca(Posicao posicao) {
-        verificarJogoIniciado();
+        verificarEstadoPermitido();
         if (!posicaoValida(posicao)) {
             throw new IllegalArgumentException("Posição inválida: " + posicao);
         }
+    }
+
+    public void iniciarJogo()
+    {
+        contexto.iniciarJogo();
+    }
+
+    public void pausarJogo()
+    {
+        contexto.pausarJogo();
+    }
+
+    public void finalizarJogo()
+    {
+        contexto.finalizarJogo();
+    }
+
+    public void reiniciarJogo()
+    {
+        contexto.reiniciarJogo();
+    }
+
+    public EstadoJogo getEstadoAtual()
+    {
+        return contexto.getEstadoAtual();
+    }
+
+    public void setEstado(EstadoJogo estado)
+    {
+        contexto.setEstadoAtual(estado);
     }
 
     // metodos de acesso
@@ -130,13 +161,6 @@ public class TabuleiroProxySecurity implements TabuleiroInterface {
         return proxyInstance;
     }
 
-    private boolean isJogoIniciado() {
-        return jogoIniciado;
-    }
-
-    public void setJogoIniciado(boolean jogoIniciado) {
-        this.jogoIniciado = jogoIniciado;
-    }
     private static void setProxyInstance(TabuleiroProxySecurity proxyInstance) {
         TabuleiroProxySecurity.proxyInstance = proxyInstance;
     }
