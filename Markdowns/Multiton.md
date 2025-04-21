@@ -2,14 +2,14 @@
 
 ### Intenção-
 
-[^K19]    
-
 Permitir a criação de uma quantidade limitada de instâncias de determinada classe e fornecer um modo para recuperá-las.
 
 ### Motivação sem o Padrão -
+
 Sem o multiton, o gerenciamento dos times teria que ser de forma manual com o uso de mapas para armazenar e recuperar as instâncias deles. Só que isso é menos eficiente uma vez que seria necessário acessar o mapa sempre que informações sobre um time fossem necessárias. Também não haveria garantia de unicidade para cada time podendo levar a inconsistências.
 
 ```java
+// Exemplo sem Multiton
 package main.java.br.com.frameworkPpr.xadrez.multiton.time;
 
 import java.util.HashMap;
@@ -54,63 +54,57 @@ gerenciador.adicionarTime("Azul", new Time("Azul")); // Possível adicionar novo
 ```
 
 ### UML sem multiton -
+
 <img alt="Motivação sem multiton" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\motivacao_sem_multiton.png">
 
 ### Motivação no contexto do Tabuleiro -
 
-O multiton aqui é usado para representar times no tabuleiro através do **Enum** no qual há a definição explícita de instâncias possíveis (Branco e Preto). pode existir mais de um time, mas cada um é identificado de forma única. Com o encapsulamento do gerenciamento das instancias de time o controle fica centralizado pois para cada identificador a instância retornada sempre será a mesma.
+No projeto, o padrão Multiton é aplicado por meio da classe `Time`, que mantém um mapa estático de instâncias únicas para cada nome de time. Assim, sempre que for necessário criar um time, é necessário chamar o método `getInstance` passando como parâmetro o nome do time. Caso esse time exista, o método vai retornar o mesmo. Caso não exista, o método cria o novo time. Isso garante unicidade e centralização do controle dos times, permitindo que cada time seja identificado de forma única e reutilizável em todo o sistema.
 
+Exemplo simplificado da implementação real:
 
-- Com o Multiton, podemos definir instancias como identificação única para times em um jogo de tabuleiro: 
-  
-  - Considere que em um jogo de Tabuleiro, precisamos criar uma representação dos times Preto e Branco. Naturalmente, uma possibilidade seria utilizar a estratégia de Maps para gerenciar cada tipo de time, nesse sentido, teriamos uma classe para gerencia - los o que se institui uma forma legitma, porem ineficiente, visto que, todo momento que quisessemos acessar uma informação referente ao time teriamos que chamar o map para retirar as infos.
-``` java
-package main.java.br.com.frameworkPpr.xadrez.multiton.time;
+```java
+package main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.multiton;
 
-/**
- * Enum representa as duas equipes do jogo de tabuleiro.
- * Cada equipe tem um time associado.
- * Padrão de projeto: Enum Mutiton.
- *
- */
+import java.util.HashMap;
+import java.util.Map;
 
-public enum Time {
-    BRANCO("Branco"),
-    PRETO("Preto");
+public class Time {
+    private static final Map<String, Time> times = new HashMap<>();
+    private final String nome;
 
-    private final String tipo;
+    private Time(String nome) {
+        this.nome = nome;
+    }
 
-    Time (String tipo){
-       this.tipo = tipo;
+    public static Time getInstance(String nome) {
+        return times.computeIfAbsent(nome, Time::new);
     }
 
     @Override
-    public String toString(){
-        return tipo;
+    public String toString() {
+        return nome;
     }
 }
 ```
 
-``` java
+Uso típico:
+
+```java
 Time branco = Time.getInstance("Branco");
 Time preto = Time.getInstance("Preto");
 Time azul = Time.getInstance("Azul"); // Garantido que "Azul" será único
 ```
 
-
 ### Participantes -
-1. **Multiton:** (Enum Time)  Define duas instâncias de time (preto e branco);
-2. **Client:** (Tabuleiro), Peca -> classes que utilizam as instâncias do multiton.
 
+1. **Multiton:** Classe `Time` -> mantém instâncias únicas para cada nome de time;
+2. **Client:** (Tabuleiro), Peca -> classes que utilizam as instâncias do multiton.
 
 <figcaption>Exemplo de como o jogo pode ser implementado sem o padrão Multiton</figcaption>
 
 ### UML com multiton -
 
-<img alt="Motivação com multiton" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\motivacao_com_multiton.png">
+<img alt="Motivação com multiton" src="C:\Users\luisp\Documents\GitHub\framework-equipe5\out\DiagramasIMG\motivacao_com_multiton.png">
 
-
-<figcaption>Exemplo de como o Multiton Pode ser Aplicado</figcaption>
-
-Podemos simplificar isso aplicando o multiton, com o uso dele declarado 2 instancias fixas para representar esses times, afim de serem usadas em diversas funcionalidades. Alem disso, é garantido que cada enum de time terá acesso excusivo a valores de atributos explicitos.
-
+Com o Multiton, declaramos instâncias únicas para representar os times, que podem ser usadas em diversas funcionalidades do sistema. O acesso é centralizado e consistente, evitando duplicidade e facilitando a manutenção.

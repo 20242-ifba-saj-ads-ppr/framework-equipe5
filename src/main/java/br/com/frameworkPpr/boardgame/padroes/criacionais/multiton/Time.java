@@ -18,13 +18,11 @@ public class Time {
     private final String nome;
     private List<Peca> pecas = new ArrayList<>();
 
-    private Time(String nome)
-    {
+    private Time(String nome) {
         this.nome = nome;
     }
 
-    public static Time getInstance(String nome)
-    {
+    public static Time getInstance(String nome) {
         return times.computeIfAbsent(nome, Time::new);
     }
 

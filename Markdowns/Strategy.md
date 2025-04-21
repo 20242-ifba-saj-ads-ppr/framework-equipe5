@@ -1,8 +1,11 @@
-# Strategy 
-### Intenção -
-Definir uma família de algoritmos em classes separadas para que seus objetos sejam intercambiáveis. 
+# Strategy
+
+### Intenção
+
+Definir uma família de algoritmos em classes separadas para que seus objetos sejam intercambiáveis.
 
 ### Motivação sem o Padrão -
+
 Sem o uso do Strategy a implementação de movimento de peças teria que ser diretamente na classe *Peça*. Isso reduz a flexibilidade já que toda lógica de movimento de diferentes peças estaria centralizada em uma única classe, assim, não seria possível reutiliar a lógica em outro contexto sem a duplicação do código. Para adicionar novas peças ou até mesmo alterar a lógica do movimento, teriamos que modificar a classe *Peça* violando o princípio **Open/Closed** - aberto para extensão e fechado para modificação.
 
 ``` java
@@ -39,24 +42,30 @@ public class Peca {
     }
 }
 ```
+
 ### UML sem o Strategy -
+
 <img alt="Motivação com Singleton" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\estruturaPecaSemStrategy.png">
 
-### Motivação no contexto do Tabuleiro -
+### Motivação no contexto do Tabuleiro
+
 Aqui, o strategy é usado para definir diferentes estratégias de movimento para as peças. Cada peça pode ter sua própria lógica de movimento. A interface *MovimentoStrategy* define o método *calcularMovimentosPossiveis* que é implementado por classes específicas para cada tipo de peça.
 
 ``` java
-package main.java.br.com.frameworkPpr.xadrez.movement;
+package main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.strategy;
 
-import main.java.br.com.frameworkPpr.xadrez.board.Posicao;
-import main.java.br.com.frameworkPpr.xadrez.board.tabuleiro.singletonEProxySecurity.Tabuleiro;
 import java.util.List;
+
+import main.java.br.com.frameworkPpr.boardgame.game.Posicao;
+import main.java.br.com.frameworkPpr.boardgame.game.Tabuleiro;
 
 public interface MovimentoStrategy {
     List<Posicao> calcularMovimentosPossiveis(Posicao posicaoAtual, Tabuleiro tabuleiro);
 }
 ```
+
 exemplo de aplicação para uma peça:
+
 ``` java
 package main.java.br.com.frameworkPpr.xadrez.movement;
 
@@ -75,9 +84,11 @@ public class MovimentoRei implements MovimentoStrategy {
 ```
 
 ### Participantes -
+
 1. **Strategy:** MovimentoStrategy -> declara o método calcularMovimentosPossiveis que é implementado por diferentes estratégias;
 2. **ConcretStrategy:** serão os métodos que implementam a interace MovimentoStrategy que criarão a lógica específica de cada peça;
 3. **Context:** Peca -> contém a referência para um objeto MovimentoStrategy, delega a execução do método *calcularMovimentosPossiveis* para a estratégia associada (ConcretStrategy).
 
 ### UML com Strategy -
+
 <img alt="Motivação com Singleton" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\estruturaPeca.png">

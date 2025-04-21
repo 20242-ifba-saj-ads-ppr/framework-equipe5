@@ -1,4 +1,4 @@
-package main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.State;
+package main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.state;
 
 public class EstadoIniciado implements EstadoJogo {
     private final ContextoJogo contexto;

@@ -1,0 +1,7 @@
+@startuml
+class CasaFlyweightFactory {
+    - static Map<String, CasaFlyweight> casas
+    + static CasaFlyweight getCasa(String cor, int numero)
+    + static int getTotalCasas()
+}
+@enduml

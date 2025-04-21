@@ -5,9 +5,9 @@ import main.java.br.com.frameworkPpr.boardgame.game.Casa;
 import main.java.br.com.frameworkPpr.boardgame.game.Peca;
 import main.java.br.com.frameworkPpr.boardgame.game.Posicao;
 import main.java.br.com.frameworkPpr.boardgame.game.TabuleiroInterface;
-import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.State.ContextoJogo;
-import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.State.EstadoIniciado;
-import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.State.EstadoJogo;
+import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.state.ContextoJogo;
+import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.state.EstadoIniciado;
+import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.state.EstadoJogo;
 
 /**
  * A classe TabuleiroProxySecurity é um exemplo da aplicação do padrão de projeto estrutural Proxy.

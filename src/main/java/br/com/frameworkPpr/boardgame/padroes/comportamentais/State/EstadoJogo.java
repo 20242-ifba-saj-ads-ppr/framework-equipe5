@@ -1,4 +1,4 @@
-package main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.State;
+package main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.state;
 
 import main.java.br.com.frameworkPpr.boardgame.game.Tabuleiro;
 

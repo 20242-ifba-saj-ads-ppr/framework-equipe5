@@ -1,0 +1,10 @@
+@startuml
+class CasaConcretaFlyweight implements CasaFlyweight {
+    - String cor
+    - int numero
+    + CasaConcretaFlyweight(String cor, int numero)
+    + String getCor()
+    + int getNumero()
+}
+CasaConcretaFlyweight ..|> CasaFlyweight
+@enduml

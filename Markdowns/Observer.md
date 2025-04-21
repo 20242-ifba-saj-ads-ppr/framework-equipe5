@@ -1,9 +1,11 @@
 # Observer
 
 ### Intenção -
+
 Permitir a definição de um mecanismo de assinatura para notificar múltiplos objetos sobre qualquer evento que aconteça com o objeto observado.
 
 ### Motivação sem o Padrão -
+
 Sem o uso do Observer a implementação do monitoramento e observação teria que ser direto no *Tabuleiro*, assim, ele precisaria conhecer todas as classes que dependem de mudanças no estado do jogo, como a de VitoriaDerrotaObserver. Adicionar novas classes que precisariam ser notificadas resultaria na modificação da classe *Tabuleiro* violando o princípio **open/closed**.
 
 ```java
@@ -42,11 +44,13 @@ public class Tabuleiro {
     }
 }
 ```
+
 ### UML sem o Observer -
+
 <img alt="Motivação com Singleton" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\VitoriaDerrotaSemObserver.png">
 
-
 ### Motivação no contexto do Tabuleiro -
+
 Com o uso do Observer, há o monitoramento do estado do jogo verificando se há um vencedor através o número de peças de cada time.
 
 ``` java
@@ -134,10 +138,11 @@ public class VitoriaDerrotaObserver implements Observer {
 ```
 
 ### Participantes -
+
 1. **Subject:** Tabuleiro -> ele é o objeto observado e notifica os observadores sobre mudanças no estado do jogo;
 2. **Observer:** VioriaDerrotaObserver -> define a interface para ser notificado sobre eventos no SUBJECT (*Tabuleiro*);
 3. **ConcreteObserver:** VitoriaDerrotaObserver -> implementa o observer e reage as notificações do *Tabuleiro*. Ele declara o vencedor quando notificado pelo Tabuleiro, por exemplo.
 
 ### UML com o Observer -
-<img alt="Motivação com Singleton" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\estruturaVitoriaDerrotaObserver.png">
 
+<img alt="Motivação com Singleton" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\estruturaVitoriaDerrotaObserver.png">

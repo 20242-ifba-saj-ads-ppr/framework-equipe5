@@ -1,106 +1,176 @@
 # Singleton
 
 ### Intenção -
-garantir que uma classe possua apenas uma isntância e provê um ponto de acesso global a ela.
+
+Garantir que uma classe possua apenas uma instância e provê um ponto de acesso global a ela.
 
 ### Motivação sem o Padrão -
-sem a aplicação do padrão, seria necessária a criação de várias instâncias do Tabuleiro causando duplicidade e falta de controle já que haveria múltiplos tabuleiros criados sendo possível a criação de vários jogos sem a centralização desses.
 
-``` java 
-package br.com.frameworkPpr.xadrez.board;
+Sem a aplicação do padrão, seria possível a criação de várias instâncias da sessão do jogo causando duplicidade e falta de controle já que haveria múltiplos jogos criados sem a centralização desses.
 
-public class Tabuleiro {
-    private int[][] estado;
+``` java
+package main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.singleton;
 
-    // Construtor público para permitir múltiplas instâncias
-    public Tabuleiro() {
-        // Inicializa o tabuleiro com o estado inicial
-        estado = new int[8][8];
-        inicializarTabuleiro();
+import main.java.br.com.frameworkPpr.boardgame.game.Jogador;
+import main.java.br.com.frameworkPpr.boardgame.game.Tabuleiro;
+
+/**
+ * Classe GameSession SEM o padrão Singleton.
+ * Permite múltiplas instâncias da sessão do jogo.
+ */
+public class GameSession {
+    private Jogador jogador1;
+    private Jogador jogador2;
+    private Tabuleiro tabuleiro;
+
+    /**
+     * Construtor público, permitindo várias instâncias.
+     * @param jogador1 Jogador 1
+     * @param jogador2 Jogador 2
+     * @param tabuleiro Tabuleiro do jogo
+     */
+    public GameSession(Jogador jogador1, Jogador jogador2, Tabuleiro tabuleiro) {
+        this.jogador1 = jogador1;
+        this.jogador2 = jogador2;
+        this.tabuleiro = tabuleiro;
     }
 
-    private void inicializarTabuleiro() {
-        //preencher com peças
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                estado[i][j] = 0; // 0 representa uma célula vazia
-            }
+    public Jogador getJogador1() {
+        return jogador1;
+    }
+
+    public Jogador getJogador2() {
+        return jogador2;
+    }
+
+    public Tabuleiro getTabuleiro() {
+        return tabuleiro;
+    }
+
+    public void configurarTimes(String... nomesTimes) {
+        for (String nomeTime : nomesTimes) {
+            tabuleiro.registrarTime(nomeTime);
         }
-    }
-
-    public int[][] getEstado() {
-        return estado;
-    }
-
-    public void setEstado(int[][] novoEstado) {
-        this.estado = novoEstado;
     }
 }
 ```
 
-### UML sem singleton:
-<img alt="Motivação sem Singleton" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\motivacao_sem_singleton.png">
+### UML sem singleton
 
-### Motivação no contexto do Tabuleiro -
-unicidade do tabuleiro já que ele é um recurso central e único, varias instâncias dele causaria inconsistência no estado do jogo. Com o acesso globaç, outras partes do sistema, peças, jogadores, regras... podem interagir de forma consistente. 
+<img alt="Motivação sem Singleton" src="C:\Users\luisp\Documents\GitHub\framework-equipe5\out\DiagramasIMG\GameSessionSemSingleton.png">
+
+### Motivação no contexto do GameSession -
+
+Unicidade da sessão do jogo já que ele é um recurso central e único, varias instâncias dele causaria inconsistência no estado do jogo. Com o acesso global, outras partes do sistema, peças, jogadores, regras... podem interagir de forma consistente.
 
 ``` java
-package main.java.br.com.frameworkPpr.xadrez.board.tabuleiro.singletonEProxySecurity;
-import java.util.HashMap;
-import java.util.Map;
-import main.java.br.com.frameworkPpr.GerenciadorVitoriaDerrota.VitoriaDerrotaObserver;
-import main.java.br.com.frameworkPpr.GerenciadorVitoriaDerrota.VitoriaException;
-import main.java.br.com.frameworkPpr.xadrez.board.Casa;
-import main.java.br.com.frameworkPpr.xadrez.board.Posicao;
-import main.java.br.com.frameworkPpr.xadrez.multiton.time.Time;
-import main.java.br.com.frameworkPpr.xadrez.pieces.Peca;
+package main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.singleton;
+
+import main.java.br.com.frameworkPpr.boardgame.game.Jogador;
+import main.java.br.com.frameworkPpr.boardgame.game.Tabuleiro;
 
 /**
- * A classe Tabuleiro é um exemplo da aplicação do padrão de projeto Singleton. Ele é aplicado para instanciar o jogo de tabuleiro.
- * Isso garante que haja apenas uma instância do jogo de tabuleiro em toda a aplicação.
- * Nessa casse terá apenas a lógica de negócio do tabuleiro, ou seja, o que pode ser feito no tabuleiro.
+ * Classe Singleton responsável por gerenciar a sessão do jogo.
+ * Garante que apenas uma instância de GameSession exista durante a execução.
  */
-public class Tabuleiro {
-    private Map<Posicao, Casa> casas;
-    private Map<Time, Integer> pecasPorTime;
-    private VitoriaDerrotaObserver vitoriaDerrotaObserver;
-    private static Tabuleiro instance;
-    // Instancia do TabuleiroProxySecurity(Singleton) para validações de jogo
-    private static TabuleiroProxySecurity proxySecurityInstance;
+public class GameSession {
+    // Jogador 1 da sessão
+    private Jogador jogador1;
+    // Jogador 2 da sessão
+    private Jogador jogador2;
+    // Tabuleiro associado à sessão
+    private Tabuleiro tabuleiro;
+    // Instância única da sessão (Singleton)
+    private static GameSession instance;
 
-    private Tabuleiro() {
-        setProxySecurityInstance(TabuleiroProxySecurity.getInstance());
-        setCasas(new HashMap<>());
-        setPecasPorTime(new HashMap<>());
-        getPecasPorTime().put(Time.BRANCO, 0);
-        getPecasPorTime().put(Time.PRETO, 0);
-        setVitoriaDerrotaObserver(new VitoriaDerrotaObserver(this));
+    /**
+     * Construtor privado para impedir instanciação externa.
+     * @param jogador1 Jogador 1
+     * @param jogador2 Jogador 2
+     * @param tabuleiro Tabuleiro do jogo
+     */
+    private GameSession(Jogador jogador1, Jogador jogador2, Tabuleiro tabuleiro) {
+        this.jogador1 = jogador1;
+        this.jogador2 = jogador2;
+        this.tabuleiro = tabuleiro;
     }
 
-    public static Tabuleiro getInstance() { 
-        synchronized (Tabuleiro.class){
-            if (instance == null) {
-                instance = new Tabuleiro();
-            }
+    /**
+     * Obtém a instância única de GameSession, criando-a se necessário.
+     * @param jogador1 Jogador 1
+     * @param jogador2 Jogador 2
+     * @param tabuleiro Tabuleiro do jogo
+     * @return Instância única de GameSession
+     */
+    public static synchronized GameSession getInstance(Jogador jogador1, Jogador jogador2, Tabuleiro tabuleiro) {
+        if (instance == null) {
+            instance = new GameSession(jogador1, jogador2, tabuleiro);
         }
         return instance;
     }
-    //... continua no script Tabuleiro.java
+
+    /**
+     * Obtém a instância única de GameSession já criada.
+     * @return Instância única de GameSession
+     * @throws IllegalStateException se a sessão ainda não foi inicializada
+     */
+    public static synchronized GameSession getInstance() {
+        if (instance == null) {
+            throw new IllegalStateException("GameSession ainda não foi inicializada.");
+        }
+        return instance;
+    }
+
+    /**
+     * Retorna o Jogador 1 da sessão.
+     * @return Jogador 1
+     */
+    public Jogador getJogador1() {
+        return jogador1;
+    }
+
+    /**
+     * Retorna o Jogador 2 da sessão.
+     * @return Jogador 2
+     */
+    public Jogador getJogador2() {
+        return jogador2;
+    }
+
+    /**
+     * Retorna o tabuleiro da sessão.
+     * @return Tabuleiro
+     */
+    public Tabuleiro getTabuleiro() {
+        return tabuleiro;
+    }
+
+    /**
+     * Configura os times no tabuleiro a partir dos nomes fornecidos.
+     * @param nomesTimes Lista de nomes dos times
+     */
+    public void configurarTimes(String... nomesTimes) {
+        for (String nomeTime : nomesTimes) {
+            tabuleiro.registrarTime(nomeTime);
+        }
+    }
+
+    /**
+     * Reseta a instância da sessão, permitindo nova inicialização.
+     */
+    public static synchronized void reset() {
+        instance = null;
+    }
 }
 ```
 
 ### Participantes -
-1.  **Singelton:**
-    representado pela classe **tabuleiro** através de uma construtor privado, um método estático getInstance() que retorna a instância única dessa classe.
+
+1. **Singleton:**
+    Representado pela classe **GameSession** através de uma construtor privado, um método estático getInstance() que retorna a instância única dessa classe.
 2. **Client:**
-   são as **peças**, **jogadores**, **regras do jogo**.
+    Classes que utilizam a instância única da sessão do jogo para acessar ou modificar seu estado. Exemplos de clients incluem as classes que representam os **jogadores**, **regras do jogo** e qualquer outro componente que precise interagir com a sessão centralizada do jogo. Esses clients acessam a instância de `GameSession` por meio do método estático `getInstance()`.
 
+### UML com singleton
 
-### UML com singleton:
-<img alt="Motivação com Singleton" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\motivacao_com_singleton.png">
-
-
-
-
-
-
+<img alt="Motivação com Singleton" src="C:\Users\luisp\Documents\GitHub\framework-equipe5\out\DiagramasIMG\GameSession.png">
