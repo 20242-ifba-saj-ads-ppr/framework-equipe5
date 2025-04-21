@@ -81,10 +81,6 @@ public class Tabuleiro {
         getProxySecurityInstance().moverPeca(origem, destino, getCasas());
 
         Casa casaDestino = getCasas().get(destino);
-        
-        if (casaDestino.estaOcupada()) {
-            throw new IllegalStateException("A posição de destino já está ocupada!");
-        }
         getProxySecurityInstance().moverPeca(origem, destino, getCasas());
         
         Casa casaOrigem = getCasas().get(origem);

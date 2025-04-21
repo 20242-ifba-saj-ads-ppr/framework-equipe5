@@ -96,6 +96,9 @@ class TabuleiroProxySecurity implements TabuleiroInterface {
         if (!casas.get(origem).estaOcupada()) {
             throw new IllegalArgumentException("Não há peça na posição de origem: " + origem);
         }
+        if (casas.get(destino).estaOcupada()) {
+            throw new IllegalStateException("A posição de destino já está ocupada!");
+        }
     }
 
     // Método que irá Validará posiveis casos esperados ao remover uma peça
