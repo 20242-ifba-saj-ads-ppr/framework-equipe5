@@ -15,7 +15,6 @@ public class Tabuleiro {
     private Map<Posicao, Casa> casas;
     private Map<Time, Integer> pecasPorTime;
     private VitoriaDerrotaObserver vitoriaDerrotaObserver;
-    private static Tabuleiro instance;
     private static TabuleiroProxySecurity proxySecurityInstance;
     private List<Observer> observadores = new ArrayList<>();
 
@@ -24,15 +23,6 @@ public class Tabuleiro {
         setCasas(new HashMap<>());
         setPecasPorTime(new HashMap<>());
         setVitoriaDerrotaObserver(new VitoriaDerrotaObserver(this));
-    }
-
-    public static Tabuleiro getInstance() {
-        synchronized (Tabuleiro.class){
-            if (instance == null) {
-                instance = new Tabuleiro();
-            }
-        }
-        return instance;
     }
 
     public void inicializarCasas (int linhas, int colunas){
