@@ -1,7 +1,5 @@
 package main.java.br.com.frameworkPpr.boardgame.game;
 
-import main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.factory.Peca;
-
 /**
  * Classe que representa uma casa no tabuleiro de xadrez.
  * Cada casa possui uma posição e pode conter uma peça.

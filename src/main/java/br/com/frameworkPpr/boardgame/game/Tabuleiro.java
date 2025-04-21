@@ -8,7 +8,6 @@ import java.util.Map;
 import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.observer.Observer;
 import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.observer.VitoriaDerrotaObserver;
 import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.observer.exceptions.VitoriaException;
-import main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.factory.Peca;
 import main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.multiton.Time;
 import main.java.br.com.frameworkPpr.boardgame.padroes.estruturais.proxy.TabuleiroProxySecurity;
 

@@ -2,8 +2,8 @@ package main.java.br.com.frameworkPpr.boardgame.padroes.estruturais.decorator;
 
 import java.util.List;
 
+import main.java.br.com.frameworkPpr.boardgame.game.Peca;
 import main.java.br.com.frameworkPpr.boardgame.game.Posicao;
-import main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.factory.Peca;
 import main.java.br.com.frameworkPpr.boardgame.game.Tabuleiro;
 
 public class PecaPromovidaDecorator extends PecaDecorator {

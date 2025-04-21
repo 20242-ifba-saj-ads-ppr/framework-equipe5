@@ -2,8 +2,6 @@ package main.java.br.com.frameworkPpr.boardgame.game;
 
 import java.util.Map;
 
-import main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.factory.Peca;
-
 
 
 public interface TabuleiroInterface {

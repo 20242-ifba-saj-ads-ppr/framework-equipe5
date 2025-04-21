@@ -1,11 +1,9 @@
-package main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.factory;
+package main.java.br.com.frameworkPpr.boardgame.game;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import main.java.br.com.frameworkPpr.boardgame.game.Posicao;
-import main.java.br.com.frameworkPpr.boardgame.game.Tabuleiro;
 import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.observer.Observer;
 import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.strategy.MovimentoStrategy;
 import main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.multiton.Time;

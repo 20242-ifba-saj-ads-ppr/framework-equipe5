@@ -2,6 +2,7 @@ package main.java.br.com.frameworkPpr.boardgame.padroes.estruturais.proxy;
 
 import java.util.Map;
 import main.java.br.com.frameworkPpr.boardgame.game.Casa;
+import main.java.br.com.frameworkPpr.boardgame.game.Peca;
 import main.java.br.com.frameworkPpr.boardgame.game.Posicao;
 import main.java.br.com.frameworkPpr.boardgame.game.TabuleiroInterface;
 import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.State.ContextoJogo;

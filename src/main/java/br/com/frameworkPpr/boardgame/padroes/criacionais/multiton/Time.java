@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.factory.Peca;
+import main.java.br.com.frameworkPpr.boardgame.game.Peca;
 
 /**
  * Enum representa as duas equipes do jogo de tabuleiro.

@@ -3,9 +3,9 @@ package main.java.br.com.jogo.selva.pecas;
 import java.util.List;
 import java.util.Map;
 
+import main.java.br.com.frameworkPpr.boardgame.game.Peca;
 import main.java.br.com.frameworkPpr.boardgame.game.Posicao;
 import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.strategy.MovimentoStrategy;
-import main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.factory.Peca;
 import main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.multiton.Time;
 import main.java.br.com.frameworkPpr.boardgame.game.Tabuleiro;
 
@@ -17,6 +17,10 @@ public class Leão extends Peca {
     
     public Leão(String tipo, MovimentoStrategy movimentoStrategy) {
         super(tipo, null, movimentoStrategy, null);
+    }
+
+    public Leão(String tipo, Time time, MovimentoStrategy movimentoStrategy, Map<String, Object> caracteristicas) {
+        super(tipo, time, movimentoStrategy, caracteristicas);
     }
 
     @Override
