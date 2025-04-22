@@ -1,7 +1,6 @@
-package main.java.br.com.jogo.selva.pecas;
+package main.java.br.com.jogo.selva.pecas.Pecas;
 
 import java.util.Map;
-
 import main.java.br.com.frameworkPpr.boardgame.game.Peca;
 import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.strategy.MovimentoStrategy;
 import main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.factory.PecaFactory;

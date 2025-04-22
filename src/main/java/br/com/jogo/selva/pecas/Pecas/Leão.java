@@ -1,4 +1,4 @@
-package main.java.br.com.jogo.selva.pecas;
+package main.java.br.com.jogo.selva.pecas.Pecas;
 
 import java.util.List;
 import java.util.Map;
@@ -9,17 +9,17 @@ import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.strategy.
 import main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.multiton.Time;
 import main.java.br.com.frameworkPpr.boardgame.game.Tabuleiro;
 
-public class Raposa extends Peca{
+public class Leão extends Peca {
 
-    public Raposa() {
+    public Leão() {
         super();
     }
-
-    public Raposa(String tipo, MovimentoStrategy movimentoStrategy) {
+    
+    public Leão(String tipo, MovimentoStrategy movimentoStrategy) {
         super(tipo, null, movimentoStrategy, null);
     }
 
-    public Raposa(String tipo, Time time, MovimentoStrategy movimentoStrategy, Map<String, Object> caracteristicas) {
+    public Leão(String tipo, Time time, MovimentoStrategy movimentoStrategy, Map<String, Object> caracteristicas) {
         super(tipo, time, movimentoStrategy, caracteristicas);
     }
 
@@ -59,13 +59,13 @@ public class Raposa extends Peca{
     }
 
     @Override
-    public String toString() {
-        return super.toString();
+    public void update(String evento) {
+        super.update(evento);
     }
 
     @Override
-    public void update(String evento) {
-        super.update(evento);
+    public String toString() {
+        return super.toString();
     }
     @Override
     public void setTime(Time time2) {
