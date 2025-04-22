@@ -74,3 +74,10 @@ O *Tabuleiro* executa a lógica real de movimentação:
 
 ### UML com o Padrão 
 <img alt="Motivação com Builder" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\TabuleiroComCommand.png">
+
+### Participantes:
+1. Command: interface Command;
+2. ConcreteCommand: classe MovePieceCommand;
+3. Receiver: classe Tabuleiro;
+4. Invoker: 
+5. Client: 
