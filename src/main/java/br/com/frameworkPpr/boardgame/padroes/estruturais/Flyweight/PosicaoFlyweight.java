@@ -1,4 +1,4 @@
-package main.java.br.com.frameworkPpr.boardgame.padroes.estruturais.Flyweight;
+package main.java.br.com.frameworkPpr.boardgame.padroes.estruturais.flyweight;
 
 public class PosicaoFlyweight {
     private final int linha;

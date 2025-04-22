@@ -1,6 +1,0 @@
-@startuml
-interface CasaFlyweight {
-    + String getCor()
-    + int getNumero()
-}
-@enduml

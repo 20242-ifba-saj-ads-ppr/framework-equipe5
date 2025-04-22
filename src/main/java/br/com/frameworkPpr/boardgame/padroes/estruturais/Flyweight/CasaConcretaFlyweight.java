@@ -1,4 +1,4 @@
-package main.java.br.com.frameworkPpr.boardgame.padroes.estruturais.Flyweight;
+package main.java.br.com.frameworkPpr.boardgame.padroes.estruturais.flyweight;
 
 public class CasaConcretaFlyweight implements CasaFlyweight {
     private final String cor;
@@ -17,6 +17,12 @@ public class CasaConcretaFlyweight implements CasaFlyweight {
     @Override
     public int getNumero() {
         return numero;
+    }
+
+    @Override
+    public boolean estaOcupada() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'estaOcupada'");
     }
     
 }

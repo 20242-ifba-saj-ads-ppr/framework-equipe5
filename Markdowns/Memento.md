@@ -1,10 +1,15 @@
 # Memento
-### Intenção 
+
+### Intenção
+
 sem violar o encapsulamento, captura e externaliza o estado interno de um objeto, assim, depois ele pode ser restaurado para esse estado.
 
 ### Motivação sem o Padrão
+
 Sem o uso do padrão, para implementar ações de desfazer ou refazer seria necessário manipular diretamente o estado interno do *Tabuleiro* levando a quebra do encapsulamento já que outras classes precisariam acessar e modiicar os atributos internos de *Tabuleiro*.
-### exemplo de como ficaria a manipulação direta:
+
+### Exemplo de como ficaria a manipulação direta
+
 ``` java
 //lista para armazenar snapshots manuais do estado
 List<Map<Posicao, Casa>> historicoCasas = new ArrayList<>();
@@ -21,21 +26,16 @@ if (!historicoCasas.isEmpty()) {
 ```
 
 ### UML sem o padrão
-<img alt="Motivação com Observer" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\TabuleiroSemMemento.png">
+
+<img alt="Motivação com Observer"src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\TabuleiroSemMemento.png">
 
 ### Motivação com o Padrão
+
 Com a aplicação do Memento, o estado do *Tabuleiro* antes de cada jogada é salvo, dessa maneira, o jogador poderá desfazer ou refazer uma jogada. Ele poderá fazer isso facilmente pois outras partes do código não precisarão conhecer a estrutura interna do tabuleiro.
 
-### A classe *TabuleiroMemento* armazena snapshots do estado do tabuleiro.
+### A classe *TabuleiroMemento* armazena snapshots do estado do tabuleiro
+
 ``` java
-package main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.memento;
-
-import java.util.Map;
-
-import main.java.br.com.frameworkPpr.boardgame.game.Casa;
-import main.java.br.com.frameworkPpr.boardgame.game.Posicao;
-import main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.multiton.Time;
-
 public class TabuleiroMemento {
     private final Map<Posicao, Casa> casasSnapshot;
     private final Map<Time, Integer> pecasPorTimeSnapshot;
@@ -56,6 +56,7 @@ public class TabuleiroMemento {
 ```
 
 ### Tabuleiro cria e restaura mementos
+
 ``` java
     public TabuleiroMemento criarMemento()
     {
@@ -70,6 +71,7 @@ public class TabuleiroMemento {
 ```
 
 ### O *HistoricoTabuleiro* armazena e gerencia os mementos
+
 ``` java
 package main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.memento;
 
@@ -116,10 +118,12 @@ public class HistoricoTabuleiro {
 }
 ```
 
-### Participantes 
+### Participantes
+
 1. Memento: TabuleiroMemento -> armazena o estaod interno do *Tabueleiro* para que possa ser posteriormente restaurado;
 2. Originator: Tabuleiro -> cria um *TabueliroMemento* com seu estado atual e pode restaurar seu estado a partir de um memento.
 3. Caretaker: HistoricoTabuleiro -> gerencia os mementos criados pelo Tabuleiro para desfazer/refazer;
 
-### UML com memento:
-<img alt="Motivação com Observer" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\TabuleiroMemento.png">
+### UML com memento
+
+<img alt="Motivação com Observer"src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\TabuleiroMemento.png">

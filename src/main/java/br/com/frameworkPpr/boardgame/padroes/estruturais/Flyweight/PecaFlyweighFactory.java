@@ -1,4 +1,4 @@
-package main.java.br.com.frameworkPpr.boardgame.padroes.estruturais.Flyweight;
+package main.java.br.com.frameworkPpr.boardgame.padroes.estruturais.flyweight;
 
 import java.sql.Time;
 import java.util.HashMap;

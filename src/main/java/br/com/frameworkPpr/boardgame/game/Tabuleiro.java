@@ -30,7 +30,7 @@ public class Tabuleiro {
     public void inicializarCasas (int linhas, int colunas){
         getProxySecurityInstance().inicializarCasas(linhas, colunas);
         for (int linha = 0; linha < linhas; linha++) {
-            for (int coluna = 0; colunas < colunas; coluna++) {
+            for (int coluna = 0; coluna < colunas; coluna++) {
                 Posicao posicao = new Posicao(linha, coluna);
                 getCasas().put(posicao, new Casa(posicao));
             }
