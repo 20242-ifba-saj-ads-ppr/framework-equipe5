@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+
 import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.memento.TabuleiroMemento;
 import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.observer.Observer;
 import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.observer.VitoriaDerrotaObserver;
@@ -13,12 +15,12 @@ import main.java.br.com.frameworkPpr.boardgame.padroes.estruturais.proxy.Tabulei
 
 public class Tabuleiro {
     private Map<Posicao, Casa> casas;
-    private Map<Time, Integer> pecasPorTime;
+    private Map<Time, Integer> pecasPorTime;//@Nathy-Brito não sei se vai ser mais util 
     private VitoriaDerrotaObserver vitoriaDerrotaObserver;
     private static TabuleiroProxySecurity proxySecurityInstance;
     private List<Observer> observadores = new ArrayList<>();
 
-    private Tabuleiro() {
+    public Tabuleiro() {
         setProxySecurityInstance(TabuleiroProxySecurity.getInstance());
         setCasas(new HashMap<>());
         setPecasPorTime(new HashMap<>());
@@ -36,19 +38,15 @@ public class Tabuleiro {
     }
 
     public void registrarTime(String nomeTime) {
-        Time time = Time.getInstance(nomeTime);
-        pecasPorTime.putIfAbsent(time, 0);
+        Time time = Time.getInstance(nomeTime);// @Nathy-Brito Aqui tu ja ta registrando o time 
+        pecasPorTime.putIfAbsent(time, 0);// @Nathy-Brito como isso ja é do multiton quando registrado,
+        // não sei se é mais necessario 
     }
 
     public void colocarPeca(Peca peca, Posicao posicao) {
         getProxySecurityInstance().colocarPeca(peca, posicao, getCasas());
         getCasas().get(posicao).setPeca(peca);
-        getPecasPorTime()
-            .put(getCasas()
-            .get(posicao).getPeca().getTime(), 
-            getPecasPorTime()
-            .getOrDefault(getCasas().get(posicao)
-            .getPeca().getTime(), 0) + 1);
+        Time.getInstance(peca.getTime().toString()).adicionarPecasAoTime(peca);
         adicionarObservador(peca);
         notificarObservadores("Peça adicionada na posição: " + posicao);
     }
@@ -68,10 +66,16 @@ public class Tabuleiro {
         if(getVitoriaDerrotaObserver().verificarVencedor() != null){
            throw new VitoriaException("O jogo já acabou, não é possível remover peças. Já temos um vencedor: " + getVitoriaDerrotaObserver().verificarVencedor().toString());
         }
-        getPecasPorTime()
-            .put(getCasas().get(posicao).getPeca().getTime(),
-            getPecasPorTime()
-            .getOrDefault(getCasas().get(posicao).getPeca().getTime(), 0) - 1);
+        Time.getInstance(// Recuperar a instancia do time 
+                getCasas()// Na casa
+                .get(posicao)// Da Posição 
+                .getPeca()// Pega a peça
+                .getTime()// Dessa peça eu pego o time
+                .toString()) // Mas como é string, pego a string
+            .removerPecaDoTime(// Chamo o metodo RemoverPecaDoTime do mutiton
+                getCasas()// Na casa
+                .get(posicao)// Da Posição
+                .getPeca());// Pega a peça isso por si só ja remove a peça do time e decrementa a quantidade de peças
         getCasas()
             .get(posicao)
             .setPeca(null);
@@ -90,7 +94,7 @@ public class Tabuleiro {
             throw new VitoriaException("O jogo já acabou, não é possível desistir.");
         }
         Time vencedor = getPecasPorTime().keySet().stream()
-        .filter(time -> !time.equals(timeDesistente))
+        .filter(time -> !Objects.equals(time,timeDesistente))
         .findFirst()
         .orElseThrow(() -> new IllegalStateException("Nenhum time restante para declarar como vencedor."));
         System.out.println("O time " + vencedor.toString() + " venceu por desistência do time " + timeDesistente.toString());

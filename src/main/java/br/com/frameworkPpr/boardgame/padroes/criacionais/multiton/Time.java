@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import main.java.br.com.frameworkPpr.boardgame.game.Peca;
 
@@ -15,7 +16,7 @@ import main.java.br.com.frameworkPpr.boardgame.game.Peca;
 
 public class Time {
     private static final Map<String, Time> times = new HashMap<>();
-    private final String nome;
+    private String nome;
     private List<Peca> pecas = new ArrayList<>();
 
     private Time(String nome) {
@@ -41,6 +42,11 @@ public class Time {
     // Isso garante que as peças sejam listadas do time correto.
     public List<Peca> getPecasDoTime() {
         return new ArrayList<>(getPecas());
+    }
+
+    // Método que me retorna todas as chaves do Map de Times 
+    public static  Set<String> getChaves(){
+        return times.keySet();
     }
 
     // Método para remover peças do time com base na referencia da instancia
