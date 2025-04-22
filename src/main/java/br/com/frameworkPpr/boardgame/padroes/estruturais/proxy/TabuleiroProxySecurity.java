@@ -8,6 +8,8 @@ import main.java.br.com.frameworkPpr.boardgame.game.TabuleiroInterface;
 import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.state.ContextoJogo;
 import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.state.EstadoIniciado;
 import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.state.EstadoJogo;
+import main.java.br.com.frameworkPpr.boardgame.padroes.estruturais.flyweight.CasaFlyweight;
+import main.java.br.com.frameworkPpr.boardgame.padroes.estruturais.flyweight.PecaFlyweight;
 
 /**
  * A classe TabuleiroProxySecurity é um exemplo da aplicação do padrão de projeto estrutural Proxy.
@@ -70,7 +72,6 @@ public class TabuleiroProxySecurity implements TabuleiroInterface {
     }
 
     // Método que irá Validará posiveis casos esperados ao colocar uma peça
-    @Override
     public void colocarPeca(Peca peca, Posicao posicao, Map<Posicao,Casa> casas) {
         verificarEstadoPermitido();
         if (casas.get(posicao) == null) {
@@ -162,6 +163,12 @@ public class TabuleiroProxySecurity implements TabuleiroInterface {
 
     private static void setProxyInstance(TabuleiroProxySecurity proxyInstance) {
         TabuleiroProxySecurity.proxyInstance = proxyInstance;
+    }
+
+    @Override
+    public void colocarPeca(PecaFlyweight peca, Posicao posicao, Map<Posicao, CasaFlyweight> casasFlyweight) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'colocarPeca'");
     }
 }
 
