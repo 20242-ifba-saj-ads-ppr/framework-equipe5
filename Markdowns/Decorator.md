@@ -17,7 +17,7 @@ public class PeaoPromovidoRainha extends Peao {
 
 ### UML sem Decorator -
 
-<img alt="Estrutura sem Decorator"src="C:\Users\luisp\Documents\GitHub\framework-equipe5\out\DiagramasIMG\PecaSemDecorator.png">
+![out/DiagramasIMG/PecaSemDecorator.png](../out/DiagramasIMG/PecaSemDecorator.png)
 
 ### Motivação no contexto do tabuleiro
 
@@ -64,7 +64,8 @@ Peca peaoPromovido = new PecaPromovidaDecorator(peao); // Adiciona comportamento
 
 ### UML com Decorator
 
-<img alt="Estrutura Decorator"src="C:\Users\luisp\Documents\GitHub\framework-equipe5\out\DiagramasIMG\PecaDecorator.png">
+![out/DiagramasIMG/PecaDecorator.png](../out/DiagramasIMG/PecaDecorator.png)
+
 
 Com o Decorator, é possível estender funcionalidades das peças de forma flexível e dinâmica, sem criar uma explosão de subclasses.
 
