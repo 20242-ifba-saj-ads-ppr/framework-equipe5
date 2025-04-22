@@ -1,9 +1,9 @@
 package main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.observer;
 
-import main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.multiton.Time;
 import main.java.br.com.frameworkPpr.boardgame.game.Tabuleiro;
+import main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.multiton.Time;
 
-public class VitoriaDerrotaObserver implements CondicaoDeVitoria{
+public class VitoriaDerrotaObserver implements Observer, CondicaoDeVitoria{
     private Tabuleiro tabuleiro;
 
     public VitoriaDerrotaObserver(Tabuleiro tabuleiro) {
@@ -30,5 +30,13 @@ public class VitoriaDerrotaObserver implements CondicaoDeVitoria{
 
     public void setTabuleiro(Tabuleiro tabuleiro) {
         this.tabuleiro = tabuleiro;
+    }
+
+    @Override
+    public void update(String evento) {
+        Time vencedor = verificarVencedor();
+        if (vencedor != null) {
+            notificarVencedor(vencedor);
+        }
     }
 }

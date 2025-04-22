@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.observer.Observer;
 import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.observer.VitoriaDerrotaObserver;
 import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.observer.exceptions.VitoriaException;
@@ -60,7 +59,7 @@ public class Tabuleiro {
         Peca pecaMovida = casaOrigem.getPeca();
         casaDestino.setPeca(pecaMovida);
         casaOrigem.setPeca(null);
-        notificarObservadores("peça movida: " + origem + " para " + destino);
+        notificarObservadores("peça movida: " + origem.getLinha() + "," + origem.getColuna() + " para " + destino.getLinha() + "," + destino.getColuna());
     }
 
     public void removerPeca(Posicao posicao) throws VitoriaException {

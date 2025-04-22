@@ -1,20 +1,23 @@
 @startuml
-skinparam linetype ortho
-
-!include ./src/main/java/br/com/frameworkPpr/xadrez/multiton/time/puml/estruturaTime.puml
 class Tabuleiro {
-    - Peca[][] pecas
-    - int pecasBrancas
-    - int pecasPretas
-    + removerPeca(int x, int y)
+    -pecas: Peca[][]
+    -pecasBrancas: int
+    -pecasPretas: int
+    +removerPeca(x: int, y: int)
 }
 
 class Peca {
-    - String nome
-    - Time time
-    + getTime(): Time
+    +getTime(): String
 }
 
-Time --* Peca
-Tabuleiro --> Peca : gerencia diretamente
+Tabuleiro --> "muitos" Peca : contém
+
+' O Tabuleiro faz a verificação de vitória diretamente
+note right of Tabuleiro
+Verifica vitória/derrota
+e imprime resultado
+diretamente na lógica
+do Tabuleiro.
+end note
+
 @enduml

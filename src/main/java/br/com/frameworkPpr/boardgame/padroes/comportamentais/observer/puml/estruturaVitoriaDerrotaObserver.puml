@@ -1,27 +1,41 @@
 @startuml
-skinparam linetype ortho
-
 interface Observer {
-    + atualizar(String evento)
+    +update(evento: String)
+}
+
+interface CondicaoDeVitoria {
+    +verificarVencedor(): Time
 }
 
 class Tabuleiro {
-    - List<Observer> observadores
-    - Peca[][] pecas
-    - int pecasBrancas
-    - int pecasPretas
-    + adicionarObservador(Observer observador)
-    + removerObservador(Observer observador)
-    + notificarObservadores(String evento)
-    + removerPeca(int x, int y)
+    -observadores: List<Observer>
+    +adicionarObservador(o: Observer)
+    +removerObservador(o: Observer)
+    +notificarObservadores(evento: String)
+    +moverPeca(origem: Posicao, destino: Posicao)
+    +removerPeca(posicao: Posicao)
+    +colocarPeca(peca: Peca, posicao: Posicao)
 }
 
 class VitoriaDerrotaObserver {
-    - Tabuleiro tabuleiro
-    + VitoriaDerrotaObserver(Tabuleiro tabuleiro)
-    + void atualizar(String evento)
+    -tabuleiro: Tabuleiro
+    +verificarVencedor(): Time
+    +update(evento: String)
+    +notificarVencedor(vencedor: Time)
 }
 
-Tabuleiro --> Observer : notifica
-VitoriaDerrotaObserver ..|> Observer
+abstract class Peca {
+    +update(evento: String)
+    +getNome(): String
+    +getTime(): Time
+}
+
+Observer <|.. VitoriaDerrotaObserver
+Observer <|.. Peca
+CondicaoDeVitoria <|.. VitoriaDerrotaObserver
+
+Tabuleiro "1" o-- "*" Observer : observa
+
+VitoriaDerrotaObserver --> Tabuleiro : usa
+
 @enduml

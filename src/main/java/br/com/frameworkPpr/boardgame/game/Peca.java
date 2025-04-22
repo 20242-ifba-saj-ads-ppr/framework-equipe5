@@ -1,9 +1,9 @@
 package main.java.br.com.frameworkPpr.boardgame.game;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.observer.Observer;
 import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.strategy.MovimentoStrategy;
 import main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.multiton.Time;
@@ -13,6 +13,7 @@ public abstract class Peca implements Observer{
     private Time time;
     private Map<String, Object> caracteristicas; 
     protected MovimentoStrategy movimentoStrategy;
+    private List<Observer> observadores = new ArrayList<>();
 
     public Peca() {
         this.caracteristicas = new HashMap<>();
@@ -24,6 +25,14 @@ public abstract class Peca implements Observer{
         this.movimentoStrategy = movimentoStrategy;
         setCaracteristicas(caracteristicas != null ? caracteristicas : new HashMap<>());
     }
+
+    public void adicionarObservadores(Observer o)
+    {
+        observadores.add(o);
+    }
+
+    
+
     public void setTime(Time time2) {
         this.time = time2;
     }
