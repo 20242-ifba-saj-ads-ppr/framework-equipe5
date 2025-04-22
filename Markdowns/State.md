@@ -48,7 +48,7 @@ public class Jogo {
 
 ### UML sem o padrão
 
-<img alt="Motivação sem StatePattern" src="C:\Users\luisp\Documents\GitHub\framework-equipe5\out\DiagramasIMG\semState.png">
+<img alt="Motivação sem StatePattern"src="C:\Users\luisp\Documents\GitHub\framework-equipe5\out\DiagramasIMG\semState.png">
 
 ### Motivação com o Padrão
 
@@ -114,7 +114,7 @@ public interface EstadoJogo {
 
 ### UML com o padrão
 
-<img alt="Motivação com StatePattern" src="C:\Users\luisp\Documents\GitHub\framework-equipe5\out\DiagramasIMG\StatePattern.png">
+<img alt="Motivação com StatePattern"src="C:\Users\luisp\Documents\GitHub\framework-equipe5\out\DiagramasIMG\StatePattern.png">
 
 ### Participantes
 

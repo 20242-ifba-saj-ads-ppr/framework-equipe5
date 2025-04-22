@@ -1,10 +1,10 @@
 # Decorator
 
-### Intenção
+### Intenção -
 
 Permitir adicionar responsabilidades a um objeto de forma dinâmica, fornecendo uma alternativa flexível à subclasse para estender funcionalidades.
 
-### Motivação sem o padrão
+### Motivação sem o padrão -
 
 Sem o padrão Decorator, para adicionar novos comportamentos a uma peça (por exemplo, promover um peão), seria necessário criar subclasses específicas para cada combinação de comportamentos, aumentando a complexidade e dificultando a manutenção.
 
@@ -15,9 +15,9 @@ public class PeaoPromovidoRainha extends Peao {
 }
 ```
 
-### UML sem Decorator
+### UML sem Decorator -
 
-<img alt="Estrutura sem Decorator" src="C:\Users\luisp\Documents\GitHub\framework-equipe5\out\DiagramasIMG\PecaSemDecorator.png">
+<img alt="Estrutura sem Decorator"src="C:\Users\luisp\Documents\GitHub\framework-equipe5\out\DiagramasIMG\PecaSemDecorator.png">
 
 ### Motivação no contexto do tabuleiro
 
@@ -64,7 +64,7 @@ Peca peaoPromovido = new PecaPromovidaDecorator(peao); // Adiciona comportamento
 
 ### UML com Decorator
 
-<img alt="Estrutura Decorator" src="C:\Users\luisp\Documents\GitHub\framework-equipe5\out\DiagramasIMG\PecaDecorator.png">
+<img alt="Estrutura Decorator"src="C:\Users\luisp\Documents\GitHub\framework-equipe5\out\DiagramasIMG\PecaDecorator.png">
 
 Com o Decorator, é possível estender funcionalidades das peças de forma flexível e dinâmica, sem criar uma explosão de subclasses.
 

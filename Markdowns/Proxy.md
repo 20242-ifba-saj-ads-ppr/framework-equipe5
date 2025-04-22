@@ -33,7 +33,7 @@ public class Tabuleiro {
 
 ### UML sem Proxy -
 
-<img alt="Motivação sem Proxy" src="C:\Users\luisp\Documents\GitHub\framework-equipe5\out\DiagramasIMG\TabuleiroSemProxy.png">
+<img alt="Motivação sem Proxy"src="C:\Users\luisp\Documents\GitHub\framework-equipe5\out\DiagramasIMG\TabuleiroSemProxy.png">
 
 ### Motivação no Contexto do tabuleiro -
 
@@ -111,12 +111,12 @@ public class TabuleiroProxySecurity implements TabuleiroInterface {
 
 No projeto, o `Tabuleiro` utiliza o Proxy para todas as operações sensíveis, garantindo que as regras de negócio e validações estejam centralizadas e desacopladas da lógica principal do tabuleiro.
 
+### UML com Proxy -
+
+<img alt="Motivação sem Proxy"src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\TabuleiroComProxy.png">
+
 ### Participantes -
 
 1. **Proxy:** TabuleiroProxySecurity -> atua como intermediário entre o cliente e o objeto real, validando e controlando o acesso ao Tabuleiro. Implementa a interface TabuleiroInterface e é Singleton.
 2. **Objeto real:** Tabuleiro -> contém a lógica principal do jogo, como gerenciar casas, peças e as interações. O *TabuleiroProxySecurity* delega as operações ao *Tabuleiro* após realizar as validações necessárias.
 3. **Cliente:** Peca, VitoriaDerrotaObserver -> e demais classes que interagem com o tabuleiro por meio do proxy.
-
-### UML com Proxy -
-
-<img alt="Motivação sem Proxy" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\TabuleiroComProxy.png">

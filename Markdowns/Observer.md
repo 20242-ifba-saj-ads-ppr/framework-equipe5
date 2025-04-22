@@ -137,12 +137,12 @@ public class VitoriaDerrotaObserver implements Observer {
 }
 ```
 
+### UML com o Observer -
+
+<img alt="Motivação com Singleton"src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\estruturaVitoriaDerrotaObserver.png">
+
 ### Participantes -
 
 1. **Subject:** Tabuleiro -> ele é o objeto observado e notifica os observadores sobre mudanças no estado do jogo;
 2. **Observer:** VioriaDerrotaObserver -> define a interface para ser notificado sobre eventos no SUBJECT (*Tabuleiro*);
 3. **ConcreteObserver:** VitoriaDerrotaObserver -> implementa o observer e reage as notificações do *Tabuleiro*. Ele declara o vencedor quando notificado pelo Tabuleiro, por exemplo.
-
-### UML com o Observer -
-
-<img alt="Motivação com Singleton" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\estruturaVitoriaDerrotaObserver.png">

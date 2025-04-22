@@ -1,6 +1,6 @@
 # Strategy
 
-### Intenção
+### Intenção -
 
 Definir uma família de algoritmos em classes separadas para que seus objetos sejam intercambiáveis.
 
@@ -45,7 +45,7 @@ public class Peca {
 
 ### UML sem o Strategy -
 
-<img alt="Motivação com Singleton" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\estruturaPecaSemStrategy.png">
+<img alt="Motivação com Singleton"src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\estruturaPecaSemStrategy.png">
 
 ### Motivação no contexto do Tabuleiro
 
@@ -85,7 +85,7 @@ public class MovimentoRei implements MovimentoStrategy {
 
 ### UML com Strategy -
 
-<img alt="Motivação com Singleton" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\estruturaPeca.png">
+<img alt="Motivação com Singleton"src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\estruturaPeca.png">
 
 ### Participantes -
 

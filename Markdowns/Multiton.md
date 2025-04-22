@@ -1,6 +1,6 @@
 # Multiton (Não GOF)
 
-### Intenção-
+### Intenção -
 
 Permitir a criação de uma quantidade limitada de instâncias de determinada classe e fornecer um modo para recuperá-las.
 
@@ -55,7 +55,7 @@ gerenciador.adicionarTime("Azul", new Time("Azul")); // Possível adicionar novo
 
 ### UML sem multiton -
 
-<img alt="Motivação sem multiton" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\motivacao_sem_multiton.png">
+<img alt="Motivação sem multiton"src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\motivacao_sem_multiton.png">
 
 ### Motivação no contexto do Tabuleiro -
 
@@ -96,15 +96,13 @@ Time preto = Time.getInstance("Preto");
 Time azul = Time.getInstance("Azul"); // Garantido que "Azul" será único
 ```
 
+### UML com multiton -
+
+<img alt="Motivação com multiton"src="C:\Users\luisp\Documents\GitHub\framework-equipe5\out\DiagramasIMG\motivacao_com_multiton.png">
+
+Com o Multiton, declaramos instâncias únicas para representar os times, que podem ser usadas em diversas funcionalidades do sistema. O acesso é centralizado e consistente, evitando duplicidade e facilitando a manutenção.
+
 ### Participantes -
 
 1. **Multiton:** Classe `Time` -> mantém instâncias únicas para cada nome de time;
 2. **Client:** (Tabuleiro), Peca -> classes que utilizam as instâncias do multiton.
-
-<figcaption>Exemplo de como o jogo pode ser implementado sem o padrão Multiton</figcaption>
-
-### UML com multiton -
-
-<img alt="Motivação com multiton" src="C:\Users\luisp\Documents\GitHub\framework-equipe5\out\DiagramasIMG\motivacao_com_multiton.png">
-
-Com o Multiton, declaramos instâncias únicas para representar os times, que podem ser usadas em diversas funcionalidades do sistema. O acesso é centralizado e consistente, evitando duplicidade e facilitando a manutenção.
