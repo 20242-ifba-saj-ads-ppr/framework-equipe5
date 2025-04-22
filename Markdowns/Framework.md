@@ -1,28 +1,36 @@
 # Framework para construção de tabuleiros
+
 # Padrões Comportamentais
 
-# Command 
+# Command
 
 ### Intenção
-encapsular uma requisão como um objeto, assim pode-se parametrizar clientes com diferentes requisições, enfileirar ou registrar requisições e suportar operações de desfazer/refazer.
+
+Encapsular uma requisição como um objeto, assim pode-se parametrizar clientes com diferentes requisições, enfileirar ou registrar requisições e suportar operações de desfazer/refazer.
 
 ### Motivação sem o Padrão
+
 Sem o uso do padrão, o código do cliente ficaria responsável por saber como executar cada ação, como mover a peça. Isso geraria alto acoplamento pois o cliente teria que conhecer detalhes do tabuleiro e das peças. Haveria dificuldade em desfazer e refazer pois não teria um mecanismo simples para registrar e reverter ações.
 
-### Exemplo sem o command:
+### Exemplo sem o command
+
 ``` java
 // Cliente faz tudo manualmente
 tabuleiro.moverPeca(origem, destino);
 // Para desfazer, teria que saber como reverter:
 tabuleiro.moverPeca(destino, origem);
 ```
+
 ### UML sem o padrão
-<img alt="Motivação com Builder" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\TabuleiroSemCommand.png">
+
+<img alt="Motivação com Builder"src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\TabuleiroSemCommand.png">
 
 ### Motivação com o Padrão
+
 No nosso projeto o Command é aplicadado na manipulação de ações do tabuleiro, como mover peças. Assim o código que solicita a ação não precisa saber vomo ela é executada. A interface Command define os métodos que são implementados pela classe MevePieceCommand.
 
-### Definição da regra para comandos:
+### Definição da regra para comandos
+
 ``` java
 package main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.command;
 
@@ -32,7 +40,8 @@ public interface Command {
 }
 ```
 
-### Encapsulamento da ação de mover uma peça no tabuleiro:
+### Encapsulamento da ação de mover uma peça no tabuleiro
+
 ``` java
 package main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.command;
 
@@ -63,7 +72,8 @@ public class MovePieceCommand implements Command {
 ```
 
 O *Tabuleiro* executa a lógica real de movimentação:
-``` java 
+
+``` java
    public void moverPeca(Posicao origem, Posicao destino) {
         getProxySecurityInstance().moverPeca(origem, destino, getCasas());
         Casa casaDestino = getCasas().get(destino);
@@ -75,23 +85,30 @@ O *Tabuleiro* executa a lógica real de movimentação:
     }
 ```
 
-### UML com o Padrão 
+### UML com o Padrão
+
 <img alt="Motivação com Builder" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\TabuleiroComCommand.png">
 
-### Participantes:
+### Participantes
+
 1. Command: interface Command;
 2. ConcreteCommand: classe MovePieceCommand;
 3. Receiver: classe Tabuleiro;
-4. Invoker: 
-5. Client: 
+4. Invoker:
+5. Client:
 
 # Memento
-### Intenção 
+
+### Intenção
+
 sem violar o encapsulamento, captura e externaliza o estado interno de um objeto, assim, depois ele pode ser restaurado para esse estado.
 
 ### Motivação sem o Padrão
+
 Sem o uso do padrão, para implementar ações de desfazer ou refazer seria necessário manipular diretamente o estado interno do *Tabuleiro* levando a quebra do encapsulamento já que outras classes precisariam acessar e modiicar os atributos internos de *Tabuleiro*.
-### exemplo de como ficaria a manipulação direta:
+
+### exemplo de como ficaria a manipulação direta
+
 ``` java
 //lista para armazenar snapshots manuais do estado
 List<Map<Posicao, Casa>> historicoCasas = new ArrayList<>();
@@ -108,12 +125,15 @@ if (!historicoCasas.isEmpty()) {
 ```
 
 ### UML sem o padrão
+
 <img alt="Motivação com Observer" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\TabuleiroSemMemento.png">
 
 ### Motivação com o Padrão
+
 Com a aplicação do Memento, o estado do *Tabuleiro* antes de cada jogada é salvo, dessa maneira, o jogador poderá desfazer ou refazer uma jogada. Ele poderá fazer isso facilmente pois outras partes do código não precisarão conhecer a estrutura interna do tabuleiro.
 
-### A classe *TabuleiroMemento* armazena snapshots do estado do tabuleiro.
+### A classe *TabuleiroMemento* armazena snapshots do estado do tabuleiro
+
 ``` java
 package main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.memento;
 
@@ -143,6 +163,7 @@ public class TabuleiroMemento {
 ```
 
 ### Tabuleiro cria e restaura mementos
+
 ``` java
     public TabuleiroMemento criarMemento()
     {
@@ -157,6 +178,7 @@ public class TabuleiroMemento {
 ```
 
 ### O *HistoricoTabuleiro* armazena e gerencia os mementos
+
 ``` java
 package main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.memento;
 
@@ -203,14 +225,15 @@ public class HistoricoTabuleiro {
 }
 ```
 
-### Participantes 
+### Participantes
+
 1. Memento: TabuleiroMemento -> armazena o estaod interno do *Tabueleiro* para que possa ser posteriormente restaurado;
 2. Originator: Tabuleiro -> cria um *TabueliroMemento* com seu estado atual e pode restaurar seu estado a partir de um memento.
 3. Caretaker: HistoricoTabuleiro -> gerencia os mementos criados pelo Tabuleiro para desfazer/refazer;
 
-### UML com memento:
-<img alt="Motivação com Observer" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\TabuleiroMemento.png">
+### UML com memento
 
+<img alt="Motivação com Observer" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\TabuleiroMemento.png">
 
 # Observer
 
@@ -290,7 +313,9 @@ Com o uso do Observer, o *Tabuleiro* notifica automaticamente os observadores (*
         }
     }
 ```
+
 #### Peças implementam o Observer
+
 ``` java
     @Override
     public void update(String evento) {
@@ -321,7 +346,8 @@ Com o uso do Observer, o *Tabuleiro* notifica automaticamente os observadores (*
     }
 ```
 
-### *VitoriaDerrotaObserver* implementa a interface Observer e é registrado como observador de *Tabuleiro*.
+### *VitoriaDerrotaObserver* implementa a interface Observer e é registrado como observador de *Tabuleiro*
+
 ``` java
 package main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.observer;
 
@@ -337,7 +363,6 @@ public class VitoriaDerrotaObserver implements Observer, CondicaoDeVitoria{
 
 ### O *VitoriaDerrotaObserver* é acionado à lista de observadores do *Tabuleiro*
 
-
 ### Participantes -
 
 1. **Subject:** Tabuleiro -> ele é o objeto observado, mantém uma lista de observadores e notifica-os sobre mudanças no estado do jogo;
@@ -347,7 +372,6 @@ public class VitoriaDerrotaObserver implements Observer, CondicaoDeVitoria{
 ### UML com o Observer -
 
 <img alt="Motivação com Observer" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\estruturaVitoriaDerrotaObserver.png">
-
 
 # State
 
@@ -474,7 +498,6 @@ public interface EstadoJogo {
 3. **Context:** ContextoJogo -> Classe que mantém uma referência para o estado atual e delega as operações para o estado corrente.
 4. **Client:** Tabuleiro/TabuleiroProxySecurity -> Classes que utilizam o ContextoJogo para controlar o fluxo do jogo, delegando as operações de estado.
 
-
 # Strategy
 
 ### Intenção -
@@ -570,18 +593,20 @@ public class MovimentoRei implements MovimentoStrategy {
 2. **ConcretStrategy:** serão os métodos que implementam a interace MovimentoStrategy que criarão a lógica específica de cada peça;
 3. **Context:** Peca -> contém a referência para um objeto MovimentoStrategy, delega a execução do método *calcularMovimentosPossiveis* para a estratégia associada (ConcretStrategy).
 
-
 # Padrões Criacionais
 
 # Builder
 
 ### Intenção
+
 Separa a construção de um objeto complexo da sua representação, assim o mesmo processo de construção pode criar diferentes representações.
 
 ### Motivação sem o Padrão
+
 Sem o uso do Builder, a construção de um tabuleiro ficaria centralizada em uma única classe, no caso *Tabuleiro*. Isso traria problemas como dificuladades de reutilizar partes da construção e violação do princípio de responsabilidade única, pois o *Tabuleiro* teria que saber tanto como construir quanto como se comportar dificultando a manutenção.
 
-### Exemplo de implementação sem o Builder:
+### Exemplo de implementação sem o Builder
+
 ``` java
 package br.com.frameworkPpr.boardgame.game;
 
@@ -620,12 +645,15 @@ public class Tabuleiro {
 ```
 
 ### UML sem builder
+
 <img alt="Motivação com Builder" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\TabuleiroSemBuilder.png">
 
 ### Motivação com o Padrão
+
 no projeto, o Builder é usado para permitir a construção flexível de diferentes tipos de tabuleiros, separando o processo de construção da representação final do objeto. Isso facilita a criação de tabuleiros personalizados para diferentes jogos.
 
-### A interface *TabuleiroBuilder* define os métodos necessários para construir um tabuleiro:
+### A interface *TabuleiroBuilder* define os métodos necessários para construir um tabuleiro
+
 ``` java
 package main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.builder;
 
@@ -638,7 +666,9 @@ public interface TabuleiroBuilder {
     Tabuleiro getResultado();
 }
 ```
-### O *TabuleiroDirector* orquestra a construção do tabuleiro. Ele chama os métodos do builder na ordem correta para criar o tabuleiro:
+
+### O *TabuleiroDirector* orquestra a construção do tabuleiro. Ele chama os métodos do builder na ordem correta para criar o tabuleiro
+
 ``` java
 package main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.builder;
 
@@ -660,11 +690,11 @@ public class TabuleiroDirector {
 }
 ```
 
-### UML com Builder:
+### UML com Builder
+
 <img alt="Motivação com Builder" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\TabuleiroBuilder.png">
 
-### Participantes:
-
+### Participantes
 
 # Factory
 
@@ -776,7 +806,6 @@ public class Tabuleiro {
 3. **ConcreteFactory:** AnimalFactory (ou outra) -> implementa a lógica de criação específica.
 4. **Client:** Tabuleiro -> classe que utiliza a fábrica para criar objetos.
 
-
 # Multiton (Não GOF)
 
 ### Intenção -
@@ -885,7 +914,6 @@ Com o Multiton, declaramos instâncias únicas para representar os times, que po
 
 1. **Multiton:** Classe `Time` -> mantém instâncias únicas para cada nome de time;
 2. **Client:** (Tabuleiro), Peca -> classes que utilizam as instâncias do multiton.
-
 
 # Singleton
 
@@ -1065,6 +1093,7 @@ public class GameSession {
     Classes que utilizam a instância única da sessão do jogo para acessar ou modificar seu estado. Exemplos de clients incluem as classes que representam os **jogadores**, **regras do jogo** e qualquer outro componente que precise interagir com a sessão centralizada do jogo. Esses clients acessam a instância de `GameSession` por meio do método estático `getInstance()`.
 
 # Padrões Estruturais
+
 # Decorator
 
 ### Intenção -
@@ -1141,7 +1170,6 @@ Com o Decorator, é possível estender funcionalidades das peças de forma flex�
 2. **Decorator:** `PecaDecorator` — implementa a interface de `Peca` e mantém uma referência para um objeto `Peca`.
 3. **ConcreteDecorator:** `PecaPromovidaDecorator` — adiciona responsabilidades ao componente.
 4. **Cliente:** Código que utiliza as peças decoradas.
-
 
 # Proxy
 
