@@ -14,7 +14,8 @@ tabuleiro.moverPeca(origem, destino);
 tabuleiro.moverPeca(destino, origem);
 ```
 ### UML sem o padrão
-<img alt="Motivação com Builder" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\TabuleiroSemCommand.png">
+
+![out/DiagramasIMG/TabuleiroSemCommand.png](../out/DiagramasIMG/TabuleiroSemCommand.png)
 
 ### Motivação com o Padrão
 No nosso projeto o Command é aplicadado na manipulação de ações do tabuleiro, como mover peças. Assim o código que solicita a ação não precisa saber vomo ela é executada. A interface Command define os métodos que são implementados pela classe MevePieceCommand.
@@ -72,12 +73,20 @@ O *Tabuleiro* executa a lógica real de movimentação:
     }
 ```
 
-### UML com o Padrão 
-<img alt="Motivação com Builder" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\TabuleiroComCommand.png">
+### UML com o Command 
+
+![out/DiagramasIMG/TabuleiroComCommand.png](../out/DiagramasIMG/TabuleiroComCommand.png)
 
 ### Participantes:
-1. Command: interface Command;
-2. ConcreteCommand: classe MovePieceCommand;
-3. Receiver: classe Tabuleiro;
+1. Command (interface Command):
+   - declara uma interface para a execução de uma operação.   
+2. ConcreteCommand (classe MovePieceCommand)
+   - define uma vinculação entre um objeto Receiver e uma ação;
+   - implementa  Execute() e undo()  através  da  invocação  da(s)  correspondente(s)
+operação(ões) no Receiver.
+3. Receiver (classe Tabuleiro):
+   - cria um objeto ConcreteCommand e estabelece o seu receptor.
 4. Invoker: 
-5. Client: 
+5. Client (Tauleiro Selva): 
+    - sabe como executar as operações associadas a uma solicitação. Qualquer
+classe pode funcionar como um Receiver.
