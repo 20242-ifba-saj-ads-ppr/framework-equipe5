@@ -90,11 +90,6 @@ public class TabuleiroDirector {
 
 ![out/DiagramasIMG/TabuleiroBuilder.png](../out/DiagramasIMG/TabuleiroBuilder.png)
 
-
-### Estrutura
-
-![out/DiagramasIMG/estruturaBuilder.png](../out/DiagramasIMG/estruturaBuilder.png)
-
 ### Participantes:
 
 1. Builder (TabuleiroBuilder) 
