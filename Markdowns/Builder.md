@@ -45,7 +45,8 @@ public class Tabuleiro {
 ```
 
 ### UML sem builder
-<img alt="Motivação com Builder" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\TabuleiroSemBuilder.png">
+
+![out/DiagramasIMG/TabuleiroSemBuilder.png](../out/DiagramasIMG/TabuleiroSemBuilder.png)
 
 ### Motivação com o Padrão
 no projeto, o Builder é usado para permitir a construção flexível de diferentes tipos de tabuleiros, separando o processo de construção da representação final do objeto. Isso facilita a criação de tabuleiros personalizados para diferentes jogos.
@@ -86,7 +87,33 @@ public class TabuleiroDirector {
 ```
 
 ### UML com Builder:
-<img alt="Motivação com Builder" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\TabuleiroBuilder.png">
+
+![out/DiagramasIMG/TabuleiroBuilder.png](../out/DiagramasIMG/TabuleiroBuilder.png)
+
+
+### Estrutura
+
+![out/DiagramasIMG/estruturaBuilder.png](../out/DiagramasIMG/estruturaBuilder.png)
 
 ### Participantes:
-1. 
+
+1. Builder (TabuleiroBuilder) 
+    - especifica  uma  interface  abstrata  para  criação  de  partes  de  um  objeto-
+produto. Nesse caso, os contratos:  iniciarTabuleiro(int largura, int altura); adicionarPecas(); e void adicionarCasas();
+
+2. ConcreteBuilder (Tabuleiro Buider Selva)
+   - constrói e monta partes do produto pela implementação da interface de TabuleiroBuilder;
+   - define e mantém a representação que cria;
+   - È a implementação concreta do framework
+
+
+3. Director (TabuleiroDirector)
+   - constrói um objeto usando a interface de Builder.
+  
+3.  Product ().
+    - representa o objeto complexo em construção. ConcreteBuilder constrói a
+representação  interna  do  produto  e  define  o  processo  pelo  qual  ele  é
+montado;
+    - inclui classes que definem as partes constituintes, inclusive as interfaces
+para a montagem das partes no resultado final.
+
