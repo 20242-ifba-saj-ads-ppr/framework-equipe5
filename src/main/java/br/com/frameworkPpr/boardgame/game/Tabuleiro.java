@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.memento.TabuleiroMemento;
 import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.observer.Observer;
 import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.observer.VitoriaDerrotaObserver;
 import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.observer.exceptions.VitoriaException;
@@ -144,5 +145,16 @@ public class Tabuleiro {
         {
             observador.update(evento);
         }
+    }
+
+    public TabuleiroMemento criarMemento()
+    {
+        return new TabuleiroMemento(new HashMap<>(casas), new HashMap<>(pecasPorTime));
+    }
+
+    public void restaurarMemento(TabuleiroMemento memento)
+    {
+        setCasas(new HashMap<>(memento.getCasasSnapshot()));
+        setPecasPorTime(new HashMap<>(memento.getPecasPorTimeSnapshot()));
     }
 }

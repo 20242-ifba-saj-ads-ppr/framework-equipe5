@@ -1,12 +1,21 @@
 @startuml
-skinparam linetype ortho
+class Tabuleiro {
+    +criarMemento(): TabuleiroMemento
+    +restaurarMemento(m: TabuleiroMemento)
+}
 
 class TabuleiroMemento {
-    - Map<Posicao, Casa> casasSnapshot
-    - Map<Time, Integer> pecasPorTimeSnapshot
-    + TabuleiroMemento(Map<Posicao, Casa>, Map<Time, Integer>)
-    + getCasasSnapshot(): Map<Posicao, Casa>
-    + getPecasPorTimeSnapshot(): Map<Time, Integer>
+    +getCasasSnapshot(): Map
+    +getPecasPorTimeSnapshot(): Map
 }
+
+class HistoricoTabuleiro {
+    +salvar(m: TabuleiroMemento)
+    +desfazer(): TabuleiroMemento
+    +refazer(): TabuleiroMemento
+}
+
+Tabuleiro "1" o-- "muitos" TabuleiroMemento : cria/restaura
+HistoricoTabuleiro "1" o-- "muitos" TabuleiroMemento : armazena
 
 @enduml
