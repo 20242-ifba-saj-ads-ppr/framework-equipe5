@@ -53,9 +53,9 @@ Time preto = gerenciador.getTime("Preto");
 gerenciador.adicionarTime("Azul", new Time("Azul")); // Possível adicionar novos times manualmente
 ```
 
-### UML sem multiton -
+#### UML sem Multiton
 
-<img alt="Motivação sem multiton"src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\motivacao_sem_multiton.png">
+![out/DiagramasIMG/motivacao_sem_multiton.png](../out/DiagramasIMG/motivacao_sem_multiton.png)>
 
 ### Motivação no contexto do Tabuleiro -
 
@@ -96,9 +96,9 @@ Time preto = Time.getInstance("Preto");
 Time azul = Time.getInstance("Azul"); // Garantido que "Azul" será único
 ```
 
-### UML com multiton -
+#### UML com multiton -
 
-<img alt="Motivação com multiton"src="C:\Users\luisp\Documents\GitHub\framework-equipe5\out\DiagramasIMG\motivacao_com_multiton.png">
+![out/DiagramasIMG/motivacao_com_multiton.png](../out/DiagramasIMG/motivacao_com_multiton.png)>
 
 Com o Multiton, declaramos instâncias únicas para representar os times, que podem ser usadas em diversas funcionalidades do sistema. O acesso é centralizado e consistente, evitando duplicidade e facilitando a manutenção.
 
