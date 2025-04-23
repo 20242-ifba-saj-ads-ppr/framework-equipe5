@@ -45,5 +45,9 @@ public class Casa {
                 ", peca=" + (peca != null ? peca.getClass().getSimpleName() : "vazia") +
                 '}';
     }
+
+    public String getTipo() {
+        return peca != null ? peca.getClass().getSimpleName() : "vazia";
+    }
 }
 

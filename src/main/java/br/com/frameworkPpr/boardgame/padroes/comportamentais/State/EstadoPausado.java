@@ -22,7 +22,8 @@ public class EstadoPausado implements EstadoJogo{
     }
     @Override
     public void reiniciarJogo() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'reiniciarJogo'");
+        // Ao reiniciar, volta para o estado iniciado
+        contexto.setEstadoAtual(new EstadoIniciado(contexto));
+        System.out.println("Jogo reiniciado a partir do estado pausado.");
     }
 }

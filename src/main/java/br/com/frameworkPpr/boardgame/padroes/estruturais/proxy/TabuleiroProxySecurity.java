@@ -167,8 +167,15 @@ public class TabuleiroProxySecurity implements TabuleiroInterface {
 
     @Override
     public void colocarPeca(PecaFlyweight peca, Posicao posicao, Map<Posicao, CasaFlyweight> casasFlyweight) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'colocarPeca'");
+        // Exemplo de validação: não permitir colocar peça em casa ocupada
+        CasaFlyweight casa = casasFlyweight.get(posicao);
+        if (casa == null) {
+            throw new IllegalArgumentException("Posição inválida para colocar peça: " + posicao);
+        }
+        if (casa.getPeca() != null) {
+            throw new IllegalStateException("Já existe uma peça nesta posição: " + posicao);
+        }
+        casa.setPeca(peca);
     }
 }
 

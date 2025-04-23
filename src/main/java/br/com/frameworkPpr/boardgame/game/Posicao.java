@@ -2,6 +2,8 @@ package main.java.br.com.frameworkPpr.boardgame.game;
 
 import java.util.Objects;
 
+import main.java.br.com.jogo.selva.pecas.movimentos.Direcao;
+
 /**
  * Classe que representa uma posição no tabuleiro de xadrez.
  */
@@ -55,5 +57,9 @@ public class Posicao {
                 "linha=" + linha +
                 ", coluna=" + coluna +
                 '}';
+    }
+
+    public Posicao mover(Direcao direcao) {
+        return new Posicao(this.linha + direcao.getDeltaLinha(), this.coluna + direcao.getDeltaColuna());
     }
 }

@@ -11,6 +11,7 @@ import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.observer.
 import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.observer.VitoriaDerrotaObserver;
 import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.observer.exceptions.VitoriaException;
 import main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.multiton.TimeMultiton;
+import main.java.br.com.frameworkPpr.boardgame.padroes.estruturais.flyweight.PecaFlyweight;
 import main.java.br.com.frameworkPpr.boardgame.padroes.estruturais.proxy.TabuleiroProxySecurity;
 
 public class Tabuleiro {
@@ -19,6 +20,8 @@ public class Tabuleiro {
     private VitoriaDerrotaObserver vitoriaDerrotaObserver;
     private static TabuleiroProxySecurity proxySecurityInstance;
     private List<Observer> observadores = new ArrayList<>();
+    private int linhas;
+    private int colunas;
 
     public Tabuleiro() {
         setProxySecurityInstance(TabuleiroProxySecurity.getInstance());
@@ -28,6 +31,8 @@ public class Tabuleiro {
     }
 
     public void inicializarCasas (int linhas, int colunas){
+        this.linhas = linhas;
+        this.colunas = colunas;
         getProxySecurityInstance().inicializarCasas(linhas, colunas);
         for (int linha = 0; linha < linhas; linha++) {
             for (int coluna = 0; coluna < colunas; coluna++) {
@@ -160,5 +165,59 @@ public class Tabuleiro {
     {
         setCasas(new HashMap<>(memento.getCasasSnapshot()));
         setPecasPorTime(new HashMap<>(memento.getPecasPorTimeSnapshot()));
+    }
+
+    public PecaFlyweight getPecaNaPosicao(Posicao posToca) {
+        Casa casa = casas.get(posToca);
+        if (casa != null && casa.getPeca() != null) {
+            return (PecaFlyweight) casa.getPeca();
+        }
+        return null;
+    }
+
+    public boolean estaDentro(Posicao pos) {
+        // Supondo linhas e colunas começam em 0
+        return pos.getLinha() >= 0 && pos.getLinha() < getLinhas() && pos.getColuna() >= 0 && pos.getColuna() < getColunas();
+    }
+
+    public boolean ehTerra(Posicao pos) {
+        Casa casa = getCasas().get(pos);
+        return casa != null && casa.getTipo().equalsIgnoreCase("terra");
+    }
+
+    public boolean ehAgua(Posicao pos) {
+        Casa casa = getCasas().get(pos);
+        return casa != null && casa.getTipo().equalsIgnoreCase("agua");
+    }
+
+    public boolean ehArmadilha(Posicao pos) {
+        Casa casa = getCasas().get(pos);
+        return casa != null && casa.getTipo().equalsIgnoreCase("armadilha");
+    }
+
+    public Peca getPeca(Posicao pos) {
+        Casa casa = getCasas().get(pos);
+        return casa != null ? casa.getPeca() : null;
+    }
+
+    public boolean podeCapturar(Posicao origem, Posicao destino) {
+        // Implemente a lógica de captura do jogo Selva
+        Peca atacante = getPeca(origem);
+        Peca alvo = getPeca(destino);
+        if (alvo == null) return false;
+        // Exemplo: pode capturar se força >= do alvo, exceto regras especiais
+        Integer forcaAtacante = (Integer) atacante.obterCaracteristica("forca");
+        Integer forcaAlvo = (Integer) alvo.obterCaracteristica("forca");
+        if (forcaAtacante == null || forcaAlvo == null) return false;
+        // Regra especial rato-elefante pode ser tratada aqui
+        return forcaAtacante >= forcaAlvo;
+    }
+
+    public int getLinhas() {
+        return this.linhas;
+    }
+
+    public int getColunas() {
+        return this.colunas;
     }
 }

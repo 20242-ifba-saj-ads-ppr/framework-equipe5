@@ -15,7 +15,7 @@ public class MovimentoTigreLeao implements MovimentoStrategy {
             if (tabuleiro.estaDentro(destino) && tabuleiro.ehTerra(destino)) {
                 movimentos.add(destino);
             }
-            // Pulo sobre a água
+            // Salto sobre água
             Posicao pulo = atual;
             boolean podePular = false;
             while (tabuleiro.estaDentro(pulo.mover(dir)) && tabuleiro.ehAgua(pulo.mover(dir))) {
@@ -29,7 +29,10 @@ public class MovimentoTigreLeao implements MovimentoStrategy {
             if (podePular) {
                 Posicao depoisAgua = pulo.mover(dir);
                 if (tabuleiro.estaDentro(depoisAgua) && tabuleiro.ehTerra(depoisAgua)) {
-                    movimentos.add(depoisAgua);
+                    Peca pecaDestino = tabuleiro.getPeca(depoisAgua);
+                    if (pecaDestino == null || tabuleiro.podeCapturar(atual, depoisAgua)) {
+                        movimentos.add(depoisAgua);
+                    }
                 }
             }
         }

@@ -18,14 +18,14 @@ public class EstadoFinalizado implements EstadoJogo{
     }
 
     @Override
-    public void reiniciarJogo(){
-        System.out.println("O jogo foi reiniciado.");
-        contexto.setEstadoAtual(new EstadoIniciado(contexto));
+    public void reiniciarJogo() {
+        // Não faz nada, pois o jogo está finalizado
+        System.out.println("Não é possível reiniciar. O jogo está finalizado.");
     }
 
     @Override
     public void finalizarJogo() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'finalizarJogo'");
+        // O jogo já está finalizado, não faz nada
+        System.out.println("O jogo já está finalizado.");
     }
 }

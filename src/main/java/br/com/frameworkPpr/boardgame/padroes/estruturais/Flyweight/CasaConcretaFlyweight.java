@@ -21,8 +21,21 @@ public class CasaConcretaFlyweight implements CasaFlyweight {
 
     @Override
     public boolean estaOcupada() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'estaOcupada'");
+        // Como Flyweight, não armazena estado de ocupação real.
+        // Retorna sempre false (ocupação é extrínseca, depende do contexto externo).
+        return false;
+    }
+
+    @Override
+    public Object getPeca() {
+        // Flyweight não armazena peça, retorna sempre null
+        return null;
+    }
+
+    @Override
+    public void setPeca(PecaFlyweight peca) {
+        // Flyweight não armazena peça, não faz nada
+        // Método vazio propositalmente
     }
     
 }
