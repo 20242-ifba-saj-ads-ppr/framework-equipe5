@@ -45,7 +45,8 @@ public class Peca {
 
 ### UML sem o Strategy -
 
-<img alt="Motivação com Singleton"src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\estruturaPecaSemStrategy.png">
+![out/DiagramasIMG/estruturaPecaSemStrategy.png](../out/DiagramasIMG/estruturaPecaSemStrategy.png)
+
 
 ### Motivação no contexto do Tabuleiro
 
@@ -85,7 +86,7 @@ public class MovimentoRei implements MovimentoStrategy {
 
 ### UML com Strategy -
 
-<img alt="Motivação com Singleton"src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\estruturaPeca.png">
+![out/DiagramasIMG/estruturaPeca.png](../out/DiagramasIMG/estruturaPeca.png)
 
 ### Participantes -
 
