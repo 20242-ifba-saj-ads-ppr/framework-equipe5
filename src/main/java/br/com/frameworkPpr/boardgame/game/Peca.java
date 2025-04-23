@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Map;
 import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.observer.Observer;
 import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.strategy.MovimentoStrategy;
-import main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.multiton.Time;
+import main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.multiton.TimeMultiton;
 
 public abstract class Peca implements Observer{
     private String nome;
-    private Time time;
+    private TimeMultiton time;
     private Map<String, Object> caracteristicas; 
     protected MovimentoStrategy movimentoStrategy;
     private List<Observer> observadores = new ArrayList<>();
@@ -19,7 +19,7 @@ public abstract class Peca implements Observer{
         this.caracteristicas = new HashMap<>();
     }
 
-    public Peca(String nome, Time time, MovimentoStrategy movimentoStrategy, Map<String, Object> caracteristicas) {
+    public Peca(String nome, TimeMultiton time, MovimentoStrategy movimentoStrategy, Map<String, Object> caracteristicas) {
         setNome(nome);
         setTime(time);
         this.movimentoStrategy = movimentoStrategy;
@@ -33,7 +33,7 @@ public abstract class Peca implements Observer{
 
     
 
-    public void setTime(Time time2) {
+    public void setTime(TimeMultiton time2) {
         this.time = time2;
     }
 
@@ -65,7 +65,7 @@ public abstract class Peca implements Observer{
         return movimentoStrategy.calcularMovimentosPossiveis(posicaoAtual, tabuleiro);
     }
 
-    public Time getTime() {
+    public TimeMultiton getTime() {
         return time;
     }
 

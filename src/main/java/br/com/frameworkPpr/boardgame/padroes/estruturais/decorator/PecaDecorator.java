@@ -3,7 +3,7 @@ package main.java.br.com.frameworkPpr.boardgame.padroes.estruturais.decorator;
 import main.java.br.com.frameworkPpr.boardgame.game.Peca;
 import main.java.br.com.frameworkPpr.boardgame.game.Posicao;
 import main.java.br.com.frameworkPpr.boardgame.game.Tabuleiro;
-import main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.multiton.Time;
+import main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.multiton.TimeMultiton;
 
 import java.util.List;
 import java.util.Map;
@@ -51,7 +51,7 @@ public abstract class PecaDecorator extends Peca {
     }
 
     @Override
-    public Time getTime() {
+    public TimeMultiton getTime() {
         return pecaDecorada.getTime();
     }
 }

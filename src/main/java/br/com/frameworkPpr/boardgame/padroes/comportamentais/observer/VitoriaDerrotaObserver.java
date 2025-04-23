@@ -3,7 +3,7 @@ package main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.observer
 import java.util.Objects;
 
 import main.java.br.com.frameworkPpr.boardgame.game.Tabuleiro;
-import main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.multiton.Time;
+import main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.multiton.TimeMultiton;
 
 public class VitoriaDerrotaObserver implements Observer, CondicaoDeVitoria{
     private Tabuleiro tabuleiro;
@@ -13,15 +13,15 @@ public class VitoriaDerrotaObserver implements Observer, CondicaoDeVitoria{
     }
 
     @Override
-    public Time verificarVencedor() {
-        for (String time : Time.getChaves()) {// Para cada Chave de time registrado
-            Time timeAtual = Time.getInstance(time);// Pego o time
+    public TimeMultiton verificarVencedor() {
+        for (String time : TimeMultiton.getChaves()) {// Para cada Chave de time registrado
+            TimeMultiton timeAtual = TimeMultiton.getInstance(time);// Pego o time
             if (timeAtual.getQuantidadePecasDoTime() == 0) {// Verifico se a Qtd é igual a 0
                 // Na primeira vez que ele identificar essa condição
                 // Retorna o outro time como vencedor
-                for (String outroTime : Time.getChaves()) {// Outro for para pegaro outro time
+                for (String outroTime : TimeMultiton.getChaves()) {// Outro for para pegaro outro time
                     if (!Objects.equals(outroTime,time)) {// em que se o outro time não for iqual ao time
-                        return Time.getInstance(outroTime);
+                        return TimeMultiton.getInstance(outroTime);
                     }
                 }
             }
@@ -29,7 +29,7 @@ public class VitoriaDerrotaObserver implements Observer, CondicaoDeVitoria{
         return null; // Nenhum vencedor ainda
     }
 
-    public void notificarVencedor(Time vencedor)
+    public void notificarVencedor(TimeMultiton vencedor)
     {
         System.out.println("Vencedor: " + vencedor);
     }
@@ -44,7 +44,7 @@ public class VitoriaDerrotaObserver implements Observer, CondicaoDeVitoria{
 
     @Override
     public void update(String evento) {
-        Time vencedor = verificarVencedor();
+        TimeMultiton vencedor = verificarVencedor();
         if (vencedor != null) {
             notificarVencedor(vencedor);
         }

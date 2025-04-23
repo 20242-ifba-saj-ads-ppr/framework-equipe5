@@ -1,12 +1,12 @@
 package main.java.br.com.frameworkPpr.boardgame.padroes.estruturais.flyweight;
 
-import java.sql.Time;
+import main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.multiton.TimeMultiton;
 
 public class PecaConcretaFlyweight implements PecaFlyweight {
     private final String tipo;
-    private final Time time;
+    private final TimeMultiton time;
 
-    public PecaConcretaFlyweight(String tipo, Time time) {
+    public PecaConcretaFlyweight(String tipo, TimeMultiton time) {
         this.tipo = tipo;
         this.time = time;
     }
@@ -17,7 +17,7 @@ public class PecaConcretaFlyweight implements PecaFlyweight {
     }
 
     @Override
-    public Time getTime() {
+    public TimeMultiton getTime() {
         return time;
     }
 

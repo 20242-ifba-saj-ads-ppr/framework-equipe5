@@ -1,4 +1,4 @@
-package main.java.br.com.jogo.selva.pecas.Pecas;
+package main.java.br.com.jogo.selva.pecas.pecas;
 
 import java.util.List;
 import java.util.Map;
@@ -6,7 +6,7 @@ import java.util.Map;
 import main.java.br.com.frameworkPpr.boardgame.game.Peca;
 import main.java.br.com.frameworkPpr.boardgame.game.Posicao;
 import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.strategy.MovimentoStrategy;
-import main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.multiton.Time;
+import main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.multiton.TimeMultiton;
 import main.java.br.com.frameworkPpr.boardgame.game.Tabuleiro;
 
 public class Gato extends Peca {
@@ -17,7 +17,7 @@ public class Gato extends Peca {
     public Gato(String tipo, MovimentoStrategy movimentoStrategy) {
         super(tipo, null, movimentoStrategy, null);
     }
-    public Gato(String tipo, Time time, MovimentoStrategy movimentoStrategy, Map<String, Object> caracteristicas) {
+    public Gato(String tipo, TimeMultiton time, MovimentoStrategy movimentoStrategy, Map<String, Object> caracteristicas) {
         super(tipo, time, movimentoStrategy, caracteristicas);
     }
     @Override
@@ -33,7 +33,7 @@ public class Gato extends Peca {
         return super.getNome();
     }
     @Override
-    public Time getTime() {
+    public TimeMultiton getTime() {
         return super.getTime();
     }
     @Override
@@ -57,7 +57,7 @@ public class Gato extends Peca {
         return super.toString();
     }
     @Override
-    public void setTime(Time time2) {
+    public void setTime(TimeMultiton time2) {
         super.setTime(time2);
     }
 }

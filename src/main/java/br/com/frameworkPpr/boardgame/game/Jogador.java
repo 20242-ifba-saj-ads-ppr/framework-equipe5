@@ -1,12 +1,12 @@
 package main.java.br.com.frameworkPpr.boardgame.game;
 
-import main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.multiton.Time;
+import main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.multiton.TimeMultiton;
 
 public class Jogador {
     private String nome;
-    private Time time;
+    private TimeMultiton time;
 
-    public Jogador(String nome, Time time) {
+    public Jogador(String nome, TimeMultiton time) {
         this.nome = nome;
         this.time = time;
     }
@@ -15,7 +15,7 @@ public class Jogador {
         return nome;
     }
 
-    public Time getTime() {
+    public TimeMultiton getTime() {
         return time;
     }
 }

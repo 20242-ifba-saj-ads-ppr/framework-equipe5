@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 import main.java.br.com.frameworkPpr.boardgame.game.Posicao;

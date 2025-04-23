@@ -14,17 +14,17 @@ import main.java.br.com.frameworkPpr.boardgame.game.Peca;
  * Padrão de projeto: Enum Mutiton.
  */
 
-public class Time {
-    private static final Map<String, Time> times = new HashMap<>();
+public class TimeMultiton {
+    private static final Map<String, TimeMultiton> times = new HashMap<>();
     private String nome;
     private List<Peca> pecas = new ArrayList<>();
 
-    private Time(String nome) {
+    private TimeMultiton(String nome) {
         this.nome = nome;
     }
 
-    public static Time getInstance(String nome) {
-        return times.computeIfAbsent(nome, Time::new);
+    public static TimeMultiton getInstance(String nome) {
+        return times.computeIfAbsent(nome, TimeMultiton::new);
     }
 
     // Método para adicionar peças ao time com base na referencia da instancia

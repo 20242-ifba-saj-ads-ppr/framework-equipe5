@@ -1,4 +1,4 @@
-package main.java.br.com.jogo.selva.builder;
+package main.java.br.com.jogo.selva.tabuleiro;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,9 +7,8 @@ import main.java.br.com.frameworkPpr.boardgame.game.Casa;
 import main.java.br.com.frameworkPpr.boardgame.game.Posicao;
 import main.java.br.com.frameworkPpr.boardgame.game.Tabuleiro;
 import main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.builder.TabuleiroBuilder;
-import main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.multiton.Time;
-import main.java.br.com.jogo.selva.pecas.AnimalFactory;
-import main.java.br.com.jogo.selva.movimentos.*;
+import main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.multiton.TimeMultiton;
+import main.java.br.com.jogo.selva.pecas.pecas.AnimalFactory;
 import main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.strategy.MovimentoStrategy;
 
 public class TabuleiroBuilderSelva implements TabuleiroBuilder {
@@ -59,6 +58,8 @@ public class TabuleiroBuilderSelva implements TabuleiroBuilder {
         }
     }
 
+    public 
+
     @Override
     public void adicionarPecas() {
         // Estratégias de movimento
@@ -67,26 +68,26 @@ public class TabuleiroBuilderSelva implements TabuleiroBuilder {
         MovimentoStrategy movRato = new MovimentoRato();
 
         // Time Azul (Topo)
-        tabuleiro.colocarPeca(factory.criarPeca("Leão", Time.AZUL, movTigreLeao, new HashMap<>()), new Posicao(0, 0));
-        tabuleiro.colocarPeca(factory.criarPeca("Tigre", Time.AZUL, movTigreLeao, new HashMap<>()), new Posicao(0, 6));
-        tabuleiro.colocarPeca(factory.criarPeca("Cão", Time.AZUL, movSimples, new HashMap<>()), new Posicao(1, 1));
-        tabuleiro.colocarPeca(factory.criarPeca("Gato", Time.AZUL, movSimples, new HashMap<>()), new Posicao(1, 5));
-        tabuleiro.colocarPeca(factory.criarPeca("Lobo", Time.AZUL, movSimples, new HashMap<>()), new Posicao(2, 2));
-        tabuleiro.colocarPeca(factory.criarPeca("Leopardo", Time.AZUL, movSimples, new HashMap<>()), new Posicao(2, 4));
-        tabuleiro.colocarPeca(factory.criarPeca("Elefante", Time.AZUL, movSimples, new HashMap<>()), new Posicao(2, 6));
-        tabuleiro.colocarPeca(factory.criarPeca("Raposa", Time.AZUL, movSimples, new HashMap<>()), new Posicao(2, 0));
-        tabuleiro.colocarPeca(factory.criarPeca("Rato", Time.AZUL, movRato, new HashMap<>()), new Posicao(2, 6));
+        tabuleiro.colocarPeca(factory.criarPeca("Leão", TimeMultiton.AZUL, movTigreLeao, new HashMap<>()), new Posicao(0, 0));
+        tabuleiro.colocarPeca(factory.criarPeca("Tigre", TimeMultiton.AZUL, movTigreLeao, new HashMap<>()), new Posicao(0, 6));
+        tabuleiro.colocarPeca(factory.criarPeca("Cão", TimeMultiton.AZUL, movSimples, new HashMap<>()), new Posicao(1, 1));
+        tabuleiro.colocarPeca(factory.criarPeca("Gato", TimeMultiton.AZUL, movSimples, new HashMap<>()), new Posicao(1, 5));
+        tabuleiro.colocarPeca(factory.criarPeca("Lobo", TimeMultiton.AZUL, movSimples, new HashMap<>()), new Posicao(2, 2));
+        tabuleiro.colocarPeca(factory.criarPeca("Leopardo", TimeMultiton.AZUL, movSimples, new HashMap<>()), new Posicao(2, 4));
+        tabuleiro.colocarPeca(factory.criarPeca("Elefante", TimeMultiton.AZUL, movSimples, new HashMap<>()), new Posicao(2, 6));
+        tabuleiro.colocarPeca(factory.criarPeca("Raposa", TimeMultiton.AZUL, movSimples, new HashMap<>()), new Posicao(2, 0));
+        tabuleiro.colocarPeca(factory.criarPeca("Rato", TimeMultiton.AZUL, movRato, new HashMap<>()), new Posicao(2, 6));
 
         // Time Vermelho (Base)
-        tabuleiro.colocarPeca(factory.criarPeca("Leão", Time.VERMELHO, movTigreLeao, new HashMap<>()), new Posicao(8, 6));
-        tabuleiro.colocarPeca(factory.criarPeca("Tigre", Time.VERMELHO, movTigreLeao, new HashMap<>()), new Posicao(8, 0));
-        tabuleiro.colocarPeca(factory.criarPeca("Cão", Time.VERMELHO, movSimples, new HashMap<>()), new Posicao(7, 5));
-        tabuleiro.colocarPeca(factory.criarPeca("Gato", Time.VERMELHO, movSimples, new HashMap<>()), new Posicao(7, 1));
-        tabuleiro.colocarPeca(factory.criarPeca("Lobo", Time.VERMELHO, movSimples, new HashMap<>()), new Posicao(6, 4));
-        tabuleiro.colocarPeca(factory.criarPeca("Leopardo", Time.VERMELHO, movSimples, new HashMap<>()), new Posicao(6, 2));
-        tabuleiro.colocarPeca(factory.criarPeca("Elefante", Time.VERMELHO, movSimples, new HashMap<>()), new Posicao(6, 0));
-        tabuleiro.colocarPeca(factory.criarPeca("Raposa", Time.VERMELHO, movSimples, new HashMap<>()), new Posicao(6, 6));
-        tabuleiro.colocarPeca(factory.criarPeca("Rato", Time.VERMELHO, movRato, new HashMap<>()), new Posicao(6, 0));
+        tabuleiro.colocarPeca(factory.criarPeca("Leão", TimeMultiton.VERMELHO, movTigreLeao, new HashMap<>()), new Posicao(8, 6));
+        tabuleiro.colocarPeca(factory.criarPeca("Tigre", TimeMultiton.VERMELHO, movTigreLeao, new HashMap<>()), new Posicao(8, 0));
+        tabuleiro.colocarPeca(factory.criarPeca("Cão", TimeMultiton.VERMELHO, movSimples, new HashMap<>()), new Posicao(7, 5));
+        tabuleiro.colocarPeca(factory.criarPeca("Gato", TimeMultiton.VERMELHO, movSimples, new HashMap<>()), new Posicao(7, 1));
+        tabuleiro.colocarPeca(factory.criarPeca("Lobo", TimeMultiton.VERMELHO, movSimples, new HashMap<>()), new Posicao(6, 4));
+        tabuleiro.colocarPeca(factory.criarPeca("Leopardo", TimeMultiton.VERMELHO, movSimples, new HashMap<>()), new Posicao(6, 2));
+        tabuleiro.colocarPeca(factory.criarPeca("Elefante", TimeMultiton.VERMELHO, movSimples, new HashMap<>()), new Posicao(6, 0));
+        tabuleiro.colocarPeca(factory.criarPeca("Raposa", TimeMultiton.VERMELHO, movSimples, new HashMap<>()), new Posicao(6, 6));
+        tabuleiro.colocarPeca(factory.criarPeca("Rato", TimeMultiton.VERMELHO, movRato, new HashMap<>()), new Posicao(6, 0));
     }
 
     @Override
