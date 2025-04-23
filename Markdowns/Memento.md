@@ -57,19 +57,21 @@ public class TabuleiroMemento {
 
 ### Tabuleiro cria e restaura mementos
 
-``` java
-    public TabuleiroMemento criarMemento()
-    {
-        return new TabuleiroMemento(new HashMap<>(casas), new HashMap<>(pecasPorTime));
-    }
+O estado das peças por time não é armazenado diretamente no `TabuleiroMemento`. Em vez disso, ele é restaurado dinamicamente com base no estado das casas, utilizando o `TimeMultiton`. Isso reduz a duplicação de informações e mantém o encapsulamento.
 
-    public void restaurarMemento(TabuleiroMemento memento)
-    {
-        setCasas(new HashMap<>(memento.getCasasSnapshot()));
-        setPecasPorTime(new HashMap<>(memento.getPecasPorTimeSnapshot()));
-    }
+```java
+public void restaurarMemento(TabuleiroMemento memento) {
+    setCasas(new HashMap<>(memento.getCasasSnapshot()));
+
+    // Restaura o estado das peças por time diretamente do TimeMultiton
+    TimeMultiton.getTimeObjetos().forEach(time -> {
+        time.getPecasDoTime().clear();
+        casas.values().stream()
+            .filter(casa -> casa.getPeca() != null && casa.getPeca().getTime().equals(time.toString()))
+            .forEach(casa -> time.adicionarPecasAoTime(casa.getPeca()));
+    });
+}
 ```
-
 ### O *HistoricoTabuleiro* armazena e gerencia os mementos
 
 ``` java

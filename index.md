@@ -882,41 +882,32 @@ gerenciador.adicionarTime("Azul", new Time("Azul")); // Possível adicionar novo
 
 #### Motivação no contexto do Tabuleiro -
 
-No projeto, o padrão Multiton é aplicado por meio da classe `Time`, que mantém um mapa estático de instâncias únicas para cada nome de time. Assim, sempre que for necessário criar um time, é necessário chamar o método `getInstance` passando como parâmetro o nome do time. Caso esse time exista, o método vai retornar o mesmo. Caso não exista, o método cria o novo time. Isso garante unicidade e centralização do controle dos times, permitindo que cada time seja identificado de forma única e reutilizável em todo o sistema.
+No projeto, o padrão Multiton é aplicado por meio da classe `TimeMultiton`, que mantém um mapa estático de instâncias únicas para cada nome de time. Além de garantir unicidade, o `TimeMultiton` gerencia as peças de cada time por meio de métodos como:
+- `adicionarPecasAoTime(Peca peca)`: adiciona uma peça ao time correspondente.
+- `removerPecaDoTime(Peca peca)`: remove uma peça do time.
+- `getQuantidadePecasDoTime()`: retorna a quantidade de peças do time.
+
+Esses métodos centralizam a lógica de gerenciamento de peças, reduzindo a responsabilidade do `Tabuleiro` e promovendo coesão.
 
 Exemplo simplificado da implementação real:
 
 ```java
-package main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.multiton;
+public class TimeMultiton {
+    private static final Map<String, TimeMultiton> times = new HashMap<>();
+    private List<Peca> pecas = new ArrayList<>();
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class Time {
-    private static final Map<String, Time> times = new HashMap<>();
-    private final String nome;
-
-    private Time(String nome) {
-        this.nome = nome;
+    public boolean adicionarPecasAoTime(Peca peca) {
+        return pecas.add(peca);
     }
 
-    public static Time getInstance(String nome) {
-        return times.computeIfAbsent(nome, Time::new);
+    public boolean removerPecaDoTime(Peca peca) {
+        return pecas.remove(peca);
     }
 
-    @Override
-    public String toString() {
-        return nome;
+    public int getQuantidadePecasDoTime() {
+        return pecas.size();
     }
 }
-```
-
-Uso típico:
-
-```java
-Time branco = Time.getInstance("Branco");
-Time preto = Time.getInstance("Preto");
-Time azul = Time.getInstance("Azul"); // Garantido que "Azul" será único
 ```
 
 ##### UML com multiton -
@@ -927,8 +918,8 @@ Com o Multiton, declaramos instâncias únicas para representar os times, que po
 
 #### Participantes -
 
-1. **Multiton:** Classe `Time` -> mantém instâncias únicas para cada nome de time;
-2. **Client:** (Tabuleiro), Peca -> classes que utilizam as instâncias do multiton.
+1. **Multiton:** Classe `TimeMultiton` -> mantém instâncias únicas para cada nome de time e gerencia as peças de cada time.
+2. **Client:** (Tabuleiro), Peca -> classes que utilizam as instâncias do multiton para acessar ou modificar o estado dos times.
 
 ### Singleton
 
