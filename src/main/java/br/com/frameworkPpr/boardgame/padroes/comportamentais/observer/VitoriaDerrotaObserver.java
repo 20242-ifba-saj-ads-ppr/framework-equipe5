@@ -14,19 +14,16 @@ public class VitoriaDerrotaObserver implements Observer, CondicaoDeVitoria{
 
     @Override
     public TimeMultiton verificarVencedor() {
-        for (String time : TimeMultiton.getChaves()) {// Para cada Chave de time registrado
-            TimeMultiton timeAtual = TimeMultiton.getInstance(time);// Pego o time
-            if (timeAtual.getQuantidadePecasDoTime() == 0) {// Verifico se a Qtd é igual a 0
-                // Na primeira vez que ele identificar essa condição
-                // Retorna o outro time como vencedor
-                for (String outroTime : TimeMultiton.getChaves()) {// Outro for para pegaro outro time
-                    if (!Objects.equals(outroTime,time)) {// em que se o outro time não for iqual ao time
-                        return TimeMultiton.getInstance(outroTime);
-                    }
-                }
-            }
-        }
-        return null; // Nenhum vencedor ainda
+        return TimeMultiton.getTimeObjetos().stream()
+            .filter(time -> time.getQuantidadePecasDoTime() == 0) // Filtra o time com 0 peças
+            .findFirst() // Encontra o primeiro time com 0 peças
+            .map(timeComZeroPecas -> 
+                TimeMultiton.getTimeObjetos().stream()
+                    .filter(outroTime -> !Objects.equals(outroTime, timeComZeroPecas)) // Filtra o outro time
+                    .findFirst() // Encontra o outro time
+                    .orElse(null) // Caso não encontre, retorna null
+            )
+            .orElse(null); // Caso nenhum time tenha 0 peças, retorna null
     }
 
     public void notificarVencedor(TimeMultiton vencedor)
