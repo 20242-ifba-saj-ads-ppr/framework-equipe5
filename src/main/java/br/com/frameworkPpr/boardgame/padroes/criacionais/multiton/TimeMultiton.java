@@ -45,9 +45,14 @@ public class TimeMultiton {
     }
 
     // Método que me retorna todas as chaves do Map de Times 
-    public static  Set<String> getChaves(){
+    public static Set<String> getChaves(){
         return times.keySet();
     }
+
+    public static Set<TimeMultiton> getTimeObjetos(){
+        return (Set) times.values();
+    }
+
 
     // Método para remover peças do time com base na referencia da instancia
     // Exemplo: Time.BRANCO.removerPecaDoTime(peca);
