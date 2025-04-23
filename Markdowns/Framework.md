@@ -818,6 +818,8 @@ public class Tabuleiro {
 
 #### Intenção -
 
+[^K19]
+
 Permitir a criação de uma quantidade limitada de instâncias de determinada classe e fornecer um modo para recuperá-las.
 
 #### Motivação sem o Padrão -
@@ -1395,3 +1397,10 @@ No contexto do tabuleiro, existem muitas casas, peças e posições que podem se
 - **Cliente:** Solicita objetos às fábricas e utiliza os Flyweights.
 
 ---
+
+## Referências
+
+
+[^GAMMA]: GAMMA, Erich. et al. Padrões de projetos: Soluções reutilizáveis de software orientados a objetos Bookman editora, 2009.
+
+[^K19]: KASPCHUK, Alexandre; PLEIN, Tiago. K19 - Design Patterns em Java. São Paulo: K19 Treinamentos, 2012.
