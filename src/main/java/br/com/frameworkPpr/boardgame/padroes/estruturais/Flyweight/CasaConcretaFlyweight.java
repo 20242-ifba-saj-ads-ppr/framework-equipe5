@@ -37,5 +37,38 @@ public class CasaConcretaFlyweight implements CasaFlyweight {
         // Flyweight não armazena peça, não faz nada
         // Método vazio propositalmente
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((cor == null) ? 0 : cor.hashCode());
+        result = prime * result + numero;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        CasaConcretaFlyweight other = (CasaConcretaFlyweight) obj;
+        if (cor == null) {
+            if (other.cor != null)
+                return false;
+        } else if (!cor.equals(other.cor))
+            return false;
+        if (numero != other.numero)
+            return false;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "CasaConcretaFlyweight [cor=" + cor + ", numero=" + numero + "]";
+    }
     
 }

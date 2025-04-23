@@ -21,4 +21,10 @@ public class PecaPromovidaDecorator extends PecaDecorator {
     public void update(String evento) {
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
+
+    @Override
+    public String toString() {
+        return "PecaPromovidaDecorator []";
+    }
+
 }

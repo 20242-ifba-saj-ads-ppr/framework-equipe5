@@ -30,4 +30,10 @@ public class PosicaoFlyweight {
     {
         return 31 * linha + coluna;
     }
+
+    @Override
+    public String toString() {
+        return "PosicaoFlyweight [linha=" + linha + ", coluna=" + coluna + "]";
+    }
+    
 }

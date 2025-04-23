@@ -19,4 +19,10 @@ public class MovimentoCao implements MovimentoStrategy {
         }
         return movimentos;
     }
+
+    @Override
+    public String toString() {
+        return "MovimentoCao []";
+    }
+    
 }

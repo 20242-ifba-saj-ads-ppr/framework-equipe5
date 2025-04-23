@@ -2,6 +2,8 @@ package main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.memento;
 
 import java.util.Stack;
 
+/*Funciona como um CareTaker: 
+ele armazena e gerencia os mementos, mas não acessa seu conteúdo.*/
 public class HistoricoTabuleiro {
     private final Stack<TabuleiroMemento> desfazer = new Stack<>();
     private final Stack<TabuleiroMemento> refazer = new Stack<>();
@@ -11,8 +13,7 @@ public class HistoricoTabuleiro {
         refazer.clear();
     }
 
-    public TabuleiroMemento desfazer()
-    {
+    public TabuleiroMemento desfazer() {
         if (!desfazer.isEmpty()) {
             TabuleiroMemento memento = desfazer.pop();
             refazer.push(memento);
@@ -20,9 +21,8 @@ public class HistoricoTabuleiro {
         }
         return null;
     }
-    
-    public TabuleiroMemento refazer()
-    {
+
+    public TabuleiroMemento refazer() {
         if (!refazer.isEmpty()) {
             TabuleiroMemento memento = refazer.pop();
             desfazer.push(memento);
@@ -31,13 +31,11 @@ public class HistoricoTabuleiro {
         return null;
     }
 
-    public boolean temDesfazer()
-    {
+    public boolean temDesfazer() {
         return !desfazer.isEmpty();
     }
 
-    public boolean temRefazer()
-    {
+    public boolean temRefazer() {
         return !refazer.isEmpty();
     }
 }

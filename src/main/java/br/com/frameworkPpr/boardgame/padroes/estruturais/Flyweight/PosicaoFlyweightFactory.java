@@ -16,4 +16,12 @@ public class PosicaoFlyweightFactory {
     public static int getTotalPosicoes() {
         return posicoes.size();
     }
+    public static Map<String, PosicaoFlyweight> getPosicoes() {
+        return posicoes;
+    }
+    @Override
+    public String toString() {
+        return "PosicaoFlyweightFactory []";
+    }
+    
 }

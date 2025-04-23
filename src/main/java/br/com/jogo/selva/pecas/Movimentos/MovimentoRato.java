@@ -37,4 +37,10 @@ public class MovimentoRato implements MovimentoStrategy {
         }
         return movimentos;
     }
+
+    @Override
+    public String toString() {
+        return "MovimentoRato []";
+    }
+    
 }

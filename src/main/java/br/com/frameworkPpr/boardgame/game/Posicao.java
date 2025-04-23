@@ -62,4 +62,6 @@ public class Posicao {
     public Posicao mover(Direcao direcao) {
         return new Posicao(this.linha + direcao.getDeltaLinha(), this.coluna + direcao.getDeltaColuna());
     }
+
+    
 }

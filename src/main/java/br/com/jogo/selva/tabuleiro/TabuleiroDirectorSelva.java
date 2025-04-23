@@ -1,4 +1,4 @@
-package br.com.jogo.selva.tabuleiro;
+package main.java.br.com.jogo.selva.tabuleiro;
 
 import main.java.br.com.frameworkPpr.boardgame.game.Tabuleiro;
 import main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.builder.TabuleiroBuilder;

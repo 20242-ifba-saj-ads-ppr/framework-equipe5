@@ -38,4 +38,9 @@ public class MovimentoTigreLeao implements MovimentoStrategy {
         }
         return movimentos;
     }
+
+    @Override
+    public String toString() {
+        return "MovimentoTigreLeao []";
+    }
 }

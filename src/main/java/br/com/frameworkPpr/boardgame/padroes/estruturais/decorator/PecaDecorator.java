@@ -54,4 +54,39 @@ public abstract class PecaDecorator extends Peca {
     public TimeMultiton getTime() {
         return pecaDecorada.getTime();
     }
+
+    public Peca getPecaDecorada() {
+        return pecaDecorada;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + ((pecaDecorada == null) ? 0 : pecaDecorada.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!super.equals(obj))
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        PecaDecorator other = (PecaDecorator) obj;
+        if (pecaDecorada == null) {
+            if (other.pecaDecorada != null)
+                return false;
+        } else if (!pecaDecorada.equals(other.pecaDecorada))
+            return false;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "PecaDecorator [pecaDecorada=" + pecaDecorada + "]";
+    }
+    
 }

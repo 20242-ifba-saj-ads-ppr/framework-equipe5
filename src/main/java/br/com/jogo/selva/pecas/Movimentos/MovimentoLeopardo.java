@@ -19,4 +19,10 @@ public class MovimentoLeopardo implements MovimentoStrategy {
         }
         return movimentos;
     }
+
+    @Override
+    public String toString() {
+        return "MovimentoLeopardo []";
+    }
+    
 }

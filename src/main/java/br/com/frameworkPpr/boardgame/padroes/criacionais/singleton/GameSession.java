@@ -95,4 +95,48 @@ public class GameSession {
     public static synchronized void reset() {
         instance = null;
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((jogador1 == null) ? 0 : jogador1.hashCode());
+        result = prime * result + ((jogador2 == null) ? 0 : jogador2.hashCode());
+        result = prime * result + ((tabuleiro == null) ? 0 : tabuleiro.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        GameSession other = (GameSession) obj;
+        if (jogador1 == null) {
+            if (other.jogador1 != null)
+                return false;
+        } else if (!jogador1.equals(other.jogador1))
+            return false;
+        if (jogador2 == null) {
+            if (other.jogador2 != null)
+                return false;
+        } else if (!jogador2.equals(other.jogador2))
+            return false;
+        if (tabuleiro == null) {
+            if (other.tabuleiro != null)
+                return false;
+        } else if (!tabuleiro.equals(other.tabuleiro))
+            return false;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "GameSession [jogador1=" + jogador1 + ", jogador2=" + jogador2 + ", tabuleiro=" + tabuleiro + "]";
+    }
+
+    
 }

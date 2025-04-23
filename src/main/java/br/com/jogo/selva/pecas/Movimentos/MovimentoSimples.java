@@ -17,4 +17,9 @@ public class MovimentoSimples implements MovimentoStrategy {
         }
         return movimentos;
     }
+
+    @Override
+    public String toString() {
+        return "MovimentoSimples []";
+    }
 }

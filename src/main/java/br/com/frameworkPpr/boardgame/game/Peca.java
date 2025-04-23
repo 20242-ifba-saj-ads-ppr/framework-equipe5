@@ -88,4 +88,62 @@ public abstract class Peca implements Observer{
         return "Peca [nome=" + nome + ", time=" + time + ", caracteristicas=" + caracteristicas + ", movimentoStrategy="
                 + movimentoStrategy + "]";
     }
+
+    public MovimentoStrategy getMovimentoStrategy() {
+        return movimentoStrategy;
+    }
+
+    public List<Observer> getObservadores() {
+        return observadores;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+        result = prime * result + ((time == null) ? 0 : time.hashCode());
+        result = prime * result + ((caracteristicas == null) ? 0 : caracteristicas.hashCode());
+        result = prime * result + ((movimentoStrategy == null) ? 0 : movimentoStrategy.hashCode());
+        result = prime * result + ((observadores == null) ? 0 : observadores.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Peca other = (Peca) obj;
+        if (nome == null) {
+            if (other.nome != null)
+                return false;
+        } else if (!nome.equals(other.nome))
+            return false;
+        if (time == null) {
+            if (other.time != null)
+                return false;
+        } else if (!time.equals(other.time))
+            return false;
+        if (caracteristicas == null) {
+            if (other.caracteristicas != null)
+                return false;
+        } else if (!caracteristicas.equals(other.caracteristicas))
+            return false;
+        if (movimentoStrategy == null) {
+            if (other.movimentoStrategy != null)
+                return false;
+        } else if (!movimentoStrategy.equals(other.movimentoStrategy))
+            return false;
+        if (observadores == null) {
+            if (other.observadores != null)
+                return false;
+        } else if (!observadores.equals(other.observadores))
+            return false;
+        return true;
+    }
+    
 }

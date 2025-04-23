@@ -54,4 +54,5 @@ public enum Direcao {
     public static List<Direcao> todas() {
         return Arrays.asList(values());
     }
+    
 }

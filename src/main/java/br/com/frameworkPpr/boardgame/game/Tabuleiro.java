@@ -216,4 +216,68 @@ public class Tabuleiro {
     public int getColunas() {
         return this.colunas;
     }
+
+    public List<Observer> getObservadores() {
+        return observadores;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((casas == null) ? 0 : casas.hashCode());
+        result = prime * result + ((pecasPorTime == null) ? 0 : pecasPorTime.hashCode());
+        result = prime * result + ((vitoriaDerrotaObserver == null) ? 0 : vitoriaDerrotaObserver.hashCode());
+        result = prime * result + ((observadores == null) ? 0 : observadores.hashCode());
+        result = prime * result + linhas;
+        result = prime * result + colunas;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Tabuleiro other = (Tabuleiro) obj;
+        if (casas == null) {
+            if (other.casas != null)
+                return false;
+        } else if (!casas.equals(other.casas))
+            return false;
+        if (pecasPorTime == null) {
+            if (other.pecasPorTime != null)
+                return false;
+        } else if (!pecasPorTime.equals(other.pecasPorTime))
+            return false;
+        if (vitoriaDerrotaObserver == null) {
+            if (other.vitoriaDerrotaObserver != null)
+                return false;
+        } else if (!vitoriaDerrotaObserver.equals(other.vitoriaDerrotaObserver))
+            return false;
+        if (observadores == null) {
+            if (other.observadores != null)
+                return false;
+        } else if (!observadores.equals(other.observadores))
+            return false;
+        if (linhas != other.linhas)
+            return false;
+        if (colunas != other.colunas)
+            return false;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Tabuleiro [casas=" + casas + ", pecasPorTime=" + pecasPorTime + ", vitoriaDerrotaObserver="
+                + vitoriaDerrotaObserver + ", observadores=" + observadores + ", linhas=" + linhas + ", colunas="
+                + colunas + "]";
+    }
+
+    
+
+    
 }

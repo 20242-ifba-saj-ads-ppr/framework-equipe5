@@ -15,4 +15,13 @@ public class CasaFlyweightFactory {
     public static int getTotalCasas() {
         return casas.size();
     }
+    public static Map<String, CasaFlyweight> getCasas() {
+        return casas;
+    }
+    @Override
+    public String toString() {
+        return "CasaFlyweightFactory []";
+    }
+    
+
 }

@@ -150,6 +150,11 @@ public class TabuleiroProxySecurity implements TabuleiroInterface {
     private void setColunas(int colunas) {
         this.colunas = colunas;
     }
+
+    public ContextoJogo getContexto() {
+        return contexto;
+    }
+
     private int getLinhas() {
         return linhas;
     }
@@ -177,5 +182,42 @@ public class TabuleiroProxySecurity implements TabuleiroInterface {
         }
         casa.setPeca(peca);
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + linhas;
+        result = prime * result + colunas;
+        result = prime * result + ((contexto == null) ? 0 : contexto.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        TabuleiroProxySecurity other = (TabuleiroProxySecurity) obj;
+        if (linhas != other.linhas)
+            return false;
+        if (colunas != other.colunas)
+            return false;
+        if (contexto == null) {
+            if (other.contexto != null)
+                return false;
+        } else if (!contexto.equals(other.contexto))
+            return false;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "TabuleiroProxySecurity [linhas=" + linhas + ", colunas=" + colunas + ", contexto=" + contexto + "]";
+    }
+    
 }
 

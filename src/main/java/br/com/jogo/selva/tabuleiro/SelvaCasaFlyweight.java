@@ -1,6 +1,7 @@
 package main.java.br.com.jogo.selva.tabuleiro;
 
 import main.java.br.com.frameworkPpr.boardgame.padroes.estruturais.flyweight.CasaFlyweight;
+import main.java.br.com.frameworkPpr.boardgame.padroes.estruturais.flyweight.PecaFlyweight;
 
 public class SelvaCasaFlyweight implements CasaFlyweight {
     private final SelvaCasaType tipo;
@@ -30,5 +31,17 @@ public class SelvaCasaFlyweight implements CasaFlyweight {
 
     public SelvaCasaType getTipo() {
         return tipo;
+    }
+
+    @Override
+    public Object getPeca() {
+        // Flyweight não armazena peça, retorna sempre null
+        return null;
+    }
+
+    @Override
+    public void setPeca(PecaFlyweight peca) {
+        // Flyweight não armazena peça, não faz nada
+        // Método vazio propositalmente
     }
 }

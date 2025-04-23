@@ -20,4 +20,14 @@ public class PecaFlyweighFactory {
     {
         return pecas.size();
     }
+
+    public static Map<String, PecaFlyweight> getPecas() {
+        return pecas;
+    }
+
+    @Override
+    public String toString() {
+        return "PecaFlyweighFactory []";
+    }
+    
 }

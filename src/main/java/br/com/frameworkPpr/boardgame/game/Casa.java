@@ -49,5 +49,38 @@ public class Casa {
     public String getTipo() {
         return peca != null ? peca.getClass().getSimpleName() : "vazia";
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((posicao == null) ? 0 : posicao.hashCode());
+        result = prime * result + ((peca == null) ? 0 : peca.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Casa other = (Casa) obj;
+        if (posicao == null) {
+            if (other.posicao != null)
+                return false;
+        } else if (!posicao.equals(other.posicao))
+            return false;
+        if (peca == null) {
+            if (other.peca != null)
+                return false;
+        } else if (!peca.equals(other.peca))
+            return false;
+        return true;
+    }
+
+    
 }
 

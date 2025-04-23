@@ -58,8 +58,6 @@ public class TabuleiroBuilderSelva implements TabuleiroBuilder {
         }
     }
 
-    public 
-
     @Override
     public void adicionarPecas() {
         // Estratégias de movimento

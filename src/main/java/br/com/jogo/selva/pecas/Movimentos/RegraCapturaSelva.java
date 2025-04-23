@@ -39,4 +39,9 @@ public class RegraCapturaSelva {
 
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "RegraCapturaSelva []";
+    }
 }
