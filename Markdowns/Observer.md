@@ -47,7 +47,8 @@ public class Tabuleiro {
 
 ### UML sem o Observer -
 
-<img alt="Motivação sem Observer" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\VitoriaDerrotaSemObserver.png">
+![out/DiagramasIMG/VitoriaDerrotaSemObserver.png](../out/DiagramasIMG/VitoriaDerrotaSemObserver.png)>
+
 
 ### Motivação no contexto do Tabuleiro -
 
@@ -107,7 +108,7 @@ Com o uso do Observer, o *Tabuleiro* notifica automaticamente os observadores (*
     }
 ```
 
-### *VitoriaDerrotaObserver* implementa a interface Observer e é registrado como observador de *Tabuleiro*.
+#### *VitoriaDerrotaObserver* implementa a interface Observer e é registrado como observador de *Tabuleiro*.
 ``` java
 package main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.observer;
 
@@ -121,8 +122,11 @@ public class VitoriaDerrotaObserver implements Observer, CondicaoDeVitoria{
 }
 ```
 
-### O *VitoriaDerrotaObserver* é acionado à lista de observadores do *Tabuleiro*
+#### O *VitoriaDerrotaObserver* é acionado à lista de observadores do *Tabuleiro*
 
+### UML com o Observer -
+
+![out/DiagramasIMG/estruturaVitoriaDerrotaObserver.png](../out/DiagramasIMG/estruturaVitoriaDerrotaObserver.png)>
 
 ### Participantes -
 
@@ -130,6 +134,3 @@ public class VitoriaDerrotaObserver implements Observer, CondicaoDeVitoria{
 2. **Observer:** interface Observer -> ela define o as regras para objetos que desejam ser notificados sobre as mudanças.
 3. **ConcreteObserver:** VitoriaDerrotaObserver, Peca -> implementa a interface Observer e reage as notificações do *Tabuleiro*.
 
-### UML com o Observer -
-
-<img alt="Motivação com Observer" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\estruturaVitoriaDerrotaObserver.png">
