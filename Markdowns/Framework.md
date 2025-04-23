@@ -1,4 +1,5 @@
 # Framework para construção de tabuleiros
+# Equipe 5 - Jabes Cajazeiras, Luis Guilherme, Náthaly Brito
 
 ## Padrões Comportamentais
 
