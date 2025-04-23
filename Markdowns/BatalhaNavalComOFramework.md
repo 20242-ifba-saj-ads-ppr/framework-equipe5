@@ -1,4 +1,3 @@
-
 # Criando o Jogo Batalha Naval com o Framework
 
 ## Passo 1: Configuração do Tabuleiro (Builder)
@@ -20,6 +19,10 @@ TabuleiroDirector director = new TabuleiroDirector(builder);
 Tabuleiro tabuleiro = director.construir(10, 10);
 ```
 
+**Sugestão de implementação do Builder:**
+- Implemente um `TabuleiroBatalhaConcreto` que define casas do tipo "água" e inicializa o grid vazio.
+- No método `adicionarCasas`, marque as casas como água ou, se desejar, implemente áreas especiais (ex: porto).
+- No método `adicionarPecas`, deixe vazio ou adicione navios fixos para testes.
 
 ## Passo 2: Registro dos Times (Multiton)
 
@@ -32,6 +35,7 @@ TimeMultiton time1 = tabuleiro.registrarTime("Time Azul");
 TimeMultiton time2 = tabuleiro.registrarTime("Time Vermelho");
 ```
 
+- Cada time pode ser identificado por nome e suas embarcações associadas.
 
 ## Passo 3: Colocação das Embarcações (Factory)
 
@@ -48,9 +52,12 @@ PecaFactory pecaFactory = new PecaFactory() {
 };
 
 // Exemplo de criação de uma embarcação
-Peca destroyer = pecaFactory.criarPeca("Destroyer", time1, new MovimentoNavio(), Map.of("tamanho", 2));
-Peca submarino = pecaFactory.criarPeca("Submarino", time2, new MovimentoNavio(), Map.of("tamanho", 3));
+Peca destroyer = pecaFactory.criarPeca("Destroyer", time1, new MovimentoNavio(), Map.of("tamanho", 2, "vida", 2));
+Peca submarino = pecaFactory.criarPeca("Submarino", time2, new MovimentoNavio(), Map.of("tamanho", 3, "vida", 3));
 ```
+
+- Crie uma subclasse de `PecaFactory` se quiser lógica específica para cada tipo de navio.
+- Use o campo `caracteristicas` para armazenar tamanho, vida, tipo, etc.
 
 ### Posicionamento das Embarcações
 
@@ -61,8 +68,7 @@ tabuleiro.colocarPeca(destroyer, new Posicao(0, 0));
 tabuleiro.colocarPeca(submarino, new Posicao(5, 5));
 ```
 
-No exemplo acima, o `destroyer` é colocado na posição `(0, 0)` e o `submarino` na posição `(5, 5)`.
-
+- Para navios maiores, você pode criar uma lógica para ocupar múltiplas casas (ex: adicionar uma lista de posições ocupadas na peça ou marcar as casas correspondentes).
 
 ## Passo 4: Implementação das Regras de Jogo (Strategy)
 
@@ -75,15 +81,20 @@ public class MovimentoNavio implements MovimentoStrategy {
     @Override
     public List<Posicao> calcularMovimentosPossiveis(Posicao posicaoAtual, Tabuleiro tabuleiro) {
         // Movimento limitado a uma casa em qualquer direção
-        return List.of(
-            new Posicao(posicaoAtual.getLinha() + 1, posicaoAtual.getColuna()),
-            new Posicao(posicaoAtual.getLinha() - 1, posicaoAtual.getColuna()),
-            new Posicao(posicaoAtual.getLinha(), posicaoAtual.getColuna() + 1),
-            new Posicao(posicaoAtual.getLinha(), posicaoAtual.getColuna() - 1)
-        );
+        List<Posicao> movimentos = new ArrayList<>();
+        int[][] deltas = {{1,0},{-1,0},{0,1},{0,-1}};
+        for (int[] d : deltas) {
+            Posicao nova = new Posicao(posicaoAtual.getLinha() + d[0], posicaoAtual.getColuna() + d[1]);
+            if (tabuleiro.estaDentro(nova) && tabuleiro.getCasa(nova).isAgua()) {
+                movimentos.add(nova);
+            }
+        }
+        return movimentos;
     }
 }
 ```
+
+- Implemente diferentes estratégias para submarinos, encouraçados, etc., se necessário.
 
 ### Regras Específicas de Captura
 
@@ -96,8 +107,8 @@ if (tabuleiro.podeCapturar(new Posicao(0, 0), new Posicao(1, 0))) {
 }
 ```
 
-No exemplo acima, a embarcação na posição `(0, 0)` captura outra na posição `(1, 0)`.
-
+- Implemente o método `podeCapturar` no Tabuleiro para verificar se há uma peça inimiga na posição de destino ou adjacente.
+- Para ataques, você pode criar um método `atacar(Posicao alvo)` na peça ou no tabuleiro, reduzindo a vida da embarcação.
 
 ## Passo 5: Monitoramento do Jogo (Observer)
 
@@ -114,6 +125,8 @@ tabuleiro.adicionarObservador(new Observer() {
 });
 ```
 
+- Implemente observadores para monitorar vitória, destruição de navios, fim de turno, etc.
+
 ## Passo 6: Controle de Estados do Jogo (State)
 
 ### Estados do Jogo
@@ -128,7 +141,7 @@ tabuleiro.finalizarJogo();
 System.out.println("Jogo finalizado!");
 ```
 
----
+- Use o contexto de estado do framework para controlar se o jogo pode aceitar movimentos, ataques, etc.
 
 ## Passo 7: Salvamento e Restauração do Jogo (Memento)
 
@@ -149,4 +162,56 @@ O estado do tabuleiro pode ser restaurado a partir de um memento, permitindo que
 tabuleiro.restaurarMemento(memento);
 System.out.println("Estado do jogo restaurado!");
 ```
+
+---
+
+## Outras recomendações e padrões
+
+- **Proxy**: Use o `TabuleiroProxySecurity` para validar se o movimento/ataque é permitido antes de executar.
+- **Command**: Implemente comandos para ações como mover, atacar, desfazer/refazer jogadas.
+- **Façade**: Crie uma fachada para expor operações de alto nível do jogo (ex: iniciar partida, atacar, verificar vitória).
+- **Decorator**: Caso queira adicionar poderes temporários a navios (ex: escudo, sonar), utilize Decorator para adicionar comportamento sem alterar a classe base.
+
+---
+
+## Exemplo de fluxo completo
+
+```java
+// Inicialização
+TabuleiroBuilder builder = new TabuleiroBatalhaConcreto();
+TabuleiroDirector director = new TabuleiroDirector(builder);
+Tabuleiro tabuleiro = director.construir(10, 10);
+
+// Registro dos times
+TimeMultiton azul = tabuleiro.registrarTime("Azul");
+TimeMultiton vermelho = tabuleiro.registrarTime("Vermelho");
+
+// Criação e posicionamento das embarcações
+PecaFactory factory = ...; // sua implementação
+Peca destroyer = factory.criarPeca("Destroyer", azul, new MovimentoNavio(), Map.of("tamanho", 2, "vida", 2));
+tabuleiro.colocarPeca(destroyer, new Posicao(0, 0));
+
+// Observador de vitória
+tabuleiro.adicionarObservador(new VitoriaDerrotaObserver(tabuleiro));
+
+// Início do jogo
+tabuleiro.iniciarJogo();
+
+// Jogada de ataque
+if (tabuleiro.podeCapturar(new Posicao(0, 0), new Posicao(1, 0))) {
+    tabuleiro.moverPeca(new Posicao(0, 0), new Posicao(1, 0));
+}
+
+// Salvamento do estado
+TabuleiroMemento memento = tabuleiro.criarMemento();
+
+// Restauração do estado
+tabuleiro.restaurarMemento(memento);
+```
+
+---
+
+## Resumo
+
+O framework permite implementar Batalha Naval de forma flexível, reaproveitando padrões GoF para modularidade, manutenção e extensibilidade. Basta especializar as classes de Builder, Factory, Strategy e Observer conforme as regras do jogo desejado.
 
