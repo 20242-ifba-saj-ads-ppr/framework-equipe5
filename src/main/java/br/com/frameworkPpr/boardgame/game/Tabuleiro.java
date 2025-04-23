@@ -94,17 +94,17 @@ public class Tabuleiro {
         getProxySecurityInstance().finalizarJogo();
     }
 
-    public void desistir(TimeMultiton timeDesistente) throws VitoriaException{
+    public String desistir(TimeMultiton timeDesistente) throws VitoriaException{
         if (getVitoriaDerrotaObserver().verificarVencedor() != null) {
             throw new VitoriaException("O jogo já acabou, não é possível desistir.");
         }
-        TimeMultiton vencedor = getPecasPorTime().keySet().stream()
+        TimeMultiton vencedor = TimeMultiton.getTimeObjetos().stream()
         .filter(time -> !Objects.equals(time,timeDesistente))
         .findFirst()
         .orElseThrow(() -> new IllegalStateException("Nenhum time restante para declarar como vencedor."));
-        System.out.println("O time " + vencedor.toString() + " venceu por desistência do time " + timeDesistente.toString());
         getVitoriaDerrotaObserver().notificarVencedor(vencedor);
         finalizarJogo();
+        return "O time " + vencedor.toString() + " venceu por desistência do time " + timeDesistente.toString() + ".";
     }
 
     public Map<TimeMultiton, Integer> getPecasPorTime() {
