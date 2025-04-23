@@ -8,9 +8,9 @@ O padrão Flyweight tem como objetivo compartilhar objetos para economizar memó
 
 Sem o uso do Flyweight, cada casa, peça ou posição do tabuleiro seria representada por um novo objeto, mesmo que compartilhassem os mesmos atributos (ex: cor, tipo, posição). Isso resultaria em alto consumo de memória e redundância de dados.
 
-### UML sem Factory
+### UML sem Flyweight
 
-<img alt="Motivação sem Flyweight"src="C:\Users\luisp\Documents\GitHub\framework-equipe5\out\DiagramasIMG\TabuleiroSemFlyweight.png">
+![out/DiagramasIMG/TabuleiroSemFlyweight.png](../out/DiagramasIMG/TabuleiroSemFlyweight.png)
 
 ### Motivação no contexto do tabuleiro
 
@@ -18,7 +18,8 @@ No contexto do tabuleiro, existem muitas casas, peças e posições que podem se
 
 ### UML com Flyweight
 
-<img alt="Motivação com Flyweight"src="C:\Users\luisp\Documents\GitHub\framework-equipe5\out\DiagramasIMG\TabuleiroComFlyweight.png">
+![out/DiagramasIMG/TabuleiroComFlyweight.png](../out/DiagramasIMG/TabuleiroComFlyweight.png)
+
 
 ### Participantes
 
