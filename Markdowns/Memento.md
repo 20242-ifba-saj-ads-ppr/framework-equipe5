@@ -27,7 +27,7 @@ if (!historicoCasas.isEmpty()) {
 
 ### UML sem o padrão
 
-<img alt="Motivação com Observer"src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\TabuleiroSemMemento.png">
+![out/DiagramasIMG/TabuleiroSemMemento.png](../out/DiagramasIMG/TabuleiroSemMemento.png)
 
 ### Motivação com o Padrão
 
@@ -118,12 +118,13 @@ public class HistoricoTabuleiro {
 }
 ```
 
+### UML com memento
+
+![out/DiagramasIMG/TabuleiroMemento.png](../out/DiagramasIMG/TabuleiroMemento.png)>
+
 ### Participantes
 
 1. Memento: TabuleiroMemento -> armazena o estaod interno do *Tabueleiro* para que possa ser posteriormente restaurado;
 2. Originator: Tabuleiro -> cria um *TabueliroMemento* com seu estado atual e pode restaurar seu estado a partir de um memento.
 3. Caretaker: HistoricoTabuleiro -> gerencia os mementos criados pelo Tabuleiro para desfazer/refazer;
 
-### UML com memento
-
-<img alt="Motivação com Observer"src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\TabuleiroMemento.png">

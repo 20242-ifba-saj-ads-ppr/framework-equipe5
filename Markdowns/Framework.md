@@ -1,36 +1,30 @@
 # Framework para construção de tabuleiros
 
-# Padrões Comportamentais
+## Padrões Comportamentais
 
-# Command
+### Command 
 
-### Intenção
+#### Intenção
+encapsular uma requisão como um objeto, assim pode-se parametrizar clientes com diferentes requisições, enfileirar ou registrar requisições e suportar operações de desfazer/refazer.
 
-Encapsular uma requisição como um objeto, assim pode-se parametrizar clientes com diferentes requisições, enfileirar ou registrar requisições e suportar operações de desfazer/refazer.
-
-### Motivação sem o Padrão
-
+#### Motivação sem o Padrão
 Sem o uso do padrão, o código do cliente ficaria responsável por saber como executar cada ação, como mover a peça. Isso geraria alto acoplamento pois o cliente teria que conhecer detalhes do tabuleiro e das peças. Haveria dificuldade em desfazer e refazer pois não teria um mecanismo simples para registrar e reverter ações.
 
-### Exemplo sem o command
-
+##### Exemplo sem o command:
 ``` java
 // Cliente faz tudo manualmente
 tabuleiro.moverPeca(origem, destino);
 // Para desfazer, teria que saber como reverter:
 tabuleiro.moverPeca(destino, origem);
 ```
+##### UML sem o Command
 
-### UML sem o padrão
+![out/DiagramasIMG/TabuleiroSemCommand.png](../out/DiagramasIMG/TabuleiroSemCommand.png)
 
-<img alt="Motivação com Builder"src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\TabuleiroSemCommand.png">
-
-### Motivação com o Padrão
-
+#### Motivação com o Padrão
 No nosso projeto o Command é aplicadado na manipulação de ações do tabuleiro, como mover peças. Assim o código que solicita a ação não precisa saber vomo ela é executada. A interface Command define os métodos que são implementados pela classe MevePieceCommand.
 
-### Definição da regra para comandos
-
+##### Definição da regra para comandos:
 ``` java
 package main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.command;
 
@@ -40,8 +34,7 @@ public interface Command {
 }
 ```
 
-### Encapsulamento da ação de mover uma peça no tabuleiro
-
+##### Encapsulamento da ação de mover uma peça no tabuleiro:
 ``` java
 package main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.command;
 
@@ -72,8 +65,7 @@ public class MovePieceCommand implements Command {
 ```
 
 O *Tabuleiro* executa a lógica real de movimentação:
-
-``` java
+``` java 
    public void moverPeca(Posicao origem, Posicao destino) {
         getProxySecurityInstance().moverPeca(origem, destino, getCasas());
         Casa casaDestino = getCasas().get(destino);
@@ -85,29 +77,36 @@ O *Tabuleiro* executa a lógica real de movimentação:
     }
 ```
 
-### UML com o Padrão
+##### UML com o Command 
 
-<img alt="Motivação com Builder" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\TabuleiroComCommand.png">
+![out/DiagramasIMG/TabuleiroComCommand.png](../out/DiagramasIMG/TabuleiroComCommand.png)
 
-### Participantes
+#### Participantes:
+1. Command (interface Command):
+   - declara uma interface para a execução de uma operação.   
+2. ConcreteCommand (classe MovePieceCommand)
+   - define uma vinculação entre um objeto Receiver e uma ação;
+   - implementa  Execute() e undo()  através  da  invocação  da(s)  correspondente(s)
+operação(ões) no Receiver.
+3. Receiver (classe Tabuleiro):
+   - cria um objeto ConcreteCommand e estabelece o seu receptor.
+4. Invoker: 
+5. Client (Tauleiro Selva): 
+    - sabe como executar as operações associadas a uma solicitação. Qualquer
+classe pode funcionar como um Receiver.
 
-1. Command: interface Command;
-2. ConcreteCommand: classe MovePieceCommand;
-3. Receiver: classe Tabuleiro;
-4. Invoker:
-5. Client:
 
-# Memento
+### Memento
 
-### Intenção
+#### Intenção
 
 sem violar o encapsulamento, captura e externaliza o estado interno de um objeto, assim, depois ele pode ser restaurado para esse estado.
 
-### Motivação sem o Padrão
+#### Motivação sem o Memento
 
 Sem o uso do padrão, para implementar ações de desfazer ou refazer seria necessário manipular diretamente o estado interno do *Tabuleiro* levando a quebra do encapsulamento já que outras classes precisariam acessar e modiicar os atributos internos de *Tabuleiro*.
 
-### exemplo de como ficaria a manipulação direta
+##### Exemplo de como ficaria a manipulação direta
 
 ``` java
 //lista para armazenar snapshots manuais do estado
@@ -124,25 +123,17 @@ if (!historicoCasas.isEmpty()) {
 }
 ```
 
-### UML sem o padrão
+##### UML sem o Memento
 
-<img alt="Motivação com Observer" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\TabuleiroSemMemento.png">
+![out/DiagramasIMG/TabuleiroSemMemento.png](../out/DiagramasIMG/TabuleiroSemMemento.png)
 
-### Motivação com o Padrão
+#### Motivação com o Memento
 
 Com a aplicação do Memento, o estado do *Tabuleiro* antes de cada jogada é salvo, dessa maneira, o jogador poderá desfazer ou refazer uma jogada. Ele poderá fazer isso facilmente pois outras partes do código não precisarão conhecer a estrutura interna do tabuleiro.
 
-### A classe *TabuleiroMemento* armazena snapshots do estado do tabuleiro
+##### A classe *TabuleiroMemento* armazena snapshots do estado do tabuleiro
 
 ``` java
-package main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.memento;
-
-import java.util.Map;
-
-import main.java.br.com.frameworkPpr.boardgame.game.Casa;
-import main.java.br.com.frameworkPpr.boardgame.game.Posicao;
-import main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.multiton.Time;
-
 public class TabuleiroMemento {
     private final Map<Posicao, Casa> casasSnapshot;
     private final Map<Time, Integer> pecasPorTimeSnapshot;
@@ -162,7 +153,7 @@ public class TabuleiroMemento {
 }
 ```
 
-### Tabuleiro cria e restaura mementos
+##### Tabuleiro cria e restaura mementos
 
 ``` java
     public TabuleiroMemento criarMemento()
@@ -177,7 +168,7 @@ public class TabuleiroMemento {
     }
 ```
 
-### O *HistoricoTabuleiro* armazena e gerencia os mementos
+##### O *HistoricoTabuleiro* armazena e gerencia os mementos
 
 ``` java
 package main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.memento;
@@ -225,23 +216,24 @@ public class HistoricoTabuleiro {
 }
 ```
 
-### Participantes
+##### UML com memento
+
+![out/DiagramasIMG/TabuleiroMemento.png](../out/DiagramasIMG/TabuleiroMemento.png)>
+
+#### Participantes
 
 1. Memento: TabuleiroMemento -> armazena o estaod interno do *Tabueleiro* para que possa ser posteriormente restaurado;
 2. Originator: Tabuleiro -> cria um *TabueliroMemento* com seu estado atual e pode restaurar seu estado a partir de um memento.
 3. Caretaker: HistoricoTabuleiro -> gerencia os mementos criados pelo Tabuleiro para desfazer/refazer;
 
-### UML com memento
 
-<img alt="Motivação com Observer" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\TabuleiroMemento.png">
+### Observer
 
-# Observer
-
-### Intenção -
+#### Intenção -
 
 Define uma dependência um-para-muitos entre objetos, para que quando um objeto mudar seu estado todos os seus **dependentes** são notificados e atualizados automaticamente. Isso promove o princípio **aberto/fechado (open/closed)**, já que permite adicionar novos observadores sem modificar o sujeito.
 
-### Motivação sem o Padrão -
+#### Motivação sem o Observer -
 
 Sem o uso do Observer a implementação do monitoramento e observação teria que ser direto no *Tabuleiro*, assim, ele precisaria conhecer todas as classes que dependem de mudanças no estado do jogo, como a de VitoriaDerrotaObserver e Peca. Adicionar novas classes que precisariam ser notificadas resultaria na modificação da classe *Tabuleiro* violando o princípio **open/closed**. , o Tabuleiro teria que conhecer e manipular diretamente todas as peças e suas reações a eventos
 
@@ -282,15 +274,16 @@ public class Tabuleiro {
 }
 ```
 
-### UML sem o Observer -
+##### UML sem o Observer -
 
-<img alt="Motivação sem Observer" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\VitoriaDerrotaSemObserver.png">
+![out/DiagramasIMG/VitoriaDerrotaSemObserver.png](../out/DiagramasIMG/VitoriaDerrotaSemObserver.png)>
 
-### Motivação no contexto do Tabuleiro -
+
+#### Motivação no contexto do Tabuleiro -
 
 Com o uso do Observer, o *Tabuleiro* notifica automaticamente os observadores (*vitoriaDerrotaObserver*, *Peca*) sobre eventos importantes. As peças implementam a interface Observer, assim elas são registradas como observadores do *Tabuleiro*. Quando uma ação acontece, o *Tabuleiro* chama o método **notificarObservadores(evento)** que percorre todos os observadores e chama o **update(evento)**.
 
-#### Tabuleiro mantém e notifica os Observers
+##### Tabuleiro mantém e notifica os Observers
 
 ``` java
    private List<Observer> observadores = new ArrayList<>();
@@ -313,9 +306,7 @@ Com o uso do Observer, o *Tabuleiro* notifica automaticamente os observadores (*
         }
     }
 ```
-
-#### Peças implementam o Observer
-
+##### Peças implementam o Observer
 ``` java
     @Override
     public void update(String evento) {
@@ -332,7 +323,7 @@ Com o uso do Observer, o *Tabuleiro* notifica automaticamente os observadores (*
     }
 ```
 
-### Tabuleiro notifica as Peças e outros Observers
+##### Tabuleiro notifica as Peças e outros Observers
 
 ``` java
     public void moverPeca(Posicao origem, Posicao destino) {
@@ -346,8 +337,7 @@ Com o uso do Observer, o *Tabuleiro* notifica automaticamente os observadores (*
     }
 ```
 
-### *VitoriaDerrotaObserver* implementa a interface Observer e é registrado como observador de *Tabuleiro*
-
+##### *VitoriaDerrotaObserver* implementa a interface Observer e é registrado como observador de *Tabuleiro*.
 ``` java
 package main.java.br.com.frameworkPpr.boardgame.padroes.comportamentais.observer;
 
@@ -361,29 +351,30 @@ public class VitoriaDerrotaObserver implements Observer, CondicaoDeVitoria{
 }
 ```
 
-### O *VitoriaDerrotaObserver* é acionado à lista de observadores do *Tabuleiro*
+##### O *VitoriaDerrotaObserver* é acionado à lista de observadores do *Tabuleiro*
 
-### Participantes -
+##### UML com o Observer -
+
+![out/DiagramasIMG/estruturaVitoriaDerrotaObserver.png](../out/DiagramasIMG/estruturaVitoriaDerrotaObserver.png)>
+
+#### Participantes -
 
 1. **Subject:** Tabuleiro -> ele é o objeto observado, mantém uma lista de observadores e notifica-os sobre mudanças no estado do jogo;
 2. **Observer:** interface Observer -> ela define o as regras para objetos que desejam ser notificados sobre as mudanças.
 3. **ConcreteObserver:** VitoriaDerrotaObserver, Peca -> implementa a interface Observer e reage as notificações do *Tabuleiro*.
 
-### UML com o Observer -
 
-<img alt="Motivação com Observer" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\estruturaVitoriaDerrotaObserver.png">
+### State
 
-# State
-
-### Intenção
+#### Intenção
 
 Permitir que um objeto altere seu comportamento quando seu estado interno muda. Ele encapsula os possíveis estados de um objeto em *classes separadas* promovendo a separação de responsabilidades.
 
-### Motivação sem o padrão
+#### Motivação sem o State
 
 Sem a aplicação do pasrão o comportamento do objeto setia controlado por grandes estruturas de if-else ou switch-case que verificariam o estado atual pra decidir o que fazer. Toda lógica de estados estaria concentrada em apenas uma classe dificultando
 
-### Exemplo de código sem o padrão State
+##### Exemplo de código sem o padrão State
 
 ```java
 // Exemplo sem o padrão State
@@ -421,15 +412,16 @@ public class Jogo {
 }
 ```
 
-### UML sem o padrão
+##### UML sem o padrão
 
-<img alt="Motivação sem StatePattern"src="C:\Users\luisp\Documents\GitHub\framework-equipe5\out\DiagramasIMG\semState.png">
+![out/DiagramasIMG/semState.png](../out/DiagramasIMG/semState.png)
 
-### Motivação com o Padrão
+
+#### Motivação com o State
 
 O padrão State é utilizado no projeto para controlar o comportamento do jogo conforme o seu estado atual (iniciado, pausado, finalizado, etc.), evitando o uso de grandes estruturas condicionais e promovendo a separação de responsabilidades.
 
-### Implementação no framework
+##### Implementação no framework
 
 Objeto principal que representa o contexto do jogo é a classe ContextoJogo
 
@@ -487,24 +479,24 @@ public interface EstadoJogo {
 
 ```
 
-### UML com o padrão
+##### UML com o padrão
 
-<img alt="Motivação com StatePattern"src="C:\Users\luisp\Documents\GitHub\framework-equipe5\out\DiagramasIMG\StatePattern.png">
+![out/DiagramasIMG/StatePattern.png](../out/DiagramasIMG/StatePattern.png)
 
-### Participantes
+#### Participantes
 
 1. **State:** EstadoJogo -> Interface que define as operações para os diferentes estados do jogo.
 2. **ConcreteState:** Estados concretos -> Implementações concretas da interface EstadoJogo, cada uma representando um estado do jogo.
 3. **Context:** ContextoJogo -> Classe que mantém uma referência para o estado atual e delega as operações para o estado corrente.
 4. **Client:** Tabuleiro/TabuleiroProxySecurity -> Classes que utilizam o ContextoJogo para controlar o fluxo do jogo, delegando as operações de estado.
 
-# Strategy
+### Strategy
 
-### Intenção -
+#### Intenção -
 
 Definir uma família de algoritmos em classes separadas para que seus objetos sejam intercambiáveis.
 
-### Motivação sem o Padrão -
+#### Motivação sem o Padrão -
 
 Sem o uso do Strategy a implementação de movimento de peças teria que ser diretamente na classe *Peça*. Isso reduz a flexibilidade já que toda lógica de movimento de diferentes peças estaria centralizada em uma única classe, assim, não seria possível reutiliar a lógica em outro contexto sem a duplicação do código. Para adicionar novas peças ou até mesmo alterar a lógica do movimento, teriamos que modificar a classe *Peça* violando o princípio **Open/Closed** - aberto para extensão e fechado para modificação.
 
@@ -543,11 +535,12 @@ public class Peca {
 }
 ```
 
-### UML sem o Strategy -
+##### UML sem o Strategy -
 
-<img alt="Motivação com Singleton"src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\estruturaPecaSemStrategy.png">
+![out/DiagramasIMG/estruturaPecaSemStrategy.png](../out/DiagramasIMG/estruturaPecaSemStrategy.png)
 
-### Motivação no contexto do Tabuleiro
+
+#### Motivação no contexto do Tabuleiro
 
 Aqui, o strategy é usado para definir diferentes estratégias de movimento para as peças. Cada peça pode ter sua própria lógica de movimento. A interface *MovimentoStrategy* define o método *calcularMovimentosPossiveis* que é implementado por classes específicas para cada tipo de peça.
 
@@ -583,30 +576,27 @@ public class MovimentoRei implements MovimentoStrategy {
 }
 ```
 
-### UML com Strategy -
+##### UML com Strategy -
 
-<img alt="Motivação com Singleton"src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\estruturaPeca.png">
+![out/DiagramasIMG/estruturaPeca.png](../out/DiagramasIMG/estruturaPeca.png)
 
-### Participantes -
+#### Participantes -
 
 1. **Strategy:** MovimentoStrategy -> declara o método calcularMovimentosPossiveis que é implementado por diferentes estratégias;
 2. **ConcretStrategy:** serão os métodos que implementam a interace MovimentoStrategy que criarão a lógica específica de cada peça;
 3. **Context:** Peca -> contém a referência para um objeto MovimentoStrategy, delega a execução do método *calcularMovimentosPossiveis* para a estratégia associada (ConcretStrategy).
 
-# Padrões Criacionais
+## Padrões Criacionais
 
-# Builder
+### Builder
 
-### Intenção
-
+#### Intenção
 Separa a construção de um objeto complexo da sua representação, assim o mesmo processo de construção pode criar diferentes representações.
 
-### Motivação sem o Padrão
-
+#### Motivação sem o Padrão
 Sem o uso do Builder, a construção de um tabuleiro ficaria centralizada em uma única classe, no caso *Tabuleiro*. Isso traria problemas como dificuladades de reutilizar partes da construção e violação do princípio de responsabilidade única, pois o *Tabuleiro* teria que saber tanto como construir quanto como se comportar dificultando a manutenção.
 
-### Exemplo de implementação sem o Builder
-
+##### Exemplo de implementação sem o Builder:
 ``` java
 package br.com.frameworkPpr.boardgame.game;
 
@@ -644,16 +634,14 @@ public class Tabuleiro {
 }
 ```
 
-### UML sem builder
+##### UML sem builder
 
-<img alt="Motivação com Builder" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\TabuleiroSemBuilder.png">
+![out/DiagramasIMG/TabuleiroSemBuilder.png](../out/DiagramasIMG/TabuleiroSemBuilder.png)
 
-### Motivação com o Padrão
-
+#### Motivação com o Padrão
 no projeto, o Builder é usado para permitir a construção flexível de diferentes tipos de tabuleiros, separando o processo de construção da representação final do objeto. Isso facilita a criação de tabuleiros personalizados para diferentes jogos.
 
-### A interface *TabuleiroBuilder* define os métodos necessários para construir um tabuleiro
-
+##### A interface *TabuleiroBuilder* define os métodos necessários para construir um tabuleiro:
 ``` java
 package main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.builder;
 
@@ -666,9 +654,7 @@ public interface TabuleiroBuilder {
     Tabuleiro getResultado();
 }
 ```
-
-### O *TabuleiroDirector* orquestra a construção do tabuleiro. Ele chama os métodos do builder na ordem correta para criar o tabuleiro
-
+##### O *TabuleiroDirector* orquestra a construção do tabuleiro. Ele chama os métodos do builder na ordem correta para criar o tabuleiro:
 ``` java
 package main.java.br.com.frameworkPpr.boardgame.padroes.criacionais.builder;
 
@@ -690,19 +676,40 @@ public class TabuleiroDirector {
 }
 ```
 
-### UML com Builder
+##### UML com Builder:
 
-<img alt="Motivação com Builder" src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\TabuleiroBuilder.png">
+![out/DiagramasIMG/TabuleiroBuilder.png](../out/DiagramasIMG/TabuleiroBuilder.png)
 
-### Participantes
+#### Participantes:
 
-# Factory
+1. Builder (TabuleiroBuilder) 
+    - especifica  uma  interface  abstrata  para  criação  de  partes  de  um  objeto-
+produto. Nesse caso, os contratos:  iniciarTabuleiro(int largura, int altura); adicionarPecas(); e void adicionarCasas();
 
-### Intenção -
+2. ConcreteBuilder (Tabuleiro Buider Selva)
+   - constrói e monta partes do produto pela implementação da interface de TabuleiroBuilder;
+   - define e mantém a representação que cria;
+   - È a implementação concreta do framework
+
+
+3. Director (TabuleiroDirector)
+   - constrói um objeto usando a interface de Builder.
+  
+3.  Product ().
+    - representa o objeto complexo em construção. ConcreteBuilder constrói a
+representação  interna  do  produto  e  define  o  processo  pelo  qual  ele  é
+montado;
+    - inclui classes que definem as partes constituintes, inclusive as interfaces
+para a montagem das partes no resultado final.
+
+
+### Factory
+
+#### Intenção -
 
 Fornecer uma interface para criação de objetos em uma superclasse porém as subclasses cotém permissão para alterar os tipos de objetos que serao criados.
 
-### Motivação sem o Padrão -
+#### Motivação sem o Padrão -
 
 Sem o uso do Factory a criação dos objetos seria feita diretamente no código do *Tabuleiro*. O acoplamento seria grande pois o *Tabuleiro* ia precisar conhecer detalhes da implementação de cada peça. Na criação de novas peças ou até na modificação da lógica de criação a classe Tabuleiro teria que ser modificada, violando o princípio **open/closed**.
 
@@ -725,11 +732,11 @@ public class Tabuleiro {
 }
 ```
 
-### UML sem Factory -
+##### UML sem Factory -
 
-<img alt="Motivação com Singleton"src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\PecaSemFactory.png">
+![out/DiagramasIMG/PecaSemDecorator.png](../out/DiagramasIMG/PecaSemDecorator.png)
 
-### Motivação no contexto do tabuleiro -
+#### Motivação no contexto do tabuleiro -
 
 Com a aplicação do Factory, a lógica de criação das peças é encapsulada em subclasses de `PecaFactory`, permitindo que novas peças sejam adicionadas sem modificar o código do Tabuleiro. O método *criarPeca* permite a criação de peças com características personalizadas.
 
@@ -795,24 +802,27 @@ public class Tabuleiro {
 }
 ```
 
-### UML com Factory -
+##### UML com Factory -
 
-<img alt="Motivação com Factory"src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\PecaComFactory.png">
+![out/DiagramasIMG/PecaComFactory.png](../out/DiagramasIMG/PecaComFactory.png)
 
-### Participantes -
+
+#### Participantes -
 
 1. **Produto:** Peca -> define a interface base para os objetos que serão criados;
 2. **Factory:** PecaFactory -> contém o método responsável por criar as instâncias das peças.
 3. **ConcreteFactory:** AnimalFactory (ou outra) -> implementa a lógica de criação específica.
 4. **Client:** Tabuleiro -> classe que utiliza a fábrica para criar objetos.
 
-# Multiton (Não GOF)
+### Multiton (Não GOF)
 
-### Intenção -
+#### Intenção -
+
+[^K19]
 
 Permitir a criação de uma quantidade limitada de instâncias de determinada classe e fornecer um modo para recuperá-las.
 
-### Motivação sem o Padrão -
+#### Motivação sem o Padrão -
 
 Sem o multiton, o gerenciamento dos times teria que ser de forma manual com o uso de mapas para armazenar e recuperar as instâncias deles. Só que isso é menos eficiente uma vez que seria necessário acessar o mapa sempre que informações sobre um time fossem necessárias. Também não haveria garantia de unicidade para cada time podendo levar a inconsistências.
 
@@ -861,11 +871,11 @@ Time preto = gerenciador.getTime("Preto");
 gerenciador.adicionarTime("Azul", new Time("Azul")); // Possível adicionar novos times manualmente
 ```
 
-### UML sem multiton -
+##### UML sem Multiton
 
-<img alt="Motivação sem multiton"src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\motivacao_sem_multiton.png">
+![out/DiagramasIMG/motivacao_sem_multiton.png](../out/DiagramasIMG/motivacao_sem_multiton.png)>
 
-### Motivação no contexto do Tabuleiro -
+#### Motivação no contexto do Tabuleiro -
 
 No projeto, o padrão Multiton é aplicado por meio da classe `Time`, que mantém um mapa estático de instâncias únicas para cada nome de time. Assim, sempre que for necessário criar um time, é necessário chamar o método `getInstance` passando como parâmetro o nome do time. Caso esse time exista, o método vai retornar o mesmo. Caso não exista, o método cria o novo time. Isso garante unicidade e centralização do controle dos times, permitindo que cada time seja identificado de forma única e reutilizável em todo o sistema.
 
@@ -904,24 +914,24 @@ Time preto = Time.getInstance("Preto");
 Time azul = Time.getInstance("Azul"); // Garantido que "Azul" será único
 ```
 
-### UML com multiton -
+##### UML com multiton -
 
-<img alt="Motivação com multiton"src="C:\Users\luisp\Documents\GitHub\framework-equipe5\out\DiagramasIMG\motivacao_com_multiton.png">
+![out/DiagramasIMG/motivacao_com_multiton.png](../out/DiagramasIMG/motivacao_com_multiton.png)>
 
 Com o Multiton, declaramos instâncias únicas para representar os times, que podem ser usadas em diversas funcionalidades do sistema. O acesso é centralizado e consistente, evitando duplicidade e facilitando a manutenção.
 
-### Participantes -
+#### Participantes -
 
 1. **Multiton:** Classe `Time` -> mantém instâncias únicas para cada nome de time;
 2. **Client:** (Tabuleiro), Peca -> classes que utilizam as instâncias do multiton.
 
-# Singleton
+### Singleton
 
-### Intenção -
+#### Intenção -
 
 Garantir que uma classe possua apenas uma instância e provê um ponto de acesso global a ela.
 
-### Motivação sem o Padrão -
+#### Motivação sem o Singleton -
 
 Sem a aplicação do padrão, seria possível a criação de várias instâncias da sessão do jogo causando duplicidade e falta de controle já que haveria múltiplos jogos criados sem a centralização desses.
 
@@ -972,11 +982,12 @@ public class GameSession {
 }
 ```
 
-### UML sem singleton
+##### UML sem singleton
 
-<img alt="Motivação sem Singleton"src="C:\Users\luisp\Documents\GitHub\framework-equipe5\out\DiagramasIMG\GameSessionSemSingleton.png">
+![out/DiagramasIMG/motivacao_com_multiton.png](../out/DiagramasIMG/motivacao_com_multiton.png)>
 
-### Motivação no contexto do GameSession -
+
+#### Motivação no contexto do GameSession -
 
 Unicidade da sessão do jogo já que ele é um recurso central e único, varias instâncias dele causaria inconsistência no estado do jogo. Com o acesso global, outras partes do sistema, peças, jogadores, regras... podem interagir de forma consistente.
 
@@ -1081,26 +1092,26 @@ public class GameSession {
 }
 ```
 
-### UML com singleton
+##### UML com singleton
 
-<img alt="Motivação com Singleton"src="C:\Users\luisp\Documents\GitHub\framework-equipe5\out\DiagramasIMG\GameSession.png">
+![out/DiagramasIMG/motivacao_com_singleton.png](../out/DiagramasIMG/motivacao_com_singleton.png)
 
-### Participantes -
+#### Participantes -
 
 1. **Singleton:**
     Representado pela classe **GameSession** através de uma construtor privado, um método estático getInstance() que retorna a instância única dessa classe.
 2. **Client:**
     Classes que utilizam a instância única da sessão do jogo para acessar ou modificar seu estado. Exemplos de clients incluem as classes que representam os **jogadores**, **regras do jogo** e qualquer outro componente que precise interagir com a sessão centralizada do jogo. Esses clients acessam a instância de `GameSession` por meio do método estático `getInstance()`.
 
-# Padrões Estruturais
+## Padrões Estruturais
 
-# Decorator
+### Decorator
 
-### Intenção -
+#### Intenção -
 
 Permitir adicionar responsabilidades a um objeto de forma dinâmica, fornecendo uma alternativa flexível à subclasse para estender funcionalidades.
 
-### Motivação sem o padrão -
+#### Motivação sem o padrão -
 
 Sem o padrão Decorator, para adicionar novos comportamentos a uma peça (por exemplo, promover um peão), seria necessário criar subclasses específicas para cada combinação de comportamentos, aumentando a complexidade e dificultando a manutenção.
 
@@ -1111,11 +1122,11 @@ public class PeaoPromovidoRainha extends Peao {
 }
 ```
 
-### UML sem Decorator -
+##### UML sem Decorator -
 
-<img alt="Estrutura sem Decorator"src="C:\Users\luisp\Documents\GitHub\framework-equipe5\out\DiagramasIMG\PecaSemDecorator.png">
+![out/DiagramasIMG/PecaSemDecorator.png](../out/DiagramasIMG/PecaSemDecorator.png)
 
-### Motivação no contexto do tabuleiro
+#### Motivação no contexto do tabuleiro
 
 No projeto, o padrão Decorator é aplicado para permitir que peças recebam funcionalidades extras em tempo de execução, como a promoção de um peão. Isso é feito sem alterar a classe original da peça, apenas "envolvendo" a peça original com um decorador.
 
@@ -1158,26 +1169,27 @@ Peca peao = ...; // Peça original
 Peca peaoPromovido = new PecaPromovidaDecorator(peao); // Adiciona comportamento de promoção
 ```
 
-### UML com Decorator
+##### UML com Decorator
 
-<img alt="Estrutura Decorator"src="C:\Users\luisp\Documents\GitHub\framework-equipe5\out\DiagramasIMG\PecaDecorator.png">
+![out/DiagramasIMG/PecaDecorator.png](../out/DiagramasIMG/PecaDecorator.png)
+
 
 Com o Decorator, é possível estender funcionalidades das peças de forma flexível e dinâmica, sem criar uma explosão de subclasses.
 
-### Participantes
+#### Participantes
 
 1. **Componente:** `Peca` — define a interface dos objetos que podem receber responsabilidades adicionais.
 2. **Decorator:** `PecaDecorator` — implementa a interface de `Peca` e mantém uma referência para um objeto `Peca`.
 3. **ConcreteDecorator:** `PecaPromovidaDecorator` — adiciona responsabilidades ao componente.
 4. **Cliente:** Código que utiliza as peças decoradas.
 
-# Proxy
+### Proxy
 
-### Intenção -
+#### Intenção -
 
 atuar como intermediário entre o cliente e um objeto real, controlando o acesso a ele.
 
-### Motivação Sem o Padrão -
+#### Motivação Sem o Padrão -
 
 Sem o Proxy as classes *Peca* e *VitoriaDerrotaObserver* teriam que interagir diretamente com o objeto real *Tabuleiro*. Isso levaria a falta de controle de acesso já que não há uma camada intermediária para validar as ações antes executar. Operações inválidas poderiam ser realizadas no *Tabuleiro* e as lógicas de validações teriam de ser implementadas direto nessa classe.
 
@@ -1204,11 +1216,11 @@ public class Tabuleiro {
 }
 ```
 
-### UML sem Proxy -
+##### UML sem Proxy -
 
-<img alt="Motivação sem Proxy"src="C:\Users\luisp\Documents\GitHub\framework-equipe5\out\DiagramasIMG\TabuleiroSemProxy.png">
+![out/DiagramasIMG/TabuleiroSemProxy.png](../out/DiagramasIMG/TabuleiroSemProxy.png)>
 
-### Motivação no Contexto do tabuleiro -
+#### Motivação no Contexto do tabuleiro -
 
 No framework, o padrão Proxy é aplicado através da classe `TabuleiroProxySecurity`, que implementa a interface `TabuleiroInterface` e atua como camada intermediária entre o cliente e o objeto real `Tabuleiro`. O Proxy é responsável por realizar validações de estado do jogo (como se o jogo foi iniciado, se a posição é válida, se a casa está ocupada, etc.) antes de delegar as operações ao Tabuleiro real. Além disso, o Proxy é implementado como Singleton, garantindo uma única instância de controle de acesso ao tabuleiro.
 
@@ -1284,12 +1296,111 @@ public class TabuleiroProxySecurity implements TabuleiroInterface {
 
 No projeto, o `Tabuleiro` utiliza o Proxy para todas as operações sensíveis, garantindo que as regras de negócio e validações estejam centralizadas e desacopladas da lógica principal do tabuleiro.
 
-### UML com Proxy -
+##### UML com Proxy -
 
-<img alt="Motivação sem Proxy"src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\TabuleiroComProxy.png">
+![out/DiagramasIMG/TabuleiroComProxy.png](../out/DiagramasIMG/TabuleiroComProxy.png)>
 
-### Participantes -
+#### Participantes -
 
 1. **Proxy:** TabuleiroProxySecurity -> atua como intermediário entre o cliente e o objeto real, validando e controlando o acesso ao Tabuleiro. Implementa a interface TabuleiroInterface e é Singleton.
 2. **Objeto real:** Tabuleiro -> contém a lógica principal do jogo, como gerenciar casas, peças e as interações. O *TabuleiroProxySecurity* delega as operações ao *Tabuleiro* após realizar as validações necessárias.
 3. **Cliente:** Peca, VitoriaDerrotaObserver -> e demais classes que interagem com o tabuleiro por meio do proxy.
+
+### Façade
+
+#### Intenção
+
+[^GAMA]
+
+- Fornecer uma interface unificada para um conjunto de interfaces em um subsistema.
+- O Façade define uma interface de nível mais alto que torna o subsistema mais fácil de ser usado.
+
+#### Motivação
+
+- Em um framework de tabuleiro, é necessário um ponto de entrada para acessar outras camadas e subsistemas, facilitando a implementação de regras de negócio.
+
+##### Sem o Façade
+
+- As classes que utilizam o tabuleiro precisariam interagir diretamente com suas dependências internas, como `Casa`, `Posicao` e `Peca`. Além disso, as regras de negócio seriam densas, misturando validação, registro, gerenciamento de vitória e demais implementações em si mesmas.
+  
+- Isso resultaria em:
+  - Alto acoplamento entre as classes.
+  - Maior complexidade para os consumidores do subsistema.
+  - Classe `Tabuleiro` densa, o que dificultaria manutenções.
+  - Perda da flexibilidade do tabuleiro.
+
+###### UML sem Façade
+
+![out/DiagramasIMG/TabuleiroSemFaçade.png](../out/DiagramasIMG/TabuleiroSemFaçade.png)
+
+##### Com o Façade
+
+- A classe `Tabuleiro` atua como o Façade, fornecendo uma interface simplificada que gerencia o estado do tabuleiro, as regras de negócio, o posicionamento de casas e demais subsistemas do mesmo.
+- Nesse sentido, além de conter sua própria lógica, a classe delega responsabilidades específicas, como validações, para outras classes (ex.: `TabuleiroProxySecurity`, `Time`, `VitoriaDerrotaObserver`, `TabuleiroMemento`), escondendo a complexidade do subsistema. Isso explicita a aplicação do princípio da responsabilidade única, uma vez que o tabuleiro delega responsabilidades a cada subsistema.
+
+- A classe `Tabuleiro` fornece métodos de alto nível, como:
+  - `colocarPeca`: Adiciona uma peça ao tabuleiro em uma posição válida.
+  - `moverPeca`: Move uma peça de uma posição para outra, verificando as regras de negócio.
+  - `removerPeca`: Remove uma peça do tabuleiro, atualizando o estado.
+- Esses métodos encapsulam a lógica interna e delegam as atribuições (explicitadas na seção de Participantes).
+- Isso resulta em:
+  - Redução do acoplamento entre as classes.
+  - Uso simplificado do subsistema.
+  - Maior flexibilidade.
+
+###### UML com o Façade
+
+![out/DiagramasIMG/TabuleiroComFacade.png](../out/DiagramasIMG/TabuleiroComFacade.png)
+
+#### Participantes
+
+- **Façade (`Tabuleiro`)**
+  - Conhece quais classes do subsistema são responsáveis pelo atendimento de solicitações.
+- **Classes de Subsistema** (`TabuleiroProxySecurity`, `Time`, `VitoriaDerrotaObserver`, `TabuleiroMemento`)
+  - Implementam a funcionalidade do subsistema.
+  - Encarregam-se do trabalho atribuído pelo Façade:
+    - **`TabuleiroProxySecurity`:** Realiza validações de segurança e controle de acesso.
+    - **`Time`:** Gerencia os times e suas peças.
+    - **`VitoriaDerrotaObserver`:** Observa eventos para determinar condições de vitória ou derrota.
+    - **`TabuleiroMemento`:** Permite salvar e restaurar o estado do tabuleiro.
+  - Não têm conhecimento do Façade; isto é, não mantêm referências para ele.
+
+
+### Flyweight
+
+#### Intenção
+
+O padrão Flyweight tem como objetivo compartilhar objetos para economizar memória, especialmente quando muitos objetos semelhantes são criados. Ele separa o estado compartilhado (intrínseco) do estado específico de cada instância (extrínseco).
+
+#### Motivação sem o Flyweight
+
+Sem o uso do Flyweight, cada casa, peça ou posição do tabuleiro seria representada por um novo objeto, mesmo que compartilhassem os mesmos atributos (ex: cor, tipo, posição). Isso resultaria em alto consumo de memória e redundância de dados.
+
+##### UML sem Flyweight
+
+![out/DiagramasIMG/TabuleiroSemFlyweight.png](../out/DiagramasIMG/TabuleiroSemFlyweight.png)
+
+#### Motivação no contexto do tabuleiro
+
+No contexto do tabuleiro, existem muitas casas, peças e posições que podem ser reutilizadas. O padrão Flyweight permite que objetos com o mesmo estado sejam compartilhados, otimizando o uso de memória e melhorando a performance do sistema.
+
+##### UML com Flyweight
+
+![out/DiagramasIMG/TabuleiroComFlyweight.png](../out/DiagramasIMG/TabuleiroComFlyweight.png)
+
+
+#### Participantes
+
+- **Flyweight (CasaFlyweight, PecaFlyweight):** Interface para os objetos compartilhados.
+- **ConcreteFlyweight (CasaConcretaFlyweight, PecaConcretaFlyweight, PosicaoFlyweight):** Implementação do Flyweight, armazena o estado intrínseco.
+- **FlyweightFactory (CasaFlyweightFactory, PecaFlyweighFactory, PosicaoFlyweightFactory):** Garante o compartilhamento dos objetos.
+- **Cliente:** Solicita objetos às fábricas e utiliza os Flyweights.
+
+---
+
+## Referências
+
+
+[^GAMMA]: GAMMA, Erich. et al. Padrões de projetos: Soluções reutilizáveis de software orientados a objetos Bookman editora, 2009.
+
+[^K19]: KASPCHUK, Alexandre; PLEIN, Tiago. K19 - Design Patterns em Java. São Paulo: K19 Treinamentos, 2012.

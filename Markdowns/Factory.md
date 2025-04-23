@@ -29,7 +29,7 @@ public class Tabuleiro {
 
 ### UML sem Factory -
 
-<img alt="Motivação com Singleton"src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\PecaSemFactory.png">
+![out/DiagramasIMG/PecaSemDecorator.png](../out/DiagramasIMG/PecaSemDecorator.png)
 
 ### Motivação no contexto do tabuleiro -
 
@@ -99,7 +99,8 @@ public class Tabuleiro {
 
 ### UML com Factory -
 
-<img alt="Motivação com Factory"src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\PecaComFactory.png">
+![out/DiagramasIMG/PecaComFactory.png](../out/DiagramasIMG/PecaComFactory.png)
+
 
 ### Participantes -
 

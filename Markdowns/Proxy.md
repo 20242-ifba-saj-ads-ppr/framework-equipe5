@@ -33,7 +33,7 @@ public class Tabuleiro {
 
 ### UML sem Proxy -
 
-<img alt="Motivação sem Proxy"src="C:\Users\luisp\Documents\GitHub\framework-equipe5\out\DiagramasIMG\TabuleiroSemProxy.png">
+![out/DiagramasIMG/TabuleiroSemProxy.png](../out/DiagramasIMG/TabuleiroSemProxy.png)>
 
 ### Motivação no Contexto do tabuleiro -
 
@@ -113,7 +113,7 @@ No projeto, o `Tabuleiro` utiliza o Proxy para todas as operações sensíveis, 
 
 ### UML com Proxy -
 
-<img alt="Motivação sem Proxy"src="C:\Users\Administrador\Documents\GitHub\framework-equipe5\out\DiagramasIMG\TabuleiroComProxy.png">
+![out/DiagramasIMG/TabuleiroComProxy.png](../out/DiagramasIMG/TabuleiroComProxy.png)>
 
 ### Participantes -
 
