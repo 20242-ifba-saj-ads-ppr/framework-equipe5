@@ -1,7 +1,6 @@
-package br.com.jogo.selva.pecas.Movimentos;
+package main.java.br.com.jogo.selva.pecas.movimentos;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
