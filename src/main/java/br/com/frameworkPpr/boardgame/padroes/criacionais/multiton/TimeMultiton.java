@@ -48,7 +48,7 @@ public class TimeMultiton {
     public static Set<String> getChaves(){
         return times.keySet();
     }
-
+    // Método que me retorna todos os valores do Map de Times
     public static Set<TimeMultiton> getTimeObjetos(){
         return (Set) times.values();
     }
