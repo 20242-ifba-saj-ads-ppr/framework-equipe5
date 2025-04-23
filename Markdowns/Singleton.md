@@ -57,7 +57,8 @@ public class GameSession {
 
 ### UML sem singleton
 
-<img alt="Motivação sem Singleton"src="C:\Users\luisp\Documents\GitHub\framework-equipe5\out\DiagramasIMG\GameSessionSemSingleton.png">
+![out/DiagramasIMG/motivacao_com_multiton.png](../out/DiagramasIMG/motivacao_com_multiton.png)>
+
 
 ### Motivação no contexto do GameSession -
 
@@ -166,7 +167,7 @@ public class GameSession {
 
 ### UML com singleton
 
-<img alt="Motivação com Singleton"src="C:\Users\luisp\Documents\GitHub\framework-equipe5\out\DiagramasIMG\GameSession.png">
+![out/DiagramasIMG/motivacao_com_singleton.png](../out/DiagramasIMG/motivacao_com_singleton.png)
 
 ### Participantes -
 
