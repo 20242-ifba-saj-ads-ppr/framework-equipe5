@@ -16,7 +16,6 @@ import main.java.br.com.frameworkPpr.boardgame.padroes.estruturais.proxy.Tabulei
 
 public class Tabuleiro {
     private Map<Posicao, Casa> casas;
-    private Map<TimeMultiton, Integer> pecasPorTime;//@Nathy-Brito não sei se vai ser mais util 
     private VitoriaDerrotaObserver vitoriaDerrotaObserver;
     private static TabuleiroProxySecurity proxySecurityInstance;
     private List<Observer> observadores = new ArrayList<>();
@@ -26,7 +25,6 @@ public class Tabuleiro {
     public Tabuleiro() {
         setProxySecurityInstance(TabuleiroProxySecurity.getInstance());
         setCasas(new HashMap<>());
-        setPecasPorTime(new HashMap<>());
         setVitoriaDerrotaObserver(new VitoriaDerrotaObserver(this));
     }
 
@@ -42,10 +40,8 @@ public class Tabuleiro {
         }
     }
 
-    public void registrarTime(String nomeTime) {
-        TimeMultiton time = TimeMultiton.getInstance(nomeTime);// @Nathy-Brito Aqui tu ja ta registrando o time 
-        pecasPorTime.putIfAbsent(time, 0);// @Nathy-Brito como isso ja é do multiton quando registrado,
-        // não sei se é mais necessario 
+    public TimeMultiton registrarTime(String nomeTime) {
+        return TimeMultiton.getInstance(nomeTime);
     }
 
     public void colocarPeca(Peca peca, Posicao posicao) {
@@ -107,17 +103,10 @@ public class Tabuleiro {
         return "O time " + vencedor.toString() + " venceu por desistência do time " + timeDesistente.toString() + ".";
     }
 
-    public Map<TimeMultiton, Integer> getPecasPorTime() {
-        return pecasPorTime;
-    }
-
     private Map<Posicao, Casa> getCasas() {
         return casas;
     }
 
-    private void setPecasPorTime(Map<TimeMultiton, Integer> pecasPorTime) {
-        this.pecasPorTime = pecasPorTime;
-    }
     private void setCasas(Map<Posicao, Casa> casas) {
         this.casas = casas;
     }
@@ -156,15 +145,22 @@ public class Tabuleiro {
         }
     }
 
-    public TabuleiroMemento criarMemento()
-    {
-        return new TabuleiroMemento(new HashMap<>(casas), new HashMap<>(pecasPorTime));
+    public TabuleiroMemento criarMemento() {
+        // Captura o estado das casas
+        return new TabuleiroMemento(new HashMap<>(casas));
     }
 
-    public void restaurarMemento(TabuleiroMemento memento)
-    {
+    public void restaurarMemento(TabuleiroMemento memento) {
+        // Restaura o estado das casas
         setCasas(new HashMap<>(memento.getCasasSnapshot()));
-        setPecasPorTime(new HashMap<>(memento.getPecasPorTimeSnapshot()));
+
+        // Restaura o estado das peças por time diretamente do TimeMultiton
+        TimeMultiton.getTimeObjetos().forEach(time -> {
+            time.getPecasDoTime().clear(); // Limpa as peças do time
+            casas.values().stream()
+                .filter(casa -> casa.getPeca() != null && casa.getPeca().getTime().equals(time.toString()))
+                .forEach(casa -> time.adicionarPecasAoTime(casa.getPeca())); // Reassocia as peças ao time
+        });
     }
 
     public PecaFlyweight getPecaNaPosicao(Posicao posToca) {
